@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absensi Kelas Estetik</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --biru-muda: #e0f2fe;
+            --biru-aksen: #3b82f6;
+            --putih: #ffffff;
+            --teks: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            /* Background Biru Muda & Putih yang sangat segar */
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: var(--putih);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hiasan lingkaran estetik di pojok kartu */
+        .card::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 120px;
+            height: 120px;
+            background: var(--biru-muda);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            color: var(--teks);
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        p.desc {
+            color: #64748b;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--biru-aksen);
+            margin-bottom: 6px;
+            margin-left: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #f1f5f9;
+            border-radius: 15px;
+            outline: none;
+            font-size: 15px;
+            color: var(--teks);
+            background-color: #f8fafc;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--biru-aksen);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--biru-aksen);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+        }
+
+        .submit-btn:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 20px -5px rgba(59, 130, 246, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Footer tipis */
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="content">
+            <h2>Hadir Hari Ini! ✨</h2>
+            <p class="desc">Isi daftar hadir kelasmu dengan semangat.</p>
+
+            <form id="absenForm">
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" placeholder="Ketik nama kamu di sini..." required>
+                </div>
+
+                <div class="form-group">
+                    <label>Nomor Absen</label>
+                    <input type="number" placeholder="Misal: 12" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <select required>
+                        <option value="" disabled selected>Pilih status kehadiran</option>
+                        <option value="hadir">Hadir</option>
+                        <option value="izin">Izin</option>
+                        <option value="sakit">Sakit</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-btn">Kirim Absensi</button>
+            </form>
+
+            <div class="footer">
+                E-Absensi v1.0 • Kelas Impian
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('absenForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Absensi berhasil terkirim! Selamat belajar! 🚀');
+        });
+    </script>
+
+</body>
+</html>

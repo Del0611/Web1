@@ -183,7 +183,29 @@
         document.getElementById('absenForm').addEventListener('submit', function(e) {
             e.preventDefault();
             alert('Absensi berhasil terkirim! Selamat belajar! 🚀');
-        });
+        });  
+
+<script>
+document.getElementById('absenForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const nama = this.nama.value;
+    const absen = this.absen.value;
+    const status = this.status.value;
+
+    const nomorWA = "6285165659693"; // GANTI dengan nomor WA tujuan
+    const pesan = `
+*ABSENSI KELAS*
+------------------
+Nama   : ${nama}
+Absen  : ${absen}
+Status : ${status}
+`;
+
+    const url = `https://wa.me/${nomorWA}?text=${encodeURIComponent(pesan)}`;
+    window.open(url, '_blank');
+});
+</script>
     </script>
 
 </body>

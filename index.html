@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TechnoPiousQuiz - Platform Ujian Pemrograman</title>
     <style>
         :root {
@@ -31,6 +31,7 @@
             --radius-sm: 10px;
             --radius-xs: 6px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --safe-bottom: env(safe-area-inset-bottom, 16px);
         }
 
         * {
@@ -44,15 +45,27 @@
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
+            min-height: 100dvh;
             line-height: 1.6;
             background-image:
                 radial-gradient(ellipse at 15% 15%, rgba(79, 140, 247, 0.04) 0%, transparent 55%),
                 radial-gradient(ellipse at 85% 75%, rgba(139, 92, 246, 0.04) 0%, transparent 55%),
                 radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.02) 0%, transparent 70%);
             background-attachment: fixed;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+            overscroll-behavior: none;
         }
 
-        /* Particles Background */
+        input,
+        textarea,
+        select {
+            -webkit-user-select: text;
+            user-select: text;
+        }
+
+        /* Particles */
         .particles-container {
             position: fixed;
             top: 0;
@@ -61,7 +74,7 @@
             height: 100%;
             pointer-events: none;
             z-index: 0;
-            opacity: 0.3;
+            opacity: 0.25;
         }
         .particle {
             position: absolute;
@@ -76,10 +89,10 @@
                 opacity: 0;
             }
             10% {
-                opacity: 0.8;
+                opacity: 0.7;
             }
             90% {
-                opacity: 0.2;
+                opacity: 0.15;
             }
             100% {
                 transform: translateY(-10vh) scale(1);
@@ -87,44 +100,39 @@
             }
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
             background: var(--surface);
-            border-radius: 4px;
+            border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb {
             background: var(--surface3);
-            border-radius: 4px;
-            border: 2px solid var(--surface);
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--border-light);
+            border-radius: 3px;
         }
 
         .container {
             max-width: 1440px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 12px;
             position: relative;
             z-index: 1;
         }
 
-        /* Header */
+        /* Header - Mobile Friendly */
         .header {
             background: linear-gradient(180deg, rgba(13, 21, 37, 0.98) 0%, rgba(13, 21, 37, 0.9) 100%);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            padding: 14px 28px;
+            padding: 10px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 10px;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -132,52 +140,51 @@
             border-radius: 0 0 var(--radius) var(--radius);
             margin-bottom: 8px;
         }
-
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
         .logo-img {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
             object-fit: contain;
-            filter: drop-shadow(0 0 20px rgba(79, 140, 247, 0.5));
+            filter: drop-shadow(0 0 15px rgba(79, 140, 247, 0.4));
             animation: logoGlow 3s ease-in-out infinite;
         }
         @keyframes logoGlow {
             0%,
             100% {
-                filter: drop-shadow(0 0 20px rgba(79, 140, 247, 0.5));
+                filter: drop-shadow(0 0 15px rgba(79, 140, 247, 0.4));
             }
             50% {
-                filter: drop-shadow(0 0 35px rgba(139, 92, 246, 0.7));
+                filter: drop-shadow(0 0 28px rgba(139, 92, 246, 0.6));
             }
         }
         .logo-fallback {
-            width: 48px;
-            height: 48px;
+            width: 36px;
+            height: 36px;
             background: linear-gradient(135deg, var(--accent), var(--purple));
-            border-radius: 12px;
+            border-radius: 10px;
             display: none;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 0 25px var(--accent-glow);
+            font-size: 1.2rem;
+            box-shadow: 0 0 20px var(--accent-glow);
             animation: logoPulse 3s ease-in-out infinite;
         }
         @keyframes logoPulse {
             0%,
             100% {
-                box-shadow: 0 0 25px var(--accent-glow);
+                box-shadow: 0 0 20px var(--accent-glow);
             }
             50% {
-                box-shadow: 0 0 40px var(--purple-glow);
+                box-shadow: 0 0 32px var(--purple-glow);
             }
         }
         .logo-text {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 800;
             background: linear-gradient(135deg, #4f8cf7, #8b5cf6, #4f8cf7);
             background-size: 200% auto;
@@ -191,39 +198,32 @@
                 background-position: 200% center;
             }
         }
-
         .header-right {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 8px;
         }
-
-        /* Notification Bell */
         .notification-bell {
             position: relative;
             cursor: pointer;
-            font-size: 1.3rem;
-            padding: 8px;
+            font-size: 1.1rem;
+            padding: 6px;
             border-radius: 50%;
             background: var(--surface2);
             border: 1px solid var(--border);
             transition: var(--transition);
-            width: 40px;
-            height: 40px;
+            width: 34px;
+            height: 34px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .notification-bell:hover {
-            border-color: var(--accent);
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
         .notification-dot {
             position: absolute;
-            top: 6px;
-            right: 6px;
-            width: 10px;
-            height: 10px;
+            top: 4px;
+            right: 4px;
+            width: 8px;
+            height: 8px;
             background: var(--danger);
             border-radius: 50%;
             display: none;
@@ -232,40 +232,35 @@
         .notification-dot.active {
             display: block;
         }
-
-        /* Participant Badge */
         .participant-badge {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
             background: var(--surface2);
-            padding: 8px 16px;
-            border-radius: 30px;
+            padding: 6px 12px;
+            border-radius: 25px;
             border: 1px solid var(--border);
             transition: var(--transition);
             cursor: pointer;
-        }
-        .participant-badge:hover {
-            border-color: var(--accent);
-            box-shadow: 0 0 20px var(--accent-glow);
+            max-width: 150px;
         }
         .participant-avatar {
-            width: 38px;
-            height: 38px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--accent), var(--purple));
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             color: white;
+            flex-shrink: 0;
         }
         .participant-name {
             font-weight: 600;
             color: var(--text);
-            font-size: 0.95rem;
-            max-width: 160px;
+            font-size: 0.85rem;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -275,62 +270,50 @@
             border: none;
             color: var(--text2);
             cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 6px;
-            transition: var(--transition);
-            font-size: 0.85rem;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            flex-shrink: 0;
         }
-        .edit-name-btn:hover {
-            color: var(--accent);
-            background: rgba(79, 140, 247, 0.1);
-        }
-
         .live-clock {
-            font-size: 0.95rem;
+            font-size: 0.8rem;
             font-weight: 600;
             background: var(--surface2);
-            padding: 10px 18px;
-            border-radius: 30px;
+            padding: 8px 12px;
+            border-radius: 20px;
             font-family: 'JetBrains Mono', 'Courier New', monospace;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             border: 1px solid var(--border);
             color: var(--accent);
-            box-shadow: inset 0 0 15px rgba(79, 140, 247, 0.08);
+            white-space: nowrap;
         }
 
-        /* Quick Stats Bar */
+        /* Quick Stats - Mobile Grid */
         .quick-stats {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 14px;
         }
         .stat-card {
-            flex: 1;
-            min-width: 140px;
             background: var(--surface);
             border-radius: var(--radius-sm);
-            padding: 14px 18px;
+            padding: 10px 14px;
             border: 1px solid var(--border);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             transition: var(--transition);
-            cursor: default;
-        }
-        .stat-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
         .stat-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
+            flex-shrink: 0;
         }
         .stat-icon.blue {
             background: rgba(79, 140, 247, 0.2);
@@ -345,32 +328,37 @@
             background: rgba(245, 158, 11, 0.2);
         }
         .stat-info .stat-value {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 800;
             line-height: 1;
         }
         .stat-info .stat-label {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: var(--text2);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
         }
 
-        /* Tab Navigation */
+        /* Tab Navigation - Scrollable on mobile */
         .tab-nav {
             display: flex;
-            gap: 6px;
+            gap: 4px;
             background: var(--surface);
             border-radius: var(--radius);
-            padding: 6px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
+            padding: 4px;
+            margin-bottom: 16px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
-            position: relative;
+            scrollbar-width: none;
+        }
+        .tab-nav::-webkit-scrollbar {
+            display: none;
         }
         .tab-btn {
-            padding: 12px 24px;
+            padding: 10px 16px;
             border: none;
             background: transparent;
             color: var(--text2);
@@ -378,10 +366,12 @@
             border-radius: var(--radius-sm);
             font-weight: 600;
             transition: var(--transition);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             position: relative;
             overflow: hidden;
             z-index: 1;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         .tab-btn::before {
             content: '';
@@ -398,30 +388,26 @@
         }
         .tab-btn.active {
             color: white;
-            box-shadow: 0 4px 20px var(--accent-glow);
+            box-shadow: 0 4px 16px var(--accent-glow);
         }
         .tab-btn.active::before {
             opacity: 1;
         }
-        .tab-btn:hover:not(.active) {
-            color: var(--text);
-            background: var(--surface2);
-        }
         .tab-badge {
             display: inline-block;
             background: rgba(255, 255, 255, 0.2);
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            margin-left: 6px;
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-left: 4px;
         }
 
         /* Cards */
         .card {
             background: var(--surface);
             border-radius: var(--radius);
-            padding: 24px;
-            margin-bottom: 20px;
+            padding: 16px;
+            margin-bottom: 14px;
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
             transition: var(--transition);
@@ -440,25 +426,27 @@
             transition: var(--transition);
         }
         .card:hover::after {
-            opacity: 0.6;
+            opacity: 0.5;
         }
         .card h3 {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             color: var(--text);
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
         .card h3 .icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 8px;
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 0.9rem;
+            flex-shrink: 0;
         }
         .icon-blue {
             background: rgba(79, 140, 247, 0.2);
@@ -476,35 +464,43 @@
             background: rgba(239, 68, 68, 0.2);
         }
 
-        /* Form Elements */
+        /* Form Elements - Larger touch targets */
         input,
         select,
         button,
         textarea {
             font-family: inherit;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             border-radius: var(--radius-xs);
             border: 1px solid var(--border);
-            padding: 10px 14px;
+            padding: 10px 12px;
             background: var(--surface2);
             color: var(--text);
             transition: var(--transition);
             outline: none;
+            -webkit-appearance: none;
+            appearance: none;
         }
         input:focus,
         select:focus,
         textarea:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(79, 140, 247, 0.15), 0 0 20px rgba(79, 140, 247, 0.1);
+            box-shadow: 0 0 0 3px rgba(79, 140, 247, 0.12), 0 0 15px rgba(79, 140, 247, 0.08);
         }
         label {
-            font-size: 0.8rem;
+            font-size: 0.72rem;
             color: var(--text2);
             font-weight: 600;
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             text-transform: uppercase;
-            letter-spacing: 0.6px;
+            letter-spacing: 0.4px;
+        }
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238899b4' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
         }
 
         button {
@@ -514,67 +510,52 @@
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            min-height: 40px;
         }
         button:active {
-            transform: scale(0.96);
+            transform: scale(0.95);
         }
         .btn-primary {
             background: linear-gradient(135deg, var(--accent), #3b6fd4);
             color: white;
-            box-shadow: 0 4px 18px var(--accent-glow);
-        }
-        .btn-primary:hover {
-            box-shadow: 0 6px 28px var(--accent-glow);
-            transform: translateY(-2px);
+            box-shadow: 0 4px 16px var(--accent-glow);
         }
         .btn-success {
             background: linear-gradient(135deg, var(--success), #059669);
             color: white;
-            box-shadow: 0 4px 18px var(--success-glow);
-        }
-        .btn-success:hover {
-            box-shadow: 0 6px 28px var(--success-glow);
-            transform: translateY(-2px);
+            box-shadow: 0 4px 16px var(--success-glow);
         }
         .btn-danger {
             background: linear-gradient(135deg, var(--danger), #dc2626);
             color: white;
-            box-shadow: 0 4px 18px var(--danger-glow);
-        }
-        .btn-danger:hover {
-            box-shadow: 0 6px 28px var(--danger-glow);
-            transform: translateY(-2px);
+            box-shadow: 0 4px 16px var(--danger-glow);
         }
         .btn-warning {
             background: linear-gradient(135deg, var(--warning), #d97706);
             color: #000;
-            box-shadow: 0 4px 18px var(--warning-glow);
-        }
-        .btn-warning:hover {
-            box-shadow: 0 6px 28px var(--warning-glow);
-            transform: translateY(-2px);
+            box-shadow: 0 4px 16px var(--warning-glow);
         }
         .btn-purple {
             background: linear-gradient(135deg, var(--purple), #7c3aed);
             color: white;
-            box-shadow: 0 4px 18px var(--purple-glow);
-        }
-        .btn-purple:hover {
-            box-shadow: 0 6px 28px var(--purple-glow);
-            transform: translateY(-2px);
+            box-shadow: 0 4px 16px var(--purple-glow);
         }
         .btn-sm {
-            padding: 7px 14px;
-            font-size: 0.85rem;
+            padding: 6px 12px;
+            font-size: 0.8rem;
             border-radius: 8px;
+            min-height: 34px;
         }
         .btn-lg {
-            padding: 14px 28px;
-            font-size: 1.05rem;
+            padding: 12px 20px;
+            font-size: 0.95rem;
             border-radius: 12px;
+            min-height: 44px;
         }
         .btn:disabled {
-            opacity: 0.45;
+            opacity: 0.4;
             cursor: not-allowed;
             transform: none !important;
             box-shadow: none !important;
@@ -587,43 +568,44 @@
         }
         .btn-outline:hover {
             border-color: var(--accent);
-            background: rgba(79, 140, 247, 0.08);
+            background: rgba(79, 140, 247, 0.06);
         }
 
         /* Grid */
         .grid-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr;
+            gap: 12px;
         }
         .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
+            grid-template-columns: 1fr;
+            gap: 10px;
         }
         .grid-4 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
         }
 
         /* Table */
         .table-wrapper {
             overflow-x: auto;
-            max-height: 500px;
+            max-height: 400px;
             overflow-y: auto;
             border-radius: var(--radius-sm);
             border: 1px solid var(--border);
+            -webkit-overflow-scrolling: touch;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9rem;
-            min-width: 750px;
+            font-size: 0.8rem;
+            min-width: 600px;
         }
         th,
         td {
-            padding: 12px 14px;
+            padding: 8px 10px;
             text-align: left;
             border-bottom: 1px solid var(--border);
         }
@@ -635,83 +617,73 @@
             font-weight: 700;
             color: var(--accent);
             text-transform: uppercase;
-            font-size: 0.78rem;
-            letter-spacing: 0.5px;
-        }
-        tr {
-            transition: var(--transition);
-        }
-        tr:hover {
-            background: rgba(79, 140, 247, 0.03);
-        }
-        .table-actions {
-            display: flex;
-            gap: 6px;
+            font-size: 0.7rem;
+            letter-spacing: 0.4px;
         }
 
         /* Syntax Display */
         .syntax-display {
             background: #040a14;
             color: #58a6ff;
-            padding: 28px;
+            padding: 20px 16px;
             border-radius: var(--radius);
             font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-            font-size: 1.4rem;
+            font-size: 1.1rem;
             text-align: center;
-            min-height: 90px;
+            min-height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 2px solid var(--border);
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             word-break: break-all;
-            box-shadow: inset 0 0 30px rgba(79, 140, 247, 0.04);
+            box-shadow: inset 0 0 25px rgba(79, 140, 247, 0.03);
             transition: var(--transition);
             position: relative;
         }
         .syntax-display.active-syntax {
             border-color: var(--accent);
-            box-shadow: inset 0 0 40px rgba(79, 140, 247, 0.08), 0 0 35px var(--accent-glow);
+            box-shadow: inset 0 0 35px rgba(79, 140, 247, 0.06), 0 0 25px var(--accent-glow);
             animation: syntaxGlow 2.5s ease-in-out infinite;
         }
         @keyframes syntaxGlow {
             0%,
             100% {
-                box-shadow: inset 0 0 40px rgba(79, 140, 247, 0.08), 0 0 35px var(--accent-glow);
+                box-shadow: inset 0 0 35px rgba(79, 140, 247, 0.06), 0 0 25px var(--accent-glow);
             }
             50% {
-                box-shadow: inset 0 0 55px rgba(139, 92, 246, 0.12), 0 0 45px var(--purple-glow);
+                box-shadow: inset 0 0 45px rgba(139, 92, 246, 0.1), 0 0 35px var(--purple-glow);
             }
         }
         .syntax-number {
             position: absolute;
-            top: 10px;
-            left: 14px;
-            font-size: 0.7rem;
+            top: 8px;
+            left: 12px;
+            font-size: 0.65rem;
             color: var(--text2);
             font-family: 'Inter', sans-serif;
             letter-spacing: 0;
         }
 
-        /* Timer Display */
+        /* Timer Display - Compact */
         .timer-display {
-            font-size: 3.2rem;
+            font-size: 2.2rem;
             font-weight: 800;
             font-family: 'JetBrains Mono', 'Courier New', monospace;
             text-align: center;
             color: var(--warning);
             background: #040a14;
-            padding: 16px 24px;
-            border-radius: var(--radius);
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
             border: 2px solid var(--border);
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             transition: var(--transition);
         }
         .timer-display.warning {
             color: var(--danger);
             border-color: var(--danger);
             animation: timerPulse 0.7s infinite;
-            box-shadow: 0 0 35px var(--danger-glow);
+            box-shadow: 0 0 25px var(--danger-glow);
         }
         @keyframes timerPulse {
             0%,
@@ -720,19 +692,104 @@
                 transform: scale(1);
             }
             50% {
-                opacity: 0.6;
+                opacity: 0.5;
                 transform: scale(1.03);
             }
+        }
+
+        /* Dual Timer Row - Side by side on mobile */
+        .dual-timer-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .dual-timer-row .timer-label {
+            font-size: 0.65rem;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+        .dual-timer-row .timer-display {
+            font-size: 1.6rem;
+            padding: 8px 10px;
+            letter-spacing: 1px;
+        }
+
+        /* Test Controls - Sticky Bottom Bar */
+        .test-controls-bar {
+            position: sticky;
+            bottom: 12px;
+            z-index: 50;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            background: rgba(13, 21, 37, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 8px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.5);
+            margin-top: 8px;
+        }
+        .test-controls-bar button {
+            flex: 1;
+            min-width: 50px;
+            font-size: 0.75rem;
+            padding: 10px 6px;
+            border-radius: 10px;
+            min-height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            white-space: nowrap;
+        }
+        .test-controls-bar .btn-icon {
+            font-size: 1rem;
+        }
+
+        /* Answer Input Area */
+        .answer-input-area {
+            position: relative;
+        }
+        .answer-input-area input {
+            width: 100%;
+            font-size: 1rem;
+            padding: 14px 16px;
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--border);
+            background: var(--surface2);
+            transition: var(--transition);
+        }
+        .answer-input-area input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .answer-input-area .input-hint {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.65rem;
+            color: var(--text2);
+            pointer-events: none;
+            transition: var(--transition);
+        }
+        .answer-input-area input:focus+.input-hint {
+            opacity: 0;
         }
 
         /* Badges */
         .badge {
             display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.78rem;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
             font-weight: 700;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
         }
         .badge-python {
             background: #306998;
@@ -766,9 +823,9 @@
         /* Validate Buttons */
         .validate-btn {
             cursor: pointer;
-            font-size: 1.3rem;
-            padding: 6px 10px;
-            border-radius: 8px;
+            font-size: 1.1rem;
+            padding: 4px 8px;
+            border-radius: 6px;
             border: 2px solid transparent;
             background: transparent;
             transition: var(--transition);
@@ -776,75 +833,65 @@
         .validate-btn.correct {
             color: var(--success);
         }
-        .validate-btn.correct:hover {
-            background: rgba(16, 185, 129, 0.2);
-            border-color: var(--success);
-            box-shadow: 0 0 18px var(--success-glow);
-        }
         .validate-btn.wrong {
             color: var(--danger);
         }
-        .validate-btn.wrong:hover {
-            background: rgba(239, 68, 68, 0.2);
-            border-color: var(--danger);
-            box-shadow: 0 0 18px var(--danger-glow);
-        }
         .validation-status {
-            font-size: 1.1rem;
-            margin-left: 4px;
+            font-size: 0.9rem;
+            margin-left: 2px;
         }
 
         /* Progress Bar */
         .progress-bar {
-            height: 10px;
+            height: 8px;
             background: var(--surface2);
-            border-radius: 5px;
+            border-radius: 4px;
             overflow: hidden;
-            margin: 10px 0;
+            margin: 8px 0;
             border: 1px solid var(--border);
         }
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--accent), var(--purple));
             transition: width 0.5s ease;
-            border-radius: 5px;
-            box-shadow: 0 0 12px var(--accent-glow);
+            border-radius: 4px;
+            box-shadow: 0 0 10px var(--accent-glow);
         }
 
         /* Chart */
         .chart-bar {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin: 10px 0;
+            gap: 8px;
+            margin: 8px 0;
         }
         .chart-bar .label {
-            width: 100px;
-            font-size: 0.9rem;
+            width: 70px;
+            font-size: 0.75rem;
             font-weight: 600;
             text-align: right;
+            flex-shrink: 0;
         }
         .chart-bar .bar {
             flex: 1;
-            height: 30px;
+            height: 24px;
             background: var(--surface2);
-            border-radius: 8px;
+            border-radius: 6px;
             overflow: hidden;
             border: 1px solid var(--border);
         }
         .chart-bar .fill {
             height: 100%;
             background: linear-gradient(90deg, var(--accent), var(--purple));
-            border-radius: 8px;
+            border-radius: 6px;
             transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
-            padding-left: 12px;
-            font-size: 0.8rem;
+            padding-left: 10px;
+            font-size: 0.7rem;
             font-weight: 700;
             color: white;
-            box-shadow: 0 0 15px var(--accent-glow);
-            min-width: fit-content;
+            box-shadow: 0 0 12px var(--accent-glow);
         }
 
         /* Score Circle */
@@ -852,13 +899,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 14px;
             flex-wrap: wrap;
         }
         .score-circle {
             position: relative;
-            width: 120px;
-            height: 120px;
+            width: 90px;
+            height: 90px;
         }
         .score-circle svg {
             transform: rotate(-90deg);
@@ -866,12 +913,12 @@
         .score-circle .bg-circle {
             fill: none;
             stroke: var(--surface2);
-            stroke-width: 10;
+            stroke-width: 8;
         }
         .score-circle .fg-circle {
             fill: none;
             stroke: url(#scoreGradient);
-            stroke-width: 10;
+            stroke-width: 8;
             stroke-linecap: round;
             transition: stroke-dashoffset 0.8s ease;
         }
@@ -880,7 +927,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: 800;
         }
 
@@ -892,23 +939,25 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 200;
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             font-weight: 800;
             color: var(--warning);
-            letter-spacing: 8px;
-            gap: 16px;
+            letter-spacing: 4px;
+            gap: 12px;
+            text-align: center;
+            padding: 20px;
         }
         .paused-overlay .sub {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             color: var(--text2);
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             animation: fadeInOut 2s ease-in-out infinite;
         }
         @keyframes fadeInOut {
@@ -919,6 +968,11 @@
             50% {
                 opacity: 1;
             }
+        }
+        .paused-overlay button {
+            margin-top: 16px;
+            font-size: 1rem;
+            padding: 12px 30px;
         }
         .hidden {
             display: none !important;
@@ -932,27 +986,28 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 300;
+            padding: 20px;
         }
         .modal {
             background: var(--surface);
             border-radius: var(--radius);
-            padding: 28px;
+            padding: 24px;
             border: 1px solid var(--border);
             box-shadow: var(--shadow), var(--shadow-glow);
-            min-width: 360px;
-            max-width: 520px;
-            animation: modalIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            max-width: 400px;
+            animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         @keyframes modalIn {
             from {
                 opacity: 0;
-                transform: scale(0.88) translateY(-30px);
+                transform: scale(0.9) translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -960,49 +1015,53 @@
             }
         }
         .modal h3 {
-            margin-bottom: 16px;
-            font-size: 1.3rem;
+            margin-bottom: 14px;
+            font-size: 1.1rem;
         }
         .modal input {
             width: 100%;
-            padding: 12px 16px;
-            font-size: 1.1rem;
+            padding: 12px 14px;
+            font-size: 1rem;
         }
 
         /* Toast */
         .toast {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             background: var(--surface);
             border: 1px solid var(--border);
-            padding: 14px 22px;
-            border-radius: var(--radius-sm);
+            padding: 12px 20px;
+            border-radius: 25px;
             box-shadow: var(--shadow);
             z-index: 400;
-            animation: slideIn 0.4s ease, slideOut 0.4s ease 2.5s forwards;
+            animation: toastIn 0.4s ease, toastOut 0.4s ease 2.5s forwards;
             font-weight: 600;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            white-space: nowrap;
+            max-width: 90vw;
         }
-        @keyframes slideIn {
+        @keyframes toastIn {
             from {
-                transform: translateX(120%);
+                transform: translateX(-50%) translateY(100px);
                 opacity: 0;
             }
             to {
-                transform: translateX(0);
+                transform: translateX(-50%) translateY(0);
                 opacity: 1;
             }
         }
-        @keyframes slideOut {
+        @keyframes toastOut {
             from {
-                transform: translateX(0);
+                transform: translateX(-50%) translateY(0);
                 opacity: 1;
             }
             to {
-                transform: translateX(120%);
+                transform: translateX(-50%) translateY(100px);
                 opacity: 0;
             }
         }
@@ -1016,29 +1075,12 @@
             border-color: var(--accent);
         }
 
-        /* Search */
-        .search-box {
-            position: relative;
-            display: inline-block;
-        }
-        .search-box input {
-            padding-left: 36px;
-            border-radius: 30px;
-        }
-        .search-box .search-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text2);
-        }
-
         /* Toggle Switch */
         .toggle-switch {
             position: relative;
             display: inline-block;
-            width: 48px;
-            height: 26px;
+            width: 42px;
+            height: 24px;
         }
         .toggle-switch input {
             opacity: 0;
@@ -1053,15 +1095,15 @@
             right: 0;
             bottom: 0;
             background: var(--surface3);
-            border-radius: 26px;
+            border-radius: 24px;
             transition: var(--transition);
             border: 1px solid var(--border);
         }
         .toggle-slider:before {
             position: absolute;
             content: "";
-            height: 20px;
-            width: 20px;
+            height: 18px;
+            width: 18px;
             left: 2px;
             bottom: 2px;
             background: white;
@@ -1072,52 +1114,123 @@
             background: var(--accent);
         }
         input:checked+.toggle-slider:before {
-            transform: translateX(22px);
+            transform: translateX(18px);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                text-align: center;
-                border-radius: 0 0 12px 12px;
-                padding: 12px 16px;
-            }
-            .header-right {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .timer-display {
-                font-size: 2.2rem;
-                padding: 10px 16px;
-            }
-            .syntax-display {
-                font-size: 1.1rem;
-                padding: 18px;
-            }
-            .tab-btn {
-                padding: 10px 16px;
-                font-size: 0.85rem;
-            }
-            .card {
+        /* Search */
+        .search-box {
+            position: relative;
+            display: inline-block;
+        }
+        .search-box input {
+            padding-left: 32px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            padding: 7px 10px 7px 30px;
+        }
+        .search-box .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text2);
+            font-size: 0.8rem;
+        }
+
+        /* Inline Test Info */
+        .test-info-inline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: var(--text2);
+        }
+
+        /* Media Queries */
+        @media (min-width: 600px) {
+            .container {
                 padding: 16px;
             }
+            .grid-2 {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            .grid-3 {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            .grid-4 {
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            }
             .quick-stats {
-                flex-direction: column;
+                grid-template-columns: repeat(4, 1fr);
             }
-            .score-circle {
-                width: 90px;
-                height: 90px;
+            .timer-display {
+                font-size: 2.8rem;
             }
-            .score-circle .score-text {
+            .dual-timer-row .timer-display {
+                font-size: 2rem;
+            }
+            .syntax-display {
                 font-size: 1.3rem;
+                padding: 24px 20px;
+                min-height: 85px;
+            }
+            .test-controls-bar button {
+                font-size: 0.85rem;
+                padding: 12px 10px;
+            }
+            .tab-btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            .header {
+                padding: 12px 24px;
+            }
+            .logo-text {
+                font-size: 1.4rem;
+            }
+            .logo-img {
+                width: 40px;
+                height: 40px;
+            }
+            .logo-fallback {
+                width: 40px;
+                height: 40px;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding: 20px;
+            }
+            .timer-display {
+                font-size: 3.2rem;
+            }
+            .dual-timer-row .timer-display {
+                font-size: 2.4rem;
+            }
+            .syntax-display {
+                font-size: 1.5rem;
+                padding: 28px 24px;
+                min-height: 95px;
+            }
+        }
+
+        /* Dark mode input fix for iOS */
+        @supports (-webkit-touch-callout: none) {
+            input,
+            textarea,
+            select {
+                font-size: 16px !important;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Particles Background -->
+    <!-- Particles -->
     <div class="particles-container" id="particlesContainer"></div>
 
     <!-- Toast Container -->
@@ -1127,9 +1240,9 @@
     <div class="modal-overlay hidden" id="nameModal">
         <div class="modal">
             <h3>✏️ Edit Nama Peserta</h3>
-            <p style="color:var(--text2);margin-bottom:12px;">Masukkan nama peserta yang sedang diuji:</p>
-            <input type="text" id="participantNameInput" placeholder="Contoh: Ahmad Fauzi" maxlength="50" autocomplete="off">
-            <div style="display:flex;gap:10px;margin-top:16px;justify-content:flex-end;">
+            <p style="color:var(--text2);margin-bottom:12px;font-size:0.85rem;">Masukkan nama peserta yang sedang diuji:</p>
+            <input type="text" id="participantNameInput" placeholder="Contoh: Ahmad Fauzi" maxlength="50" autocomplete="off" inputmode="text">
+            <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end;">
                 <button class="btn-outline btn-sm" onclick="closeNameModal()">Batal</button>
                 <button class="btn-primary btn-sm" onclick="saveParticipantName()">💾 Simpan</button>
             </div>
@@ -1140,11 +1253,11 @@
     <div class="modal-overlay hidden" id="notifModal">
         <div class="modal">
             <h3>🔔 Notifikasi</h3>
-            <div id="notifContent" style="max-height:300px;overflow-y:auto;">
+            <div id="notifContent" style="max-height:250px;overflow-y:auto;font-size:0.85rem;">
                 <p style="color:var(--text2);">Belum ada notifikasi.</p>
             </div>
-            <div style="display:flex;gap:10px;margin-top:16px;justify-content:flex-end;">
-                <button class="btn-outline btn-sm" onclick="clearNotifications()">Hapus Semua</button>
+            <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end;">
+                <button class="btn-outline btn-sm" onclick="clearNotifications()">Hapus</button>
                 <button class="btn-primary btn-sm" onclick="closeNotifModal()">Tutup</button>
             </div>
         </div>
@@ -1153,13 +1266,14 @@
     <!-- Paused Overlay -->
     <div id="pausedOverlay" class="paused-overlay hidden">
         <div>⏸️ PAUSED</div>
-        <div class="sub">Sesi sedang dijeda • Tekan Resume untuk lanjut</div>
+        <div class="sub">Sesi sedang dijeda</div>
+        <button class="btn-success btn-lg" onclick="resumeTest()">▶️ Lanjutkan Tes</button>
     </div>
 
     <!-- Header -->
     <header class="header">
         <div class="logo-area">
-            <img src="LogoTechnoPious.png" alt="TechnoPious Logo" class="logo-img" id="logoImg" onerror="handleLogoError()">
+            <img src="LogoTechnoPious.png" alt="Logo" class="logo-img" id="logoImg" onerror="handleLogoError()">
             <div class="logo-fallback" id="logoFallback">⚡</div>
             <div class="logo-text">TechnoPiousQuiz</div>
         </div>
@@ -1168,7 +1282,7 @@
                 🔔
                 <span class="notification-dot" id="notifDot"></span>
             </div>
-            <div class="participant-badge" onclick="openNameModal()" title="Klik untuk edit nama peserta">
+            <div class="participant-badge" onclick="openNameModal()" title="Edit nama">
                 <div class="participant-avatar" id="participantAvatar">?</div>
                 <span class="participant-name" id="participantDisplayName">Atur Nama</span>
                 <button class="edit-name-btn">✏️</button>
@@ -1191,7 +1305,7 @@
                 <div class="stat-icon green">✅</div>
                 <div class="stat-info">
                     <div class="stat-value" id="statCorrect">0</div>
-                    <div class="stat-label">Jawaban Benar</div>
+                    <div class="stat-label">Benar</div>
                 </div>
             </div>
             <div class="stat-card">
@@ -1205,170 +1319,164 @@
                 <div class="stat-icon orange">⏱️</div>
                 <div class="stat-info">
                     <div class="stat-value" id="statAvgTime">0s</div>
-                    <div class="stat-label">Rata-rata Waktu</div>
+                    <div class="stat-label">Rata² Waktu</div>
                 </div>
             </div>
         </div>
 
-        <!-- Tab Navigation -->
+        <!-- Tab Nav -->
         <nav class="tab-nav">
-            <button class="tab-btn active" onclick="switchTab('manual')">📋 Mode Manual <span class="tab-badge" id="manualCount">0</span></button>
-            <button class="tab-btn" onclick="switchTab('test')">🧪 Mode Tes</button>
-            <button class="tab-btn" onclick="switchTab('results')">📊 Hasil & Log <span class="tab-badge" id="resultsCount">0</span></button>
+            <button class="tab-btn active" onclick="switchTab('manual')">📋 Manual <span class="tab-badge" id="manualCount">0</span></button>
+            <button class="tab-btn" onclick="switchTab('test')">🧪 Tes</button>
+            <button class="tab-btn" onclick="switchTab('results')">📊 Hasil <span class="tab-badge" id="resultsCount">0</span></button>
         </nav>
 
         <!-- ==================== MODE MANUAL ==================== -->
         <div id="tab-manual">
             <div class="card">
-                <h3><span class="icon icon-orange">⏱️</span> Konfigurasi Mode Manual</h3>
+                <h3><span class="icon icon-orange">⏱️</span> Timer Manual</h3>
                 <div class="grid-3">
                     <div>
-                        <label>⏰ Timer (menit : detik)</label>
-                        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-                            <input type="number" id="manualTimerMin" value="5" min="0" max="60" style="width:60px;">
+                        <label>Atur Timer (m : d)</label>
+                        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                            <input type="number" id="manualTimerMin" value="5" min="0" max="60" style="width:55px;text-align:center;" inputmode="numeric">
                             <span style="font-weight:700;">:</span>
-                            <input type="number" id="manualTimerSec" value="0" min="0" max="59" style="width:60px;">
-                            <button class="btn-primary btn-sm" onclick="startManualTimer()">▶ Mulai</button>
-                            <button class="btn-warning btn-sm" onclick="resetManualTimer()">↺ Reset</button>
+                            <input type="number" id="manualTimerSec" value="0" min="0" max="59" style="width:55px;text-align:center;" inputmode="numeric">
+                            <button class="btn-primary btn-sm" onclick="startManualTimer()">▶</button>
+                            <button class="btn-warning btn-sm" onclick="resetManualTimer()">↺</button>
                         </div>
                     </div>
                     <div>
-                        <label>⏳ Timer Tersisa</label>
+                        <label>Sisa Waktu</label>
                         <div class="timer-display" id="manualTimerDisplay">05:00</div>
                     </div>
                     <div>
-                        <label>⌨️ Input Jawaban <small style="text-transform:none;">(Enter = Catat)</small></label>
-                        <input type="text" id="manualAnswerInput" placeholder="Ketik jawaban lalu Enter..." style="width:100%;" onkeydown="if(event.key==='Enter')addManualEntry()" autocomplete="off">
+                        <label>Input Jawaban</label>
+                        <div class="answer-input-area">
+                            <input type="text" id="manualAnswerInput" placeholder="Ketik lalu Enter..." onkeydown="if(event.key==='Enter')addManualEntry()" autocomplete="off" inputmode="text">
+                            <span class="input-hint">↵ Enter</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="card">
                 <h3>
-                    <span class="icon icon-blue">📋</span> Tabel Hasil Manual
-                    <span style="font-size:0.8rem;color:var(--text2);font-weight:400;" id="manualParticipantLabel">Peserta: -</span>
-                    <span style="margin-left:auto;font-size:0.8rem;color:var(--text2);">
-                        <span class="search-box">
-                            <span class="search-icon">🔍</span>
-                            <input type="text" id="manualSearch" placeholder="Cari jawaban..." oninput="filterManualTable()" style="width:180px;padding:6px 10px 6px 32px;font-size:0.8rem;">
-                        </span>
-                    </span>
+                    <span class="icon icon-blue">📋</span> Tabel Manual
+                    <span style="font-size:0.7rem;color:var(--text2);" id="manualParticipantLabel">-</span>
                 </h3>
+                <div style="margin-bottom:8px;">
+                    <span class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="manualSearch" placeholder="Cari..." oninput="filterManualTable()" autocomplete="off">
+                    </span>
+                </div>
                 <div class="table-wrapper">
                     <table id="manualTable">
                         <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Jawaban</th>
-                                <th>Durasi</th>
-                                <th>Timestamp</th>
-                                <th>Aksi</th>
-                            </tr>
+                            <tr><th>No</th><th>Jawaban</th><th>Durasi</th><th>Waktu</th><th></th></tr>
                         </thead>
                         <tbody id="manualTableBody">
-                            <tr><td colspan="5" style="text-align:center;color:var(--text2);">Belum ada data. Ketik jawaban dan tekan Enter.</td></tr>
+                            <tr><td colspan="5" style="text-align:center;color:var(--text2);">Belum ada data.</td></tr>
                         </tbody>
                     </table>
                 </div>
-                <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
-                    <button class="btn-danger btn-sm" onclick="clearManualTable()">🗑️ Hapus Semua</button>
-                    <button class="btn-outline btn-sm" onclick="exportManualData()">📤 Ekspor Manual</button>
+                <div style="margin-top:10px;display:flex;gap:6px;">
+                    <button class="btn-danger btn-sm" onclick="clearManualTable()">🗑️ Hapus</button>
+                    <button class="btn-outline btn-sm" onclick="exportManualData()">📤 Ekspor</button>
                 </div>
             </div>
         </div>
 
         <!-- ==================== MODE TES ==================== -->
         <div id="tab-test" class="hidden">
+            <!-- Konfigurasi -->
             <div class="card">
-                <h3><span class="icon icon-purple">⚙️</span> Konfigurasi Sesi Tes</h3>
+                <h3><span class="icon icon-purple">⚙️</span> Konfigurasi Tes</h3>
                 <div class="grid-3">
                     <div>
-                        <label>⏱️ Waktu per Sintaks (detik)</label>
-                        <input type="number" id="testTimePerSyntax" value="15" min="3" max="120">
+                        <label>Waktu/Sintaks (detik)</label>
+                        <input type="number" id="testTimePerSyntax" value="15" min="3" max="120" inputmode="numeric">
                     </div>
                     <div>
-                        <label>⏰ Batas Sesi (menit)</label>
-                        <input type="number" id="testSessionLimit" value="10" min="1" max="180">
+                        <label>Batas Sesi (menit)</label>
+                        <input type="number" id="testSessionLimit" value="10" min="1" max="180" inputmode="numeric">
                     </div>
                     <div>
-                        <label>📝 Maksimal Tes (soal)</label>
-                        <input type="number" id="testMaxQuestions" value="20" min="5" max="200">
+                        <label>Maksimal Soal</label>
+                        <input type="number" id="testMaxQuestions" value="20" min="5" max="200" inputmode="numeric">
                     </div>
                     <div>
-                        <label>📈 Tingkat Kesulitan</label>
+                        <label>Kesulitan</label>
                         <select id="testDifficulty">
-                            <option value="all">🌟 Semua Level</option>
+                            <option value="all">🌟 Semua</option>
                             <option value="basic">🟢 Dasar</option>
                             <option value="intermediate">🟡 Menengah</option>
                             <option value="advanced">🔴 Lanjutan</option>
                         </select>
                     </div>
                     <div>
-                        <label>🔀 Urutan Sintaks</label>
+                        <label>Urutan</label>
                         <select id="testOrder">
                             <option value="random">🎲 Acak</option>
                             <option value="sequential">📋 Berurutan</option>
                         </select>
                     </div>
                     <div>
-                        <label>🔊 Suara Notifikasi</label>
-                        <label class="toggle-switch" style="display:inline-block;margin-left:8px;">
+                        <label>Suara</label>
+                        <label class="toggle-switch" style="display:inline-block;margin-left:4px;">
                             <input type="checkbox" id="soundToggle" checked>
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
                 </div>
-                <div style="margin-top:12px;">
-                    <label>🔍 Filter Bahasa Pemrograman</label>
-                    <div class="grid-4" style="font-size:0.85rem;">
+                <div style="margin-top:10px;">
+                    <label>Filter Bahasa</label>
+                    <div class="grid-4" style="font-size:0.78rem;">
                         <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                            <input type="checkbox" class="testLangFilter" value="Python" checked> 🐍 Python
+                            <input type="checkbox" class="testLangFilter" value="Python" checked> Python
                         </label>
                         <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                            <input type="checkbox" class="testLangFilter" value="JavaScript" checked> 💛 JavaScript
+                            <input type="checkbox" class="testLangFilter" value="JavaScript" checked> JavaScript
                         </label>
                         <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                            <input type="checkbox" class="testLangFilter" value="HTML" checked> 🟠 HTML
+                            <input type="checkbox" class="testLangFilter" value="HTML" checked> HTML
                         </label>
                         <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                            <input type="checkbox" class="testLangFilter" value="C" checked> ⚙️ C
+                            <input type="checkbox" class="testLangFilter" value="C" checked> C
                         </label>
                         <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                            <input type="checkbox" class="testLangFilter" value="C++" checked> 🔵 C++
+                            <input type="checkbox" class="testLangFilter" value="C++" checked> C++
                         </label>
                         <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                            <input type="checkbox" class="testLangFilter" value="Java" checked> ☕ Java
+                            <input type="checkbox" class="testLangFilter" value="Java" checked> Java
                         </label>
                         <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                            <input type="checkbox" class="testLangFilter" value="PHP" checked> 🟣 PHP
+                            <input type="checkbox" class="testLangFilter" value="PHP" checked> PHP
                         </label>
                     </div>
                 </div>
-                <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
-                    <button class="btn-primary btn-lg" onclick="startTestSession()">🚀 Mulai Tes</button>
-                    <button class="btn-danger btn-lg" id="btnStopManual" onclick="stopTestSession()" disabled>⏹️ Stop</button>
-                    <button class="btn-warning btn-lg" id="btnPause" onclick="pauseTest()" disabled>⏸️ Pause</button>
-                    <button class="btn-success btn-lg" id="btnResume" onclick="resumeTest()" disabled>▶️ Resume</button>
-                    <button class="btn-outline btn-lg" id="btnSkip" onclick="skipSyntax()" disabled>⏭️ Lewati</button>
-                </div>
+                <button class="btn-primary btn-lg" onclick="startTestSession()" style="width:100%;margin-top:14px;">🚀 Mulai Tes</button>
             </div>
 
+            <!-- Area Tes Aktif -->
             <div id="testActiveArea" class="hidden">
+                <!-- Timer & Progress -->
                 <div class="card">
-                    <div class="grid-2">
+                    <div class="dual-timer-row">
                         <div>
-                            <label>⏱️ Timer per Soal</label>
+                            <div class="timer-label">⏱️ Timer Soal</div>
                             <div class="timer-display" id="testTimerDisplay">00:15</div>
                         </div>
                         <div>
-                            <label>⏰ Timer Sesi</label>
+                            <div class="timer-label">⏰ Timer Sesi</div>
                             <div class="timer-display" id="testSessionTimerDisplay">10:00</div>
                         </div>
                     </div>
-                    <div style="margin-top:14px;">
-                        <div style="display:flex;justify-content:space-between;align-items:center;">
-                            <span style="font-weight:600;">📊 Progres</span>
-                            <span><span id="testQuestionCount">0</span> / <span id="testMaxDisplay">20</span> soal</span>
+                    <div style="margin-top:10px;">
+                        <div class="test-info-inline">
+                            <span>📊 <span id="testQuestionCount">0</span>/<span id="testMaxDisplay">20</span></span>
+                            <span id="testCurrentDifficulty" style="color:var(--accent);">-</span>
                         </div>
                         <div class="progress-bar">
                             <div class="progress-fill" id="testProgressBar" style="width:0%;"></div>
@@ -1376,126 +1484,129 @@
                     </div>
                 </div>
 
+                <!-- Syntax & Answer -->
                 <div class="card">
-                    <h3>
-                        <span class="icon icon-blue">💻</span> Sintaks Saat Ini
-                        <span class="badge" id="testCurrentLang" style="margin-left:8px;">-</span>
-                        <span style="margin-left:8px;font-size:0.75rem;color:var(--text2);">Tingkat: <strong id="testCurrentDifficulty">-</strong></span>
-                    </h3>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:4px;">
+                        <span class="badge" id="testCurrentLang">-</span>
+                        <span style="font-size:0.7rem;color:var(--text2);" id="testParticipantLabel">(-)</span>
+                    </div>
                     <div class="syntax-display active-syntax" id="testSyntaxDisplay">
                         <span class="syntax-number" id="syntaxNumber">#1</span>
                         -- Siap --
                     </div>
-                    <div style="margin-top:12px;">
-                        <label>⌨️ Jawaban <span id="testParticipantLabel">(-)</span> <small style="text-transform:none;">(Enter = Kirim & Lanjut)</small></label>
-                        <input type="text" id="testAnswerInput" placeholder="Ketik jawaban di sini..." style="width:100%;font-size:1rem;" disabled autocomplete="off">
+                    <div style="margin-top:10px;">
+                        <label>⌨️ Jawaban</label>
+                        <div class="answer-input-area">
+                            <input type="text" id="testAnswerInput" placeholder="Ketik jawaban..." autocomplete="off" inputmode="text" disabled>
+                            <span class="input-hint">↵ Kirim</span>
+                        </div>
                     </div>
+                </div>
+
+                <!-- Sticky Control Bar -->
+                <div class="test-controls-bar">
+                    <button class="btn-danger" id="btnStopManual" onclick="stopTestSession()" disabled>
+                        <span class="btn-icon">⏹️</span> Stop
+                    </button>
+                    <button class="btn-warning" id="btnPause" onclick="pauseTest()" disabled>
+                        <span class="btn-icon">⏸️</span> Pause
+                    </button>
+                    <button class="btn-success" id="btnResume" onclick="resumeTest()" disabled>
+                        <span class="btn-icon">▶️</span> Lanjut
+                    </button>
+                    <button class="btn-outline" id="btnSkip" onclick="skipSyntax()" disabled>
+                        <span class="btn-icon">⏭️</span> Lewati
+                    </button>
                 </div>
             </div>
         </div>
 
         <!-- ==================== HASIL & LOG ==================== -->
         <div id="tab-results" class="hidden">
-            <div class="grid-2">
-                <div class="card">
-                    <h3><span class="icon icon-green">📊</span> Grafik Performa</h3>
-                    <div class="score-circle-container">
-                        <div class="score-circle">
-                            <svg width="120" height="120" viewBox="0 0 120 120">
-                                <defs>
-                                    <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                        <stop offset="0%" style="stop-color:var(--accent);stop-opacity:1" />
-                                        <stop offset="100%" style="stop-color:var(--purple);stop-opacity:1" />
-                                    </linearGradient>
-                                </defs>
-                                <circle class="bg-circle" cx="60" cy="60" r="52"/>
-                                <circle class="fg-circle" id="scoreCircle" cx="60" cy="60" r="52" stroke-dasharray="326.73" stroke-dashoffset="326.73"/>
-                            </svg>
-                            <div class="score-text" id="scoreText">0%</div>
-                        </div>
-                        <div>
-                            <p style="font-weight:600;">Total Skor</p>
-                            <p style="color:var(--text2);"><span id="scoreCorrect">0</span> benar dari <span id="scoreTotal">0</span> soal</p>
-                        </div>
+            <div class="card">
+                <h3><span class="icon icon-green">📊</span> Performa</h3>
+                <div class="score-circle-container">
+                    <div class="score-circle">
+                        <svg width="90" height="90" viewBox="0 0 90 90">
+                            <defs>
+                                <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:var(--accent);stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:var(--purple);stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <circle class="bg-circle" cx="45" cy="45" r="38"/>
+                            <circle class="fg-circle" id="scoreCircle" cx="45" cy="45" r="38" stroke-dasharray="238.76" stroke-dashoffset="238.76"/>
+                        </svg>
+                        <div class="score-text" id="scoreText">0%</div>
                     </div>
-                    <div id="chartArea" style="margin-top:12px;">
-                        <p style="color:var(--text2);">Grafik muncul setelah validasi.</p>
+                    <div style="font-size:0.85rem;">
+                        <p><span id="scoreCorrect">0</span> benar dari <span id="scoreTotal">0</span></p>
                     </div>
                 </div>
-                <div class="card">
-                    <h3><span class="icon icon-purple">⏱️</span> Riwayat Waktu (per 10 soal)</h3>
-                    <div id="riwayatWaktuContent">
-                        <p style="color:var(--text2);">Data muncul saat sesi berjalan.</p>
-                    </div>
-                </div>
+                <div id="chartArea" style="margin-top:10px;"></div>
             </div>
-
+            <div class="card">
+                <h3><span class="icon icon-purple">⏱️</span> Riwayat per 10 Soal</h3>
+                <div id="riwayatWaktuContent" style="font-size:0.85rem;"></div>
+            </div>
             <div class="card">
                 <h3>
                     <span class="icon icon-blue">📝</span> Log Jawaban
-                    <span style="font-size:0.8rem;color:var(--text2);font-weight:400;" id="logParticipantLabel">Peserta: -</span>
-                    <span style="margin-left:auto;font-size:0.8rem;color:var(--text2);">
-                        <span class="search-box">
-                            <span class="search-icon">🔍</span>
-                            <input type="text" id="logSearch" placeholder="Cari di log..." oninput="filterLogTable()" style="width:180px;padding:6px 10px 6px 32px;font-size:0.8rem;">
-                        </span>
-                    </span>
+                    <span style="font-size:0.7rem;color:var(--text2);" id="logParticipantLabel">-</span>
                 </h3>
+                <div style="margin-bottom:8px;">
+                    <span class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="logSearch" placeholder="Cari..." oninput="filterLogTable()" autocomplete="off">
+                    </span>
+                </div>
                 <div class="table-wrapper">
                     <table id="logTable">
                         <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Bahasa</th>
-                                <th>Sintaks</th>
-                                <th>Jawaban</th>
-                                <th>Durasi</th>
-                                <th>Timestamp</th>
-                                <th>Validasi</th>
-                            </tr>
+                            <tr><th>No</th><th>Bahasa</th><th>Sintaks</th><th>Jawaban</th><th>Durasi</th><th>Waktu</th><th>Validasi</th></tr>
                         </thead>
                         <tbody id="logTableBody">
-                            <tr><td colspan="7" style="text-align:center;color:var(--text2);">Belum ada data log.</td></tr>
+                            <tr><td colspan="7" style="text-align:center;color:var(--text2);">Belum ada data.</td></tr>
                         </tbody>
                     </table>
                 </div>
-                <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+                <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
                     <button class="btn-primary btn-sm" onclick="exportData('clipboard')">📋 Salin</button>
                     <button class="btn-success btn-sm" onclick="exportData('csv')">📄 CSV</button>
-                    <button class="btn-purple btn-sm" onclick="exportData('spreadsheet')">📊 Spreadsheet</button>
+                    <button class="btn-purple btn-sm" onclick="exportData('spreadsheet')">📊 Sheet</button>
                     <button class="btn-warning btn-sm" onclick="exportData('json')">🔧 JSON</button>
-                    <button class="btn-outline btn-sm" onclick="validateAllCorrect()">✅ Validasi Semua Benar</button>
+                    <button class="btn-outline btn-sm" onclick="validateAllCorrect()">✅ Semua Benar</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== PARTICLES BACKGROUND ====================
+        // ==================== PARTICLES ====================
         function createParticles() {
             const container = document.getElementById('particlesContainer');
             const colors = ['#4f8cf7', '#8b5cf6', '#10b981', '#f59e0b'];
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                const size = Math.random() * 4 + 2;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
-                particle.style.animationDelay = (Math.random() * 15) + 's';
-                container.appendChild(particle);
+            const count = window.innerWidth < 600 ? 15 : 30;
+            for (let i = 0; i < count; i++) {
+                const p = document.createElement('div');
+                p.classList.add('particle');
+                const size = Math.random() * 3 + 1.5;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.background = colors[Math.floor(Math.random() * colors.length)];
+                p.style.animationDuration = (Math.random() * 12 + 8) + 's';
+                p.style.animationDelay = (Math.random() * 12) + 's';
+                container.appendChild(p);
             }
         }
         createParticles();
 
-        // ==================== LOGO HANDLER ====================
+        // ==================== LOGO ====================
         function handleLogoError() {
             document.getElementById('logoImg').style.display = 'none';
             document.getElementById('logoFallback').style.display = 'flex';
         }
-        // Try to load logo
         const logoImg = document.getElementById('logoImg');
         logoImg.onload = function() {
             document.getElementById('logoFallback').style.display = 'none';
@@ -1503,15 +1614,11 @@
         };
         logoImg.onerror = handleLogoError;
 
-        // ==================== NOTIFICATION SYSTEM ====================
+        // ==================== NOTIFICATION ====================
         let notifications = [];
 
         function addNotification(message, type = 'info') {
-            notifications.unshift({
-                message,
-                type,
-                time: new Date().toLocaleString('id-ID')
-            });
+            notifications.unshift({ message, type, time: new Date().toLocaleString('id-ID') });
             if (notifications.length > 50) notifications.pop();
             updateNotifDot();
             showToast(message, type);
@@ -1529,7 +1636,7 @@
                 content.innerHTML = '<p style="color:var(--text2);">Belum ada notifikasi.</p>';
             } else {
                 content.innerHTML = notifications.map(n =>
-                    `<div style="padding:8px 0;border-bottom:1px solid var(--border);">
+                    `<div style="padding:6px 0;border-bottom:1px solid var(--border);font-size:0.8rem;">
                         <span style="color:${n.type==='success'?'var(--success)':n.type==='error'?'var(--danger)':'var(--accent)'};">${n.type==='success'?'✅':n.type==='error'?'❌':'ℹ️'}</span>
                         ${n.message} <small style="color:var(--text2);">(${n.time})</small>
                     </div>`
@@ -1538,53 +1645,45 @@
             document.getElementById('notifModal').classList.remove('hidden');
         }
 
-        function closeNotifModal() {
-            document.getElementById('notifModal').classList.add('hidden');
-        }
+        function closeNotifModal() { document.getElementById('notifModal').classList.add('hidden'); }
 
         function clearNotifications() {
             notifications = [];
             updateNotifDot();
-            document.getElementById('notifContent').innerHTML = '<p style="color:var(--text2);">Notifikasi dihapus.</p>';
+            document.getElementById('notifContent').innerHTML = '<p style="color:var(--text2);">Dihapus.</p>';
         }
 
-        // ==================== TOAST SYSTEM ====================
+        // ==================== TOAST ====================
         function showToast(message, type = 'info') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.classList.add('toast', type);
             const icons = { success: '✅', error: '❌', info: 'ℹ️' };
-            toast.innerHTML = `${icons[type] || 'ℹ️'} ${message}`;
+            toast.textContent = `${icons[type] || 'ℹ️'} ${message}`;
             container.appendChild(toast);
             setTimeout(() => toast.remove(), 3000);
         }
 
-        // ==================== SOUND SYSTEM ====================
+        // ==================== SOUND ====================
         function playSound(type) {
             if (!document.getElementById('soundToggle').checked) return;
-            const audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            gainNode.gain.value = 0.08;
-            if (type === 'correct') {
-                oscillator.frequency.value = 800;
-                oscillator.type = 'sine';
-            } else if (type === 'wrong') {
-                oscillator.frequency.value = 200;
-                oscillator.type = 'sawtooth';
-            } else if (type === 'tick') {
-                oscillator.frequency.value = 1000;
-                oscillator.type = 'sine';
-                gainNode.gain.value = 0.03;
-            } else if (type === 'complete') {
-                oscillator.frequency.value = 600;
-                oscillator.type = 'triangle';
-            }
-            oscillator.start();
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-            oscillator.stop(audioCtx.currentTime + 0.3);
+            try {
+                const audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                gain.gain.value = 0.06;
+                if (type === 'correct') { osc.frequency.value = 800;
+                    osc.type = 'sine'; } else if (type === 'wrong') { osc.frequency.value = 200;
+                    osc.type = 'sawtooth'; } else if (type === 'tick') { osc.frequency.value = 1000;
+                    osc.type = 'sine';
+                    gain.gain.value = 0.02; } else if (type === 'complete') { osc.frequency.value = 600;
+                    osc.type = 'triangle'; }
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+                osc.stop(audioCtx.currentTime + 0.25);
+            } catch (e) {}
         }
 
         // ==================== BANK SOAL ====================
@@ -1667,15 +1766,13 @@
                             'trait') || kw.includes('namespace') || kw.includes('Proxy') || kw
                         .includes('Reflect') || kw.includes('AbortController') || kw.includes(
                             'IntersectionObserver') || kw.includes('asyncio.run') || kw.includes(
-                            'contextlib') || kw.includes('generator expression')) {
-                        diff = 'advanced';
-                    } else if (kw.includes('class') || kw.includes('extends') || kw.includes(
+                            'contextlib') || kw.includes('generator expression')) diff = 'advanced';
+                    else if (kw.includes('class') || kw.includes('extends') || kw.includes(
                             'interface') || kw.includes('try') || kw.includes('throw') || kw
                         .includes('shared_ptr') || kw.includes('Promise') || kw.includes('fetch') ||
                         kw.includes('yield') || kw.includes('dataclass') || kw.includes('Optional') ||
-                        kw.includes('stream') || kw.includes('PDO') || kw.includes('trait')) {
-                        diff = 'intermediate';
-                    }
+                        kw.includes('stream') || kw.includes('PDO') || kw.includes('trait')) diff =
+                        'intermediate';
                     fullSyntaxBank.push({ lang, keyword: kw, difficulty: diff });
                 });
             }
@@ -1690,7 +1787,7 @@
         }
         generateFullBank();
 
-        // ==================== GLOBAL STATE ====================
+        // ==================== STATE ====================
         let currentTab = 'manual';
         let participantName = '';
         let testSessionActive = false;
@@ -1709,57 +1806,54 @@
         let manualLastTimestamp = null;
         let riwayatWaktuData = [];
 
-        // ==================== PARTICIPANT NAME ====================
+        // ==================== PARTICIPANT ====================
         function openNameModal() {
             document.getElementById('nameModal').classList.remove('hidden');
             document.getElementById('participantNameInput').value = participantName;
             document.getElementById('participantNameInput').focus();
         }
 
-        function closeNameModal() {
-            document.getElementById('nameModal').classList.add('hidden');
-        }
+        function closeNameModal() { document.getElementById('nameModal').classList.add('hidden'); }
 
         function saveParticipantName() {
             const input = document.getElementById('participantNameInput').value.trim();
             if (input) {
                 participantName = input;
                 updateParticipantUI();
-                addNotification(`Nama peserta diatur: ${participantName}`, 'success');
+                addNotification(`Nama: ${participantName}`, 'success');
             }
             closeNameModal();
         }
 
         function updateParticipantUI() {
-            const displayName = document.getElementById('participantDisplayName');
-            const avatar = document.getElementById('participantAvatar');
-            const manualLabel = document.getElementById('manualParticipantLabel');
-            const logLabel = document.getElementById('logParticipantLabel');
-            const testLabel = document.getElementById('testParticipantLabel');
+            const dn = document.getElementById('participantDisplayName');
+            const av = document.getElementById('participantAvatar');
+            const ml = document.getElementById('manualParticipantLabel');
+            const ll = document.getElementById('logParticipantLabel');
+            const tl = document.getElementById('testParticipantLabel');
             if (participantName) {
-                displayName.textContent = participantName;
-                avatar.textContent = participantName.charAt(0).toUpperCase();
-                manualLabel.textContent = 'Peserta: ' + participantName;
-                logLabel.textContent = 'Peserta: ' + participantName;
-                testLabel.textContent = '(' + participantName + ')';
+                dn.textContent = participantName;
+                av.textContent = participantName.charAt(0).toUpperCase();
+                ml.textContent = 'Peserta: ' + participantName;
+                ll.textContent = 'Peserta: ' + participantName;
+                tl.textContent = '(' + participantName + ')';
             } else {
-                displayName.textContent = 'Atur Nama';
-                avatar.textContent = '?';
-                manualLabel.textContent = 'Peserta: -';
-                logLabel.textContent = 'Peserta: -';
-                testLabel.textContent = '(-)';
+                dn.textContent = 'Atur Nama';
+                av.textContent = '?';
+                ml.textContent = '-';
+                ll.textContent = '-';
+                tl.textContent = '(-)';
             }
         }
 
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && !document.getElementById('nameModal').classList.contains(
-                    'hidden') && document.activeElement === document.getElementById(
-                    'participantNameInput')) {
+                'hidden') && document.activeElement === document.getElementById('participantNameInput')) {
                 saveParticipantName();
             }
         });
 
-        // ==================== LIVE CLOCK ====================
+        // ==================== CLOCK ====================
         function updateLiveClock() {
             const now = new Date();
             document.getElementById('liveClock').textContent = now.toLocaleString('id-ID', {
@@ -1774,25 +1868,21 @@
         setInterval(updateLiveClock, 1000);
         updateLiveClock();
 
-        // ==================== TAB SWITCHING ====================
+        // ==================== TABS ====================
         function switchTab(tab) {
             currentTab = tab;
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            const targetBtn = document.querySelector(`.tab-btn[onclick="switchTab('${tab}')"]`);
-            if (targetBtn) targetBtn.classList.add('active');
+            const btn = document.querySelector(`.tab-btn[onclick="switchTab('${tab}')"]`);
+            if (btn) btn.classList.add('active');
             document.getElementById('tab-manual').classList.add('hidden');
             document.getElementById('tab-test').classList.add('hidden');
             document.getElementById('tab-results').classList.add('hidden');
             document.getElementById(`tab-${tab}`).classList.remove('hidden');
-            if (tab === 'results') {
-                updateChart();
+            if (tab === 'results') { updateChart();
                 updateRiwayatWaktu();
                 updateLogTable();
-                updateQuickStats();
-            }
-            if (tab === 'manual') {
-                document.getElementById('manualCount').textContent = manualEntries.length;
-            }
+                updateQuickStats(); }
+            if (tab === 'manual') document.getElementById('manualCount').textContent = manualEntries.length;
         }
 
         // ==================== QUICK STATS ====================
@@ -1800,10 +1890,8 @@
             const total = testAnswers.length;
             const correct = testAnswers.filter(a => a.validation === true).length;
             const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
-            const avgTime = total > 0 ? Math.round(testAnswers.reduce((sum, a) => {
-                const d = parseInt(a.duration);
-                return sum + (isNaN(d) ? 0 : d);
-            }, 0) / total) : 0;
+            const avgTime = total > 0 ? Math.round(testAnswers.reduce((s, a) => { const d = parseInt(a.duration); return s +
+                    (isNaN(d) ? 0 : d); }, 0) / total) : 0;
             document.getElementById('statTotalSyntax').textContent = fullSyntaxBank.length;
             document.getElementById('statCorrect').textContent = correct;
             document.getElementById('statAccuracy').textContent = accuracy + '%';
@@ -1811,7 +1899,7 @@
             document.getElementById('resultsCount').textContent = total;
         }
 
-        // ==================== MODE MANUAL ====================
+        // ==================== MANUAL ====================
         function startManualTimer() {
             const min = parseInt(document.getElementById('manualTimerMin').value) || 0;
             const sec = parseInt(document.getElementById('manualTimerSec').value) || 0;
@@ -1827,8 +1915,7 @@
                     clearInterval(manualTimerInterval);
                     manualTimerInterval = null;
                     playSound('complete');
-                    addNotification('⏰ Waktu manual habis!', 'error');
-                    showToast('Waktu manual habis!', 'error');
+                    addNotification('Waktu manual habis!', 'error');
                 }
                 if (manualTimerRemaining <= 5 && manualTimerRemaining > 0) playSound('tick');
             }, 1000);
@@ -1847,10 +1934,10 @@
         function updateManualTimerDisplay() {
             const m = Math.floor(manualTimerRemaining / 60);
             const s = manualTimerRemaining % 60;
-            const display = document.getElementById('manualTimerDisplay');
-            display.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-            if (manualTimerRemaining <= 30) display.classList.add('warning');
-            else display.classList.remove('warning');
+            const d = document.getElementById('manualTimerDisplay');
+            d.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+            if (manualTimerRemaining <= 30) d.classList.add('warning');
+            else d.classList.remove('warning');
         }
 
         function addManualEntry() {
@@ -1862,11 +1949,10 @@
             let duration = '-';
             if (manualLastTimestamp) {
                 const diff = Math.round((now - manualLastTimestamp) / 1000);
-                duration = `${diff} detik`;
+                duration = `${diff}d`;
             }
             manualLastTimestamp = now;
-            const entryNumber = manualEntries.length + 1;
-            manualEntries.push({ no: entryNumber, answer, duration, timestamp });
+            manualEntries.push({ no: manualEntries.length + 1, answer, duration, timestamp });
             input.value = '';
             renderManualTable();
             document.getElementById('manualCount').textContent = manualEntries.length;
@@ -1875,22 +1961,19 @@
 
         function renderManualTable(filterText = '') {
             const tbody = document.getElementById('manualTableBody');
-            let entries = manualEntries;
-            if (filterText) {
-                entries = entries.filter(e => e.answer.toLowerCase().includes(filterText.toLowerCase()));
-            }
+            let entries = filterText ? manualEntries.filter(e => e.answer.toLowerCase().includes(filterText
+                .toLowerCase())) : manualEntries;
             if (entries.length === 0) {
-                tbody.innerHTML =
-                    '<tr><td colspan="5" style="text-align:center;color:var(--text2);">Tidak ada data.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text2);">Tidak ada data.</td></tr>';
                 return;
             }
-            tbody.innerHTML = entries.map((e, idx) => `
+            tbody.innerHTML = entries.map((e) => `
                 <tr>
                     <td><strong>#${e.no}</strong></td>
                     <td>${e.answer}</td>
                     <td>${e.duration}</td>
-                    <td style="font-size:0.8rem;">${e.timestamp}</td>
-                    <td><button class="btn-danger btn-sm" style="padding:4px 8px;font-size:0.7rem;" onclick="deleteManualEntry(${manualEntries.indexOf(e)})">🗑️</button></td>
+                    <td style="font-size:0.7rem;">${e.timestamp}</td>
+                    <td><button class="btn-danger btn-sm" style="padding:3px 6px;font-size:0.65rem;min-height:24px;" onclick="deleteManualEntry(${manualEntries.indexOf(e)})">🗑️</button></td>
                 </tr>
             `).join('');
         }
@@ -1900,71 +1983,55 @@
             manualEntries.forEach((e, i) => e.no = i + 1);
             renderManualTable();
             document.getElementById('manualCount').textContent = manualEntries.length;
-            addNotification('Entri manual dihapus', 'info');
         }
 
-        function filterManualTable() {
-            const filterText = document.getElementById('manualSearch').value;
-            renderManualTable(filterText);
-        }
+        function filterManualTable() { renderManualTable(document.getElementById('manualSearch').value); }
 
         function clearManualTable() {
             if (manualEntries.length === 0) return;
-            if (confirm(`Hapus semua ${manualEntries.length} data manual?`)) {
+            if (confirm(`Hapus ${manualEntries.length} data?`)) {
                 manualEntries = [];
                 renderManualTable();
                 document.getElementById('manualCount').textContent = 0;
-                addNotification('Semua data manual dihapus', 'error');
+                addNotification('Data manual dihapus', 'error');
             }
         }
 
         function exportManualData() {
-            if (manualEntries.length === 0) {
-                showToast('Tidak ada data untuk diekspor!', 'error');
-                return;
-            }
-            const text = 'TechnoPiousQuiz - Data Manual\nPeserta: ' + (participantName || '-') + '\n\nNo\tJawaban\tDurasi\tTimestamp\n' +
+            if (manualEntries.length === 0) { showToast('Tidak ada data!', 'error'); return; }
+            const text =
+                `TechnoPiousQuiz - Manual\nPeserta: ${participantName||'-'}\n\nNo\tJawaban\tDurasi\tTimestamp\n` +
                 manualEntries.map(e => `${e.no}\t${e.answer}\t${e.duration}\t${e.timestamp}`).join('\n');
-            navigator.clipboard.writeText(text).then(() => {
-                showToast('Data manual disalin ke clipboard!', 'success');
-                addNotification('Data manual diekspor', 'success');
-            });
+            navigator.clipboard.writeText(text).then(() => showToast('Disalin!', 'success'));
         }
 
         // ==================== MODE TES ====================
-        function getTestLangFilters() {
-            const checkboxes = document.querySelectorAll('.testLangFilter:checked');
-            return Array.from(checkboxes).map(cb => cb.value);
-        }
+        function getTestLangFilters() { return Array.from(document.querySelectorAll('.testLangFilter:checked')).map(cb =>
+                cb.value); }
 
-        function getTestDifficulty() {
-            return document.getElementById('testDifficulty').value;
-        }
+        function getTestDifficulty() { return document.getElementById('testDifficulty').value; }
 
         function startTestSession() {
-            if (!participantName) {
-                showToast('⚠️ Atur nama peserta terlebih dahulu!', 'error');
-                openNameModal();
-                return;
-            }
+            if (!participantName) { showToast('Atur nama dulu!', 'error');
+                openNameModal(); return; }
             if (testSessionActive) return;
             const langs = getTestLangFilters();
-            if (langs.length === 0) { showToast('Pilih minimal satu bahasa!', 'error'); return; }
+            if (langs.length === 0) { showToast('Pilih bahasa!', 'error'); return; }
             const difficulty = getTestDifficulty();
             const order = document.getElementById('testOrder').value;
-            const maxQuestions = parseInt(document.getElementById('testMaxQuestions').value) || 20;
-            const sessionLimitMin = parseInt(document.getElementById('testSessionLimit').value) || 10;
-            let pool = fullSyntaxBank.filter(item => langs.includes(item.lang));
-            if (difficulty !== 'all') pool = pool.filter(item => item.difficulty === difficulty);
-            if (pool.length === 0) { showToast('Tidak ada soal dengan filter tersebut!', 'error'); return; }
+            const maxQ = parseInt(document.getElementById('testMaxQuestions').value) || 20;
+            const limitMin = parseInt(document.getElementById('testSessionLimit').value) || 10;
+            let pool = fullSyntaxBank.filter(i => langs.includes(i.lang));
+            if (difficulty !== 'all') pool = pool.filter(i => i.difficulty === difficulty);
+            if (pool.length === 0) { showToast('Tidak ada soal!', 'error'); return; }
             if (order === 'random') pool = shuffleArray([...pool]);
-            testQuestions = pool.slice(0, maxQuestions);
+            testQuestions = pool.slice(0, maxQ);
             testCurrentIndex = 0;
             testAnswers = [];
             testSessionActive = true;
             testPaused = false;
             testPerSyntaxRemaining = parseInt(document.getElementById('testTimePerSyntax').value) || 15;
-            testSessionRemaining = sessionLimitMin * 60;
+            testSessionRemaining = limitMin * 60;
             testStartTime = new Date();
             riwayatWaktuData = [];
             document.getElementById('pausedOverlay').classList.add('hidden');
@@ -1981,16 +2048,14 @@
             updateTestSessionTimerDisplay();
             showCurrentSyntax();
             startTestTimers();
-            addNotification(`Tes dimulai untuk ${participantName} - ${testQuestions.length} soal`, 'success');
-            showToast('🚀 Sesi tes dimulai!', 'success');
+            addNotification(`Tes dimulai: ${testQuestions.length} soal`, 'success');
+            showToast('🚀 Tes dimulai!', 'success');
+            // Scroll to test area on mobile
+            setTimeout(() => document.getElementById('testActiveArea').scrollIntoView({ behavior: 'smooth',
+                block: 'start' }), 200);
         }
 
-        function stopTestSession() {
-            if (testSessionActive) {
-                addNotification('Sesi dihentikan manual', 'error');
-            }
-            endTestSession('manual');
-        }
+        function stopTestSession() { endTestSession('manual'); }
 
         function endTestSession(reason = 'auto') {
             if (!testSessionActive) return;
@@ -2007,7 +2072,7 @@
             document.getElementById('btnSkip').disabled = true;
             document.getElementById('testAnswerInput').disabled = true;
             document.getElementById('pausedOverlay').classList.add('hidden');
-            document.getElementById('testSyntaxDisplay').textContent = '-- Sesi berakhir --';
+            document.getElementById('testSyntaxDisplay').textContent = '-- Selesai --';
             document.getElementById('testSyntaxDisplay').classList.remove('active-syntax');
             document.getElementById('testCurrentLang').textContent = '-';
             document.getElementById('testCurrentLang').className = 'badge';
@@ -2019,11 +2084,11 @@
             updateQuickStats();
             document.getElementById('resultsCount').textContent = testAnswers.length;
             playSound('complete');
-            const msg = reason === 'manual' ? 'dihentikan manual' : reason === 'timeout' ? 'waktu habis' :
-                'semua soal selesai';
-            showToast(`✅ Tes selesai (${msg}). Cek tab Hasil.`, 'success');
-            addNotification(`Tes selesai: ${msg} - ${testAnswers.length} jawaban tercatat`, 'success');
+            const msg = reason === 'manual' ? 'dihentikan' : reason === 'timeout' ? 'waktu habis' : 'selesai';
+            showToast(`✅ Tes ${msg}!`, 'success');
+            addNotification(`Tes ${msg}: ${testAnswers.length} jawaban`, 'success');
             switchTab('results');
+            setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 300);
         }
 
         function pauseTest() {
@@ -2035,7 +2100,7 @@
             document.getElementById('btnPause').disabled = true;
             document.getElementById('btnResume').disabled = false;
             document.getElementById('btnSkip').disabled = true;
-            addNotification('Sesi dijeda', 'info');
+            addNotification('Tes dijeda', 'info');
         }
 
         function resumeTest() {
@@ -2046,7 +2111,8 @@
             document.getElementById('btnResume').disabled = true;
             document.getElementById('btnSkip').disabled = false;
             startTestTimers();
-            addNotification('Sesi dilanjutkan', 'info');
+            document.getElementById('testAnswerInput').focus();
+            addNotification('Tes dilanjutkan', 'info');
         }
 
         function skipSyntax() {
@@ -2064,10 +2130,8 @@
                 testPerSyntaxRemaining--;
                 updateTestTimerDisplay();
                 if (testPerSyntaxRemaining <= 5 && testPerSyntaxRemaining > 0) playSound('tick');
-                if (testPerSyntaxRemaining <= 0) {
-                    submitCurrentAnswer(true);
-                    nextSyntax();
-                }
+                if (testPerSyntaxRemaining <= 0) { submitCurrentAnswer(true);
+                    nextSyntax(); }
             }, 1000);
             testSessionTimer = setInterval(() => {
                 if (testPaused) return;
@@ -2075,25 +2139,20 @@
                 updateTestSessionTimerDisplay();
                 if (testSessionRemaining <= 60 && testSessionRemaining > 0 && testSessionRemaining % 10 ===
                     0) playSound('tick');
-                if (testSessionRemaining <= 0) {
-                    endTestSession('timeout');
-                }
+                if (testSessionRemaining <= 0) endTestSession('timeout');
             }, 1000);
         }
 
         function showCurrentSyntax() {
-            if (testCurrentIndex >= testQuestions.length) {
-                endTestSession('complete');
-                return;
-            }
+            if (testCurrentIndex >= testQuestions.length) { endTestSession('complete'); return; }
             const q = testQuestions[testCurrentIndex];
             document.getElementById('testSyntaxDisplay').textContent = q.keyword;
             document.getElementById('testSyntaxDisplay').classList.add('active-syntax');
             document.getElementById('testCurrentLang').textContent = q.lang;
             document.getElementById('testCurrentLang').className = 'badge badge-' + q.lang.toLowerCase().replace(
                 '+', 'p');
-            document.getElementById('testCurrentDifficulty').textContent = q.difficulty === 'basic' ? 'Dasar' : q
-                .difficulty === 'intermediate' ? 'Menengah' : 'Lanjutan';
+            document.getElementById('testCurrentDifficulty').textContent = (q.difficulty === 'basic' ? '🟢 Dasar' : q
+                .difficulty === 'intermediate' ? '🟡 Menengah' : '🔴 Lanjutan');
             document.getElementById('syntaxNumber').textContent = '#' + (testCurrentIndex + 1);
             document.getElementById('testQuestionCount').textContent = testCurrentIndex;
             updateTestProgress();
@@ -2103,9 +2162,8 @@
             document.getElementById('testAnswerInput').focus();
             if (testCurrentIndex > 0 && testCurrentIndex % 10 === 0) {
                 const elapsed = Math.round((new Date() - testStartTime) / 1000);
-                const m = Math.floor(elapsed / 60);
-                const s = elapsed % 60;
-                riwayatWaktuData.push({ checkpoint: testCurrentIndex, waktu: `${m}m ${s}d` });
+                riwayatWaktuData.push({ checkpoint: testCurrentIndex,
+                    waktu: `${Math.floor(elapsed/60)}m ${elapsed%60}d` });
             }
         }
 
@@ -2113,7 +2171,6 @@
             if (testCurrentIndex >= testQuestions.length) return;
             const q = testQuestions[testCurrentIndex];
             const answer = isTimeout ? '(waktu habis)' : document.getElementById('testAnswerInput').value.trim();
-            const now = new Date();
             const timePerSyntax = parseInt(document.getElementById('testTimePerSyntax').value) || 15;
             const duration = timePerSyntax - Math.max(0, testPerSyntaxRemaining);
             testAnswers.push({
@@ -2122,26 +2179,21 @@
                 syntax: q.keyword,
                 difficulty: q.difficulty,
                 answer: answer || '(kosong)',
-                duration: duration + ' detik',
-                timestamp: now.toLocaleString('id-ID'),
+                duration: duration + 'd',
+                timestamp: new Date().toLocaleString('id-ID'),
                 validation: null
             });
         }
 
-        function nextSyntax() {
-            testCurrentIndex++;
-            if (testCurrentIndex >= testQuestions.length) {
-                endTestSession('complete');
-            } else {
-                showCurrentSyntax();
-            }
-        }
+        function nextSyntax() { testCurrentIndex++; if (testCurrentIndex >= testQuestions.length) endTestSession(
+                'complete');
+            else showCurrentSyntax(); }
 
         function updateTestTimerDisplay() {
-            const display = document.getElementById('testTimerDisplay');
-            display.textContent = `00:${String(Math.max(0, testPerSyntaxRemaining)).padStart(2,'0')}`;
-            if (testPerSyntaxRemaining <= 5) display.classList.add('warning');
-            else display.classList.remove('warning');
+            const d = document.getElementById('testTimerDisplay');
+            d.textContent = `00:${String(Math.max(0,testPerSyntaxRemaining)).padStart(2,'0')}`;
+            if (testPerSyntaxRemaining <= 5) d.classList.add('warning');
+            else d.classList.remove('warning');
         }
 
         function updateTestSessionTimerDisplay() {
@@ -2152,9 +2204,7 @@
         }
 
         function updateTestProgress() {
-            const total = testQuestions.length;
-            const done = testCurrentIndex;
-            const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+            const pct = testQuestions.length > 0 ? Math.round((testCurrentIndex / testQuestions.length) * 100) : 0;
             document.getElementById('testProgressBar').style.width = pct + '%';
         }
 
@@ -2167,46 +2217,38 @@
             }
         });
 
-        // ==================== LOG & VALIDASI ====================
+        // ==================== LOG ====================
         function updateLogTable(filterText = '') {
             const tbody = document.getElementById('logTableBody');
-            let answers = testAnswers;
-            if (filterText) {
-                answers = answers.filter(a =>
-                    a.syntax.toLowerCase().includes(filterText.toLowerCase()) ||
-                    a.answer.toLowerCase().includes(filterText.toLowerCase()) ||
-                    a.lang.toLowerCase().includes(filterText.toLowerCase())
-                );
-            }
+            let answers = filterText ? testAnswers.filter(a =>
+                a.syntax.toLowerCase().includes(filterText.toLowerCase()) ||
+                a.answer.toLowerCase().includes(filterText.toLowerCase()) ||
+                a.lang.toLowerCase().includes(filterText.toLowerCase())) : testAnswers;
             if (answers.length === 0) {
                 tbody.innerHTML =
-                    '<tr><td colspan="7" style="text-align:center;color:var(--text2);">Belum ada data log.</td></tr>';
+                    '<tr><td colspan="7" style="text-align:center;color:var(--text2);">Belum ada data.</td></tr>';
                 return;
             }
-            tbody.innerHTML = answers.map((a, idx) => {
-                const realIdx = testAnswers.indexOf(a);
+            tbody.innerHTML = answers.map(a => {
+                const ri = testAnswers.indexOf(a);
                 return `
                 <tr>
                     <td><strong>#${a.no}</strong></td>
                     <td><span class="badge badge-${a.lang.toLowerCase().replace('+','p')}">${a.lang}</span></td>
-                    <td style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;">${a.syntax}</td>
+                    <td style="font-family:monospace;font-size:0.7rem;">${a.syntax}</td>
                     <td>${a.answer}</td>
                     <td>${a.duration}</td>
-                    <td style="font-size:0.78rem;">${a.timestamp}</td>
+                    <td style="font-size:0.65rem;">${a.timestamp}</td>
                     <td>
-                        <button class="validate-btn correct" onclick="validateAnswer(${realIdx}, true)" title="Benar">✓</button>
-                        <button class="validate-btn wrong" onclick="validateAnswer(${realIdx}, false)" title="Salah">✗</button>
-                        <span class="validation-status">${a.validation === true ? '✅' : a.validation === false ? '❌' : '⏳'}</span>
+                        <button class="validate-btn correct" onclick="validateAnswer(${ri},true)">✓</button>
+                        <button class="validate-btn wrong" onclick="validateAnswer(${ri},false)">✗</button>
+                        <span class="validation-status">${a.validation===true?'✅':a.validation===false?'❌':'⏳'}</span>
                     </td>
-                </tr>
-            `;
+                </tr>`;
             }).join('');
         }
 
-        function filterLogTable() {
-            const filterText = document.getElementById('logSearch').value;
-            updateLogTable(filterText);
-        }
+        function filterLogTable() { updateLogTable(document.getElementById('logSearch').value); }
 
         function validateAnswer(idx, isCorrect) {
             testAnswers[idx].validation = isCorrect;
@@ -2214,113 +2256,88 @@
             updateChart();
             updateQuickStats();
             playSound(isCorrect ? 'correct' : 'wrong');
-            addNotification(`Jawaban #${testAnswers[idx].no} divalidasi ${isCorrect ? 'Benar' : 'Salah'}`, isCorrect ?
-                'success' : 'error');
+            addNotification(`#${testAnswers[idx].no} ${isCorrect?'Benar':'Salah'}`, isCorrect ? 'success' : 'error');
         }
 
         function validateAllCorrect() {
             if (testAnswers.length === 0) return;
-            if (confirm('Tandai SEMUA jawaban sebagai BENAR?')) {
+            if (confirm('Tandai semua BENAR?')) {
                 testAnswers.forEach(a => a.validation = true);
                 updateLogTable();
                 updateChart();
                 updateQuickStats();
                 playSound('correct');
-                addNotification('Semua jawaban divalidasi Benar', 'success');
-                showToast('✅ Semua jawaban ditandai benar!', 'success');
+                showToast('✅ Semua benar!', 'success');
             }
         }
 
         function updateRiwayatWaktu() {
-            const content = document.getElementById('riwayatWaktuContent');
+            const c = document.getElementById('riwayatWaktuContent');
             if (riwayatWaktuData.length === 0) {
-                content.innerHTML =
-                    '<p style="color:var(--text2);">Data muncul saat sesi tes berjalan (per 10 soal).</p>';
+                c.innerHTML = '<p style="color:var(--text2);">Muncul per 10 soal.</p>';
                 return;
             }
-            content.innerHTML = '<ul style="list-style:none;padding:0;">' + riwayatWaktuData.map(r =>
-                `<li style="padding:10px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
-                    <span>📌 <strong>${r.checkpoint} soal</strong></span>
-                    <span>⏱️ ${r.waktu}</span>
-                </li>`
-            ).join('') + '</ul>';
+            c.innerHTML = riwayatWaktuData.map(r =>
+                `<div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
+                    <span>📌 ${r.checkpoint} soal</span><span>⏱️ ${r.waktu}</span></div>`
+            ).join('');
         }
 
         function updateChart() {
-            const chartArea = document.getElementById('chartArea');
-            const scoreCircle = document.getElementById('scoreCircle');
-            const scoreText = document.getElementById('scoreText');
-            const scoreCorrect = document.getElementById('scoreCorrect');
-            const scoreTotal = document.getElementById('scoreTotal');
             const total = testAnswers.length;
             const correct = testAnswers.filter(a => a.validation === true).length;
             const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
-            const circumference = 2 * Math.PI * 52; // ~326.73
-            const offset = circumference - (accuracy / 100) * circumference;
-            scoreCircle.style.strokeDashoffset = offset;
-            scoreText.textContent = accuracy + '%';
-            scoreCorrect.textContent = correct;
-            scoreTotal.textContent = total;
+            const circ = 2 * Math.PI * 38;
+            document.getElementById('scoreCircle').style.strokeDashoffset = circ - (accuracy / 100) * circ;
+            document.getElementById('scoreText').textContent = accuracy + '%';
+            document.getElementById('scoreCorrect').textContent = correct;
+            document.getElementById('scoreTotal').textContent = total;
+            const chartArea = document.getElementById('chartArea');
             const validated = testAnswers.filter(a => a.validation === true);
             if (validated.length === 0) {
-                chartArea.innerHTML =
-                    '<p style="color:var(--text2);margin-top:12px;">Grafik muncul setelah validasi.</p>';
+                chartArea.innerHTML = '<p style="color:var(--text2);font-size:0.8rem;">Validasi dulu.</p>';
                 return;
             }
-            const langCounts = {};
-            validated.forEach(a => {
-                langCounts[a.lang] = (langCounts[a.lang] || 0) + 1;
-            });
-            const maxCount = Math.max(...Object.values(langCounts), 1);
-            chartArea.innerHTML = Object.entries(langCounts).map(([lang, count]) => {
-                const pct = Math.round((count / maxCount) * 100);
-                return `
-                    <div class="chart-bar">
-                        <span class="label">${lang}</span>
-                        <div class="bar">
-                            <div class="fill" style="width:${Math.max(pct, 10)}%;">${count} benar</div>
-                        </div>
-                    </div>
-                `;
+            const counts = {};
+            validated.forEach(a => { counts[a.lang] = (counts[a.lang] || 0) + 1; });
+            const max = Math.max(...Object.values(counts), 1);
+            chartArea.innerHTML = Object.entries(counts).map(([lang, count]) => {
+                const pct = Math.round((count / max) * 100);
+                return `<div class="chart-bar"><span class="label">${lang}</span><div class="bar"><div class="fill" style="width:${Math.max(pct,10)}%;">${count}</div></div></div>`;
             }).join('');
         }
 
         // ==================== EKSPOR ====================
         function exportData(format) {
-            if (testAnswers.length === 0) { showToast('Tidak ada data untuk diekspor!', 'error'); return; }
-            const header = `TechnoPiousQuiz - Hasil Ujian\nPeserta: ${participantName || 'Tidak Diketahui'}\nTanggal: ${new Date().toLocaleString('id-ID')}\nTotal: ${testAnswers.length} soal\n\n`;
+            if (testAnswers.length === 0) { showToast('Tidak ada data!', 'error'); return; }
+            const header =
+                `TechnoPiousQuiz\nPeserta: ${participantName||'-'}\nTanggal: ${new Date().toLocaleString('id-ID')}\nTotal: ${testAnswers.length} soal\n\n`;
             switch (format) {
                 case 'clipboard':
-                    const text = header + testAnswers.map(a =>
-                        `${a.no}\t${a.lang}\t${a.syntax}\t${a.answer}\t${a.duration}\t${a.timestamp}\t${a.validation === true ? 'Benar' : a.validation === false ? 'Salah' : 'Belum'}`
-                    ).join('\n');
-                    navigator.clipboard.writeText(text).then(() => {
-                        showToast('📋 Data disalin ke clipboard!', 'success');
-                        addNotification('Data diekspor ke clipboard', 'success');
-                    });
+                    navigator.clipboard.writeText(header + testAnswers.map(a =>
+                        `${a.no}\t${a.lang}\t${a.syntax}\t${a.answer}\t${a.duration}\t${a.timestamp}\t${a.validation===true?'Benar':a.validation===false?'Salah':'Belum'}`
+                    ).join('\n')).then(() => showToast('Disalin!', 'success'));
                     break;
                 case 'csv':
-                    downloadFile(`hasil_${participantName || 'peserta'}.csv`, 'text/csv', header +
+                    downloadFile(`hasil_${participantName||'peserta'}.csv`, 'text/csv', header +
                         'No,Bahasa,Sintaks,Jawaban,Durasi,Timestamp,Validasi\n' + testAnswers.map(a =>
-                            `"${a.no}","${a.lang}","${a.syntax}","${a.answer}","${a.duration}","${a.timestamp}","${a.validation === true ? 'Benar' : a.validation === false ? 'Salah' : 'Belum'}"`
-                        ).join('\n'));
+                            `"${a.no}","${a.lang}","${a.syntax}","${a.answer}","${a.duration}","${a.timestamp}","${a.validation===true?'Benar':a.validation===false?'Salah':'Belum'}"`
+                            ).join('\n'));
                     break;
                 case 'spreadsheet':
-                    downloadFile(`hasil_${participantName || 'peserta'}.tsv`, 'text/tab-separated-values', header +
+                    downloadFile(`hasil_${participantName||'peserta'}.tsv`, 'text/tab-separated-values', header +
                         'No\tBahasa\tSintaks\tJawaban\tDurasi\tTimestamp\tValidasi\n' + testAnswers.map(a =>
-                            `${a.no}\t${a.lang}\t${a.syntax}\t${a.answer}\t${a.duration}\t${a.timestamp}\t${a.validation === true ? 'Benar' : a.validation === false ? 'Salah' : 'Belum'}`
-                        ).join('\n'));
+                            `${a.no}\t${a.lang}\t${a.syntax}\t${a.answer}\t${a.duration}\t${a.timestamp}\t${a.validation===true?'Benar':a.validation===false?'Salah':'Belum'}`
+                            ).join('\n'));
                     break;
                 case 'json':
-                    const exportObj = {
+                    downloadFile(`hasil_${participantName||'peserta'}.json`, 'application/json', JSON.stringify({
                         platform: 'TechnoPiousQuiz',
                         participant: participantName,
-                        exportDate: new Date().toISOString(),
-                        totalQuestions: testAnswers.length,
+                        date: new Date().toISOString(),
+                        total: testAnswers.length,
                         answers: testAnswers
-                    };
-                    downloadFile(`hasil_${participantName || 'peserta'}.json`, 'application/json', JSON.stringify(
-                        exportObj, null, 2));
+                    }, null, 2));
                     break;
             }
         }
@@ -2333,18 +2350,27 @@
             a.download = filename;
             a.click();
             URL.revokeObjectURL(url);
-            showToast(`✅ File "${filename}" diunduh!`, 'success');
-            addNotification(`File diekspor: ${filename}`, 'success');
+            showToast(`✅ ${filename}`, 'success');
         }
 
-        // ==================== UTILS ====================
-        function shuffleArray(arr) {
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
+        function shuffleArray(arr) { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (
+                i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
+
+        // ==================== KEYBOARD SHORTCUT ====================
+        document.addEventListener('keydown', function(e) {
+            if (e.key === ' ' && testSessionActive && !document.getElementById('nameModal').classList
+                .contains('hidden') === false &&
+                document.activeElement !== document.getElementById('testAnswerInput') &&
+                document.activeElement !== document.getElementById('manualAnswerInput') &&
+                document.activeElement !== document.getElementById('participantNameInput') &&
+                document.activeElement !== document.getElementById('manualSearch') &&
+                document.activeElement !== document.getElementById('logSearch')) {
+                e.preventDefault();
+                if (testPaused) resumeTest();
+                else pauseTest();
             }
-            return arr;
-        }
+        });
 
         // ==================== INIT ====================
         updateManualTimerDisplay();
@@ -2352,22 +2378,7 @@
         updateLiveClock();
         updateParticipantUI();
         updateQuickStats();
-
-        // Keyboard shortcut for pause/resume
-        document.addEventListener('keydown', function(e) {
-            if (e.key === ' ' && testSessionActive && !document.getElementById('nameModal').classList
-                .contains('hidden') === false && document.activeElement !== document.getElementById(
-                    'testAnswerInput') && document.activeElement !== document.getElementById(
-                    'manualAnswerInput') && document.activeElement !== document.getElementById(
-                    'participantNameInput') && document.activeElement !== document.getElementById(
-                    'manualSearch') && document.activeElement !== document.getElementById('logSearch')) {
-                e.preventDefault();
-                if (testPaused) resumeTest();
-                else pauseTest();
-            }
-        });
-
-        addNotification('Selamat datang di TechnoPiousQuiz! 🚀', 'info');
+        addNotification('Selamat datang! 🚀', 'info');
     </script>
 </body>
 </html>

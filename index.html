@@ -6,29 +6,30 @@
     <title>TechnoPiousQuiz - Platform Ujian Pemrograman</title>
     <style>
         :root {
-            --bg: #0a0e17;
-            --surface: #131a2b;
-            --surface2: #1c2538;
-            --surface3: #243049;
+            --bg: #060b14;
+            --surface: #0d1525;
+            --surface2: #131d33;
+            --surface3: #1a2842;
             --text: #e8ecf1;
-            --text2: #8b9bb4;
+            --text2: #8899b4;
             --accent: #4f8cf7;
             --accent2: #3b6fd4;
-            --accent-glow: rgba(79, 140, 247, 0.3);
+            --accent-glow: rgba(79, 140, 247, 0.35);
             --success: #10b981;
-            --success-glow: rgba(16, 185, 129, 0.3);
+            --success-glow: rgba(16, 185, 129, 0.35);
             --danger: #ef4444;
-            --danger-glow: rgba(239, 68, 68, 0.3);
+            --danger-glow: rgba(239, 68, 68, 0.35);
             --warning: #f59e0b;
-            --warning-glow: rgba(245, 158, 11, 0.3);
+            --warning-glow: rgba(245, 158, 11, 0.35);
             --purple: #8b5cf6;
-            --purple-glow: rgba(139, 92, 246, 0.3);
-            --border: #2a3347;
-            --border-light: #364156;
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-            --shadow-glow: 0 0 40px rgba(79, 140, 247, 0.15);
+            --purple-glow: rgba(139, 92, 246, 0.35);
+            --border: #1e3050;
+            --border-light: #2a4070;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            --shadow-glow: 0 0 40px rgba(79, 140, 247, 0.12);
             --radius: 16px;
             --radius-sm: 10px;
+            --radius-xs: 6px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -39,19 +40,54 @@
         }
 
         body {
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
             line-height: 1.6;
             background-image:
-                radial-gradient(ellipse at 20% 20%, rgba(79, 140, 247, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.03) 0%, transparent 70%);
+                radial-gradient(ellipse at 15% 15%, rgba(79, 140, 247, 0.04) 0%, transparent 55%),
+                radial-gradient(ellipse at 85% 75%, rgba(139, 92, 246, 0.04) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.02) 0%, transparent 70%);
             background-attachment: fixed;
         }
 
-        /* Scrollbar Styling */
+        /* Particles Background */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+        .particle {
+            position: absolute;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: floatUp linear infinite;
+            opacity: 0;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -63,6 +99,7 @@
         ::-webkit-scrollbar-thumb {
             background: var(--surface3);
             border-radius: 4px;
+            border: 2px solid var(--surface);
         }
         ::-webkit-scrollbar-thumb:hover {
             background: var(--border-light);
@@ -72,14 +109,17 @@
             max-width: 1440px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         /* Header */
         .header {
-            background: linear-gradient(135deg, rgba(19, 26, 43, 0.95), rgba(28, 37, 56, 0.95));
+            background: linear-gradient(180deg, rgba(13, 21, 37, 0.98) 0%, rgba(13, 21, 37, 0.9) 100%);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            padding: 16px 28px;
+            padding: 14px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -88,7 +128,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: var(--shadow);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
             border-radius: 0 0 var(--radius) var(--radius);
             margin-bottom: 8px;
         }
@@ -98,25 +138,42 @@
             align-items: center;
             gap: 12px;
         }
-        .logo-icon {
-            width: 44px;
-            height: 44px;
+        .logo-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(79, 140, 247, 0.5));
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+        @keyframes logoGlow {
+            0%,
+            100% {
+                filter: drop-shadow(0 0 20px rgba(79, 140, 247, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 0 35px rgba(139, 92, 246, 0.7));
+            }
+        }
+        .logo-fallback {
+            width: 48px;
+            height: 48px;
             background: linear-gradient(135deg, var(--accent), var(--purple));
             border-radius: 12px;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            box-shadow: 0 0 20px var(--accent-glow);
+            box-shadow: 0 0 25px var(--accent-glow);
             animation: logoPulse 3s ease-in-out infinite;
         }
         @keyframes logoPulse {
             0%,
             100% {
-                box-shadow: 0 0 20px var(--accent-glow);
+                box-shadow: 0 0 25px var(--accent-glow);
             }
             50% {
-                box-shadow: 0 0 35px var(--purple-glow);
+                box-shadow: 0 0 40px var(--purple-glow);
             }
         }
         .logo-text {
@@ -138,8 +195,45 @@
         .header-right {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
         }
+
+        /* Notification Bell */
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.3rem;
+            padding: 8px;
+            border-radius: 50%;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .notification-bell:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .notification-dot {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 10px;
+            height: 10px;
+            background: var(--danger);
+            border-radius: 50%;
+            display: none;
+            animation: pulse 1.5s infinite;
+        }
+        .notification-dot.active {
+            display: block;
+        }
+
+        /* Participant Badge */
         .participant-badge {
             display: flex;
             align-items: center;
@@ -149,14 +243,15 @@
             border-radius: 30px;
             border: 1px solid var(--border);
             transition: var(--transition);
+            cursor: pointer;
         }
         .participant-badge:hover {
             border-color: var(--accent);
-            box-shadow: 0 0 15px var(--accent-glow);
+            box-shadow: 0 0 20px var(--accent-glow);
         }
         .participant-avatar {
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--accent), var(--purple));
             display: flex;
@@ -170,6 +265,10 @@
             font-weight: 600;
             color: var(--text);
             font-size: 0.95rem;
+            max-width: 160px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .edit-name-btn {
             background: none;
@@ -187,7 +286,7 @@
         }
 
         .live-clock {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             background: var(--surface2);
             padding: 10px 18px;
@@ -196,7 +295,65 @@
             letter-spacing: 1px;
             border: 1px solid var(--border);
             color: var(--accent);
-            box-shadow: inset 0 0 15px rgba(79, 140, 247, 0.1);
+            box-shadow: inset 0 0 15px rgba(79, 140, 247, 0.08);
+        }
+
+        /* Quick Stats Bar */
+        .quick-stats {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            flex: 1;
+            min-width: 140px;
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+            cursor: default;
+        }
+        .stat-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        .stat-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .stat-icon.blue {
+            background: rgba(79, 140, 247, 0.2);
+        }
+        .stat-icon.green {
+            background: rgba(16, 185, 129, 0.2);
+        }
+        .stat-icon.purple {
+            background: rgba(139, 92, 246, 0.2);
+        }
+        .stat-icon.orange {
+            background: rgba(245, 158, 11, 0.2);
+        }
+        .stat-info .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+        .stat-info .stat-label {
+            font-size: 0.75rem;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* Tab Navigation */
@@ -210,6 +367,7 @@
             flex-wrap: wrap;
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
+            position: relative;
         }
         .tab-btn {
             padding: 12px 24px;
@@ -223,6 +381,7 @@
             font-size: 0.95rem;
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
         .tab-btn::before {
             content: '';
@@ -235,21 +394,26 @@
             opacity: 0;
             transition: var(--transition);
             border-radius: var(--radius-sm);
+            z-index: -1;
         }
         .tab-btn.active {
             color: white;
-            box-shadow: 0 4px 15px var(--accent-glow);
+            box-shadow: 0 4px 20px var(--accent-glow);
         }
         .tab-btn.active::before {
             opacity: 1;
         }
-        .tab-btn span {
-            position: relative;
-            z-index: 1;
-        }
         .tab-btn:hover:not(.active) {
             color: var(--text);
             background: var(--surface2);
+        }
+        .tab-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-left: 6px;
         }
 
         /* Cards */
@@ -264,32 +428,32 @@
             position: relative;
             overflow: hidden;
         }
-        .card::before {
+        .card::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--purple), var(--success));
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), var(--purple), transparent);
             opacity: 0;
             transition: var(--transition);
         }
-        .card:hover::before {
-            opacity: 0.7;
+        .card:hover::after {
+            opacity: 0.6;
         }
         .card h3 {
             margin-bottom: 16px;
             color: var(--text);
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         .card h3 .icon {
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -308,6 +472,9 @@
         .icon-orange {
             background: rgba(245, 158, 11, 0.2);
         }
+        .icon-red {
+            background: rgba(239, 68, 68, 0.2);
+        }
 
         /* Form Elements */
         input,
@@ -316,7 +483,7 @@
         textarea {
             font-family: inherit;
             font-size: 0.95rem;
-            border-radius: var(--radius-sm);
+            border-radius: var(--radius-xs);
             border: 1px solid var(--border);
             padding: 10px 14px;
             background: var(--surface2);
@@ -328,16 +495,16 @@
         select:focus,
         textarea:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(79, 140, 247, 0.2), 0 0 15px var(--accent-glow);
+            box-shadow: 0 0 0 3px rgba(79, 140, 247, 0.15), 0 0 20px rgba(79, 140, 247, 0.1);
         }
         label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text2);
-            font-weight: 500;
+            font-weight: 600;
             display: block;
             margin-bottom: 6px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.6px;
         }
 
         button {
@@ -349,56 +516,57 @@
             overflow: hidden;
         }
         button:active {
-            transform: scale(0.97);
+            transform: scale(0.96);
         }
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            background: linear-gradient(135deg, var(--accent), #3b6fd4);
             color: white;
-            box-shadow: 0 4px 15px var(--accent-glow);
+            box-shadow: 0 4px 18px var(--accent-glow);
         }
         .btn-primary:hover {
-            box-shadow: 0 6px 25px var(--accent-glow);
+            box-shadow: 0 6px 28px var(--accent-glow);
             transform: translateY(-2px);
         }
         .btn-success {
             background: linear-gradient(135deg, var(--success), #059669);
             color: white;
-            box-shadow: 0 4px 15px var(--success-glow);
+            box-shadow: 0 4px 18px var(--success-glow);
         }
         .btn-success:hover {
-            box-shadow: 0 6px 25px var(--success-glow);
+            box-shadow: 0 6px 28px var(--success-glow);
             transform: translateY(-2px);
         }
         .btn-danger {
             background: linear-gradient(135deg, var(--danger), #dc2626);
             color: white;
-            box-shadow: 0 4px 15px var(--danger-glow);
+            box-shadow: 0 4px 18px var(--danger-glow);
         }
         .btn-danger:hover {
-            box-shadow: 0 6px 25px var(--danger-glow);
+            box-shadow: 0 6px 28px var(--danger-glow);
             transform: translateY(-2px);
         }
         .btn-warning {
             background: linear-gradient(135deg, var(--warning), #d97706);
             color: #000;
-            box-shadow: 0 4px 15px var(--warning-glow);
+            box-shadow: 0 4px 18px var(--warning-glow);
         }
         .btn-warning:hover {
-            box-shadow: 0 6px 25px var(--warning-glow);
+            box-shadow: 0 6px 28px var(--warning-glow);
             transform: translateY(-2px);
         }
         .btn-purple {
             background: linear-gradient(135deg, var(--purple), #7c3aed);
             color: white;
-            box-shadow: 0 4px 15px var(--purple-glow);
+            box-shadow: 0 4px 18px var(--purple-glow);
         }
         .btn-purple:hover {
-            box-shadow: 0 6px 25px var(--purple-glow);
+            box-shadow: 0 6px 28px var(--purple-glow);
             transform: translateY(-2px);
         }
         .btn-sm {
             padding: 7px 14px;
             font-size: 0.85rem;
+            border-radius: 8px;
         }
         .btn-lg {
             padding: 14px 28px;
@@ -406,11 +574,20 @@
             border-radius: 12px;
         }
         .btn:disabled {
-            opacity: 0.5;
+            opacity: 0.45;
             cursor: not-allowed;
             transform: none !important;
             box-shadow: none !important;
-            filter: grayscale(30%);
+            filter: grayscale(40%);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent);
+            background: rgba(79, 140, 247, 0.08);
         }
 
         /* Grid */
@@ -458,19 +635,23 @@
             font-weight: 700;
             color: var(--accent);
             text-transform: uppercase;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             letter-spacing: 0.5px;
         }
         tr {
             transition: var(--transition);
         }
         tr:hover {
-            background: rgba(79, 140, 247, 0.04);
+            background: rgba(79, 140, 247, 0.03);
+        }
+        .table-actions {
+            display: flex;
+            gap: 6px;
         }
 
         /* Syntax Display */
         .syntax-display {
-            background: #060b14;
+            background: #040a14;
             color: #58a6ff;
             padding: 28px;
             border-radius: var(--radius);
@@ -484,22 +665,32 @@
             border: 2px solid var(--border);
             letter-spacing: 0.5px;
             word-break: break-all;
-            box-shadow: inset 0 0 30px rgba(79, 140, 247, 0.05);
+            box-shadow: inset 0 0 30px rgba(79, 140, 247, 0.04);
             transition: var(--transition);
+            position: relative;
         }
         .syntax-display.active-syntax {
             border-color: var(--accent);
-            box-shadow: inset 0 0 40px rgba(79, 140, 247, 0.1), 0 0 30px var(--accent-glow);
-            animation: syntaxGlow 2s ease-in-out infinite;
+            box-shadow: inset 0 0 40px rgba(79, 140, 247, 0.08), 0 0 35px var(--accent-glow);
+            animation: syntaxGlow 2.5s ease-in-out infinite;
         }
         @keyframes syntaxGlow {
             0%,
             100% {
-                box-shadow: inset 0 0 40px rgba(79, 140, 247, 0.1), 0 0 30px var(--accent-glow);
+                box-shadow: inset 0 0 40px rgba(79, 140, 247, 0.08), 0 0 35px var(--accent-glow);
             }
             50% {
-                box-shadow: inset 0 0 50px rgba(139, 92, 246, 0.15), 0 0 40px var(--purple-glow);
+                box-shadow: inset 0 0 55px rgba(139, 92, 246, 0.12), 0 0 45px var(--purple-glow);
             }
+        }
+        .syntax-number {
+            position: absolute;
+            top: 10px;
+            left: 14px;
+            font-size: 0.7rem;
+            color: var(--text2);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0;
         }
 
         /* Timer Display */
@@ -509,28 +700,28 @@
             font-family: 'JetBrains Mono', 'Courier New', monospace;
             text-align: center;
             color: var(--warning);
-            background: #060b14;
+            background: #040a14;
             padding: 16px 24px;
             border-radius: var(--radius);
             border: 2px solid var(--border);
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             transition: var(--transition);
         }
         .timer-display.warning {
             color: var(--danger);
             border-color: var(--danger);
-            animation: pulse 0.8s infinite;
-            box-shadow: 0 0 30px var(--danger-glow);
+            animation: timerPulse 0.7s infinite;
+            box-shadow: 0 0 35px var(--danger-glow);
         }
-        @keyframes pulse {
+        @keyframes timerPulse {
             0%,
             100% {
                 opacity: 1;
                 transform: scale(1);
             }
             50% {
-                opacity: 0.7;
-                transform: scale(1.02);
+                opacity: 0.6;
+                transform: scale(1.03);
             }
         }
 
@@ -539,10 +730,9 @@
             display: inline-block;
             padding: 5px 12px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 700;
             letter-spacing: 0.3px;
-            text-transform: uppercase;
         }
         .badge-python {
             background: #306998;
@@ -572,10 +762,6 @@
             background: #777bb3;
             color: #fff;
         }
-        .badge-lainnya {
-            background: var(--surface3);
-            color: var(--text);
-        }
 
         /* Validate Buttons */
         .validate-btn {
@@ -593,7 +779,7 @@
         .validate-btn.correct:hover {
             background: rgba(16, 185, 129, 0.2);
             border-color: var(--success);
-            box-shadow: 0 0 15px var(--success-glow);
+            box-shadow: 0 0 18px var(--success-glow);
         }
         .validate-btn.wrong {
             color: var(--danger);
@@ -601,10 +787,11 @@
         .validate-btn.wrong:hover {
             background: rgba(239, 68, 68, 0.2);
             border-color: var(--danger);
-            box-shadow: 0 0 15px var(--danger-glow);
+            box-shadow: 0 0 18px var(--danger-glow);
         }
         .validation-status {
             font-size: 1.1rem;
+            margin-left: 4px;
         }
 
         /* Progress Bar */
@@ -621,7 +808,7 @@
             background: linear-gradient(90deg, var(--accent), var(--purple));
             transition: width 0.5s ease;
             border-radius: 5px;
-            box-shadow: 0 0 10px var(--accent-glow);
+            box-shadow: 0 0 12px var(--accent-glow);
         }
 
         /* Chart */
@@ -639,7 +826,7 @@
         }
         .chart-bar .bar {
             flex: 1;
-            height: 28px;
+            height: 30px;
             background: var(--surface2);
             border-radius: 8px;
             overflow: hidden;
@@ -649,7 +836,7 @@
             height: 100%;
             background: linear-gradient(90deg, var(--accent), var(--purple));
             border-radius: 8px;
-            transition: width 0.8s ease;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
             padding-left: 12px;
@@ -657,6 +844,44 @@
             font-weight: 700;
             color: white;
             box-shadow: 0 0 15px var(--accent-glow);
+            min-width: fit-content;
+        }
+
+        /* Score Circle */
+        .score-circle-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .score-circle {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+        .score-circle svg {
+            transform: rotate(-90deg);
+        }
+        .score-circle .bg-circle {
+            fill: none;
+            stroke: var(--surface2);
+            stroke-width: 10;
+        }
+        .score-circle .fg-circle {
+            fill: none;
+            stroke: url(#scoreGradient);
+            stroke-width: 10;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.8s ease;
+        }
+        .score-circle .score-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.8rem;
+            font-weight: 800;
         }
 
         /* Paused Overlay */
@@ -666,23 +891,34 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 200;
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 800;
             color: var(--warning);
-            letter-spacing: 6px;
+            letter-spacing: 8px;
             gap: 16px;
         }
         .paused-overlay .sub {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--text2);
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            animation: fadeInOut 2s ease-in-out infinite;
+        }
+        @keyframes fadeInOut {
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
         }
         .hidden {
             display: none !important;
@@ -695,8 +931,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -708,14 +945,14 @@
             padding: 28px;
             border: 1px solid var(--border);
             box-shadow: var(--shadow), var(--shadow-glow);
-            min-width: 350px;
-            max-width: 500px;
-            animation: modalIn 0.3s ease;
+            min-width: 360px;
+            max-width: 520px;
+            animation: modalIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
         @keyframes modalIn {
             from {
                 opacity: 0;
-                transform: scale(0.9) translateY(-20px);
+                transform: scale(0.88) translateY(-30px);
             }
             to {
                 opacity: 1;
@@ -732,28 +969,110 @@
             font-size: 1.1rem;
         }
 
-        /* Info Cards */
-        .info-card {
-            background: var(--surface2);
-            border-radius: var(--radius-sm);
-            padding: 16px;
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--surface);
             border: 1px solid var(--border);
-            text-align: center;
+            padding: 14px 22px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow);
+            z-index: 400;
+            animation: slideIn 0.4s ease, slideOut 0.4s ease 2.5s forwards;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(120%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(120%);
+                opacity: 0;
+            }
+        }
+        .toast.success {
+            border-color: var(--success);
+        }
+        .toast.error {
+            border-color: var(--danger);
+        }
+        .toast.info {
+            border-color: var(--accent);
+        }
+
+        /* Search */
+        .search-box {
+            position: relative;
+            display: inline-block;
+        }
+        .search-box input {
+            padding-left: 36px;
+            border-radius: 30px;
+        }
+        .search-box .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text2);
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 26px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--surface3);
+            border-radius: 26px;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background: white;
+            border-radius: 50%;
             transition: var(--transition);
         }
-        .info-card .value {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), var(--purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        input:checked+.toggle-slider {
+            background: var(--accent);
         }
-        .info-card .label-text {
-            font-size: 0.8rem;
-            color: var(--text2);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        input:checked+.toggle-slider:before {
+            transform: translateX(22px);
         }
 
         /* Responsive */
@@ -762,6 +1081,11 @@
                 flex-direction: column;
                 text-align: center;
                 border-radius: 0 0 12px 12px;
+                padding: 12px 16px;
+            }
+            .header-right {
+                flex-wrap: wrap;
+                justify-content: center;
             }
             .timer-display {
                 font-size: 2.2rem;
@@ -769,7 +1093,7 @@
             }
             .syntax-display {
                 font-size: 1.1rem;
-                padding: 16px;
+                padding: 18px;
             }
             .tab-btn {
                 padding: 10px 16px;
@@ -778,20 +1102,50 @@
             .card {
                 padding: 16px;
             }
+            .quick-stats {
+                flex-direction: column;
+            }
+            .score-circle {
+                width: 90px;
+                height: 90px;
+            }
+            .score-circle .score-text {
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- Particles Background -->
+    <div class="particles-container" id="particlesContainer"></div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer"></div>
 
     <!-- Modal Edit Nama -->
     <div class="modal-overlay hidden" id="nameModal">
         <div class="modal">
             <h3>✏️ Edit Nama Peserta</h3>
             <p style="color:var(--text2);margin-bottom:12px;">Masukkan nama peserta yang sedang diuji:</p>
-            <input type="text" id="participantNameInput" placeholder="Contoh: Ahmad Fauzi" maxlength="50">
-            <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end;">
-                <button class="btn-sm" style="background:var(--surface3);color:var(--text);" onclick="closeNameModal()">Batal</button>
+            <input type="text" id="participantNameInput" placeholder="Contoh: Ahmad Fauzi" maxlength="50" autocomplete="off">
+            <div style="display:flex;gap:10px;margin-top:16px;justify-content:flex-end;">
+                <button class="btn-outline btn-sm" onclick="closeNameModal()">Batal</button>
                 <button class="btn-primary btn-sm" onclick="saveParticipantName()">💾 Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Notifikasi -->
+    <div class="modal-overlay hidden" id="notifModal">
+        <div class="modal">
+            <h3>🔔 Notifikasi</h3>
+            <div id="notifContent" style="max-height:300px;overflow-y:auto;">
+                <p style="color:var(--text2);">Belum ada notifikasi.</p>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:16px;justify-content:flex-end;">
+                <button class="btn-outline btn-sm" onclick="clearNotifications()">Hapus Semua</button>
+                <button class="btn-primary btn-sm" onclick="closeNotifModal()">Tutup</button>
             </div>
         </div>
     </div>
@@ -799,19 +1153,24 @@
     <!-- Paused Overlay -->
     <div id="pausedOverlay" class="paused-overlay hidden">
         <div>⏸️ PAUSED</div>
-        <div class="sub">Sesi sedang dijeda</div>
+        <div class="sub">Sesi sedang dijeda • Tekan Resume untuk lanjut</div>
     </div>
 
     <!-- Header -->
     <header class="header">
         <div class="logo-area">
-            <div class="logo-icon">⚡</div>
+            <img src="LogoTechnoPious.png" alt="TechnoPious Logo" class="logo-img" id="logoImg" onerror="handleLogoError()">
+            <div class="logo-fallback" id="logoFallback">⚡</div>
             <div class="logo-text">TechnoPiousQuiz</div>
         </div>
         <div class="header-right">
-            <div class="participant-badge" id="participantBadge" onclick="openNameModal()" style="cursor:pointer;" title="Klik untuk edit nama">
+            <div class="notification-bell" onclick="openNotifModal()" title="Notifikasi">
+                🔔
+                <span class="notification-dot" id="notifDot"></span>
+            </div>
+            <div class="participant-badge" onclick="openNameModal()" title="Klik untuk edit nama peserta">
                 <div class="participant-avatar" id="participantAvatar">?</div>
-                <span class="participant-name" id="participantDisplayName">Klik untuk atur nama</span>
+                <span class="participant-name" id="participantDisplayName">Atur Nama</span>
                 <button class="edit-name-btn">✏️</button>
             </div>
             <div class="live-clock" id="liveClock">--</div>
@@ -819,12 +1178,43 @@
     </header>
 
     <div class="container">
+        <!-- Quick Stats -->
+        <div class="quick-stats" id="quickStats">
+            <div class="stat-card">
+                <div class="stat-icon blue">📝</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="statTotalSyntax">1000</div>
+                    <div class="stat-label">Total Sintaks</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green">✅</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="statCorrect">0</div>
+                    <div class="stat-label">Jawaban Benar</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon purple">📊</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="statAccuracy">0%</div>
+                    <div class="stat-label">Akurasi</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon orange">⏱️</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="statAvgTime">0s</div>
+                    <div class="stat-label">Rata-rata Waktu</div>
+                </div>
+            </div>
+        </div>
 
         <!-- Tab Navigation -->
         <nav class="tab-nav">
-            <button class="tab-btn active" onclick="switchTab('manual')"><span>📋 Mode Manual (Tabel)</span></button>
-            <button class="tab-btn" onclick="switchTab('test')"><span>🧪 Mode Tes</span></button>
-            <button class="tab-btn" onclick="switchTab('results')"><span>📊 Hasil & Log</span></button>
+            <button class="tab-btn active" onclick="switchTab('manual')">📋 Mode Manual <span class="tab-badge" id="manualCount">0</span></button>
+            <button class="tab-btn" onclick="switchTab('test')">🧪 Mode Tes</button>
+            <button class="tab-btn" onclick="switchTab('results')">📊 Hasil & Log <span class="tab-badge" id="resultsCount">0</span></button>
         </nav>
 
         <!-- ==================== MODE MANUAL ==================== -->
@@ -833,117 +1223,136 @@
                 <h3><span class="icon icon-orange">⏱️</span> Konfigurasi Mode Manual</h3>
                 <div class="grid-3">
                     <div>
-                        <label>Timer Manual (menit : detik)</label>
+                        <label>⏰ Timer (menit : detik)</label>
                         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-                            <input type="number" id="manualTimerMin" value="5" min="0" max="60" style="width:65px;">
+                            <input type="number" id="manualTimerMin" value="5" min="0" max="60" style="width:60px;">
                             <span style="font-weight:700;">:</span>
-                            <input type="number" id="manualTimerSec" value="0" min="0" max="59" style="width:65px;">
+                            <input type="number" id="manualTimerSec" value="0" min="0" max="59" style="width:60px;">
                             <button class="btn-primary btn-sm" onclick="startManualTimer()">▶ Mulai</button>
                             <button class="btn-warning btn-sm" onclick="resetManualTimer()">↺ Reset</button>
                         </div>
                     </div>
                     <div>
-                        <label>Timer Tersisa</label>
+                        <label>⏳ Timer Tersisa</label>
                         <div class="timer-display" id="manualTimerDisplay">05:00</div>
                     </div>
                     <div>
-                        <label>Input Jawaban (tekan Enter untuk catat)</label>
-                        <input type="text" id="manualAnswerInput" placeholder="Ketik jawaban lalu Enter..." style="width:100%;" onkeydown="if(event.key==='Enter')addManualEntry()">
+                        <label>⌨️ Input Jawaban <small style="text-transform:none;">(Enter = Catat)</small></label>
+                        <input type="text" id="manualAnswerInput" placeholder="Ketik jawaban lalu Enter..." style="width:100%;" onkeydown="if(event.key==='Enter')addManualEntry()" autocomplete="off">
                     </div>
                 </div>
             </div>
 
             <div class="card">
-                <h3><span class="icon icon-blue">📋</span> Tabel Hasil Manual - <span id="manualParticipantLabel">Peserta: -</span></h3>
+                <h3>
+                    <span class="icon icon-blue">📋</span> Tabel Hasil Manual
+                    <span style="font-size:0.8rem;color:var(--text2);font-weight:400;" id="manualParticipantLabel">Peserta: -</span>
+                    <span style="margin-left:auto;font-size:0.8rem;color:var(--text2);">
+                        <span class="search-box">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="manualSearch" placeholder="Cari jawaban..." oninput="filterManualTable()" style="width:180px;padding:6px 10px 6px 32px;font-size:0.8rem;">
+                        </span>
+                    </span>
+                </h3>
                 <div class="table-wrapper">
                     <table id="manualTable">
                         <thead>
                             <tr>
-                                <th>No (Urutan)</th>
+                                <th>No</th>
                                 <th>Jawaban</th>
                                 <th>Durasi</th>
                                 <th>Timestamp</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="manualTableBody">
-                            <tr><td colspan="4" style="text-align:center;color:var(--text2);">Belum ada data. Ketik jawaban dan tekan Enter.</td></tr>
+                            <tr><td colspan="5" style="text-align:center;color:var(--text2);">Belum ada data. Ketik jawaban dan tekan Enter.</td></tr>
                         </tbody>
                     </table>
                 </div>
-                <button class="btn-danger btn-sm" onclick="clearManualTable()" style="margin-top:12px;">🗑️ Hapus Semua</button>
+                <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+                    <button class="btn-danger btn-sm" onclick="clearManualTable()">🗑️ Hapus Semua</button>
+                    <button class="btn-outline btn-sm" onclick="exportManualData()">📤 Ekspor Manual</button>
+                </div>
             </div>
         </div>
 
         <!-- ==================== MODE TES ==================== -->
         <div id="tab-test" class="hidden">
-            <!-- Konfigurasi -->
             <div class="card">
                 <h3><span class="icon icon-purple">⚙️</span> Konfigurasi Sesi Tes</h3>
                 <div class="grid-3">
                     <div>
-                        <label>Waktu per Sintaks (detik)</label>
-                        <input type="number" id="testTimePerSyntax" value="15" min="5" max="60">
+                        <label>⏱️ Waktu per Sintaks (detik)</label>
+                        <input type="number" id="testTimePerSyntax" value="15" min="3" max="120">
                     </div>
                     <div>
-                        <label>Batas Sesi (menit)</label>
-                        <input type="number" id="testSessionLimit" value="10" min="1" max="120">
+                        <label>⏰ Batas Sesi (menit)</label>
+                        <input type="number" id="testSessionLimit" value="10" min="1" max="180">
                     </div>
                     <div>
-                        <label>Maksimal Tes (soal)</label>
-                        <input type="number" id="testMaxQuestions" value="20" min="5" max="100">
+                        <label>📝 Maksimal Tes (soal)</label>
+                        <input type="number" id="testMaxQuestions" value="20" min="5" max="200">
                     </div>
                     <div>
-                        <label>Tingkat Kesulitan</label>
+                        <label>📈 Tingkat Kesulitan</label>
                         <select id="testDifficulty">
-                            <option value="all">🌟 Semua</option>
+                            <option value="all">🌟 Semua Level</option>
                             <option value="basic">🟢 Dasar</option>
                             <option value="intermediate">🟡 Menengah</option>
                             <option value="advanced">🔴 Lanjutan</option>
                         </select>
                     </div>
                     <div>
-                        <label>Urutan Sintaks</label>
+                        <label>🔀 Urutan Sintaks</label>
                         <select id="testOrder">
-                            <option value="random">🔀 Acak</option>
+                            <option value="random">🎲 Acak</option>
                             <option value="sequential">📋 Berurutan</option>
                         </select>
                     </div>
                     <div>
-                        <label>Filter Bahasa Pemrograman</label>
-                        <div class="grid-4" style="font-size:0.85rem;">
-                            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                                <input type="checkbox" class="testLangFilter" value="Python" checked> Python
-                            </label>
-                            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                                <input type="checkbox" class="testLangFilter" value="JavaScript" checked> JavaScript
-                            </label>
-                            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                                <input type="checkbox" class="testLangFilter" value="HTML" checked> HTML
-                            </label>
-                            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                                <input type="checkbox" class="testLangFilter" value="C" checked> C
-                            </label>
-                            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                                <input type="checkbox" class="testLangFilter" value="C++" checked> C++
-                            </label>
-                            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                                <input type="checkbox" class="testLangFilter" value="Java" checked> Java
-                            </label>
-                            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                                <input type="checkbox" class="testLangFilter" value="PHP" checked> PHP
-                            </label>
-                        </div>
+                        <label>🔊 Suara Notifikasi</label>
+                        <label class="toggle-switch" style="display:inline-block;margin-left:8px;">
+                            <input type="checkbox" id="soundToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div style="margin-top:12px;">
+                    <label>🔍 Filter Bahasa Pemrograman</label>
+                    <div class="grid-4" style="font-size:0.85rem;">
+                        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+                            <input type="checkbox" class="testLangFilter" value="Python" checked> 🐍 Python
+                        </label>
+                        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+                            <input type="checkbox" class="testLangFilter" value="JavaScript" checked> 💛 JavaScript
+                        </label>
+                        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+                            <input type="checkbox" class="testLangFilter" value="HTML" checked> 🟠 HTML
+                        </label>
+                        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+                            <input type="checkbox" class="testLangFilter" value="C" checked> ⚙️ C
+                        </label>
+                        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+                            <input type="checkbox" class="testLangFilter" value="C++" checked> 🔵 C++
+                        </label>
+                        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+                            <input type="checkbox" class="testLangFilter" value="Java" checked> ☕ Java
+                        </label>
+                        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+                            <input type="checkbox" class="testLangFilter" value="PHP" checked> 🟣 PHP
+                        </label>
                     </div>
                 </div>
                 <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
                     <button class="btn-primary btn-lg" onclick="startTestSession()">🚀 Mulai Tes</button>
-                    <button class="btn-danger btn-lg" id="btnStopManual" onclick="stopTestSession()" disabled>⏹️ Stop Manual</button>
+                    <button class="btn-danger btn-lg" id="btnStopManual" onclick="stopTestSession()" disabled>⏹️ Stop</button>
                     <button class="btn-warning btn-lg" id="btnPause" onclick="pauseTest()" disabled>⏸️ Pause</button>
                     <button class="btn-success btn-lg" id="btnResume" onclick="resumeTest()" disabled>▶️ Resume</button>
+                    <button class="btn-outline btn-lg" id="btnSkip" onclick="skipSyntax()" disabled>⏭️ Lewati</button>
                 </div>
             </div>
 
-            <!-- Area Tes Aktif -->
             <div id="testActiveArea" class="hidden">
                 <div class="card">
                     <div class="grid-2">
@@ -956,10 +1365,10 @@
                             <div class="timer-display" id="testSessionTimerDisplay">10:00</div>
                         </div>
                     </div>
-                    <div style="margin-top:12px;">
+                    <div style="margin-top:14px;">
                         <div style="display:flex;justify-content:space-between;align-items:center;">
-                            <small>Progres Soal:</small>
-                            <small><span id="testQuestionCount">0</span> / <span id="testMaxDisplay">20</span></small>
+                            <span style="font-weight:600;">📊 Progres</span>
+                            <span><span id="testQuestionCount">0</span> / <span id="testMaxDisplay">20</span> soal</span>
                         </div>
                         <div class="progress-bar">
                             <div class="progress-fill" id="testProgressBar" style="width:0%;"></div>
@@ -971,11 +1380,15 @@
                     <h3>
                         <span class="icon icon-blue">💻</span> Sintaks Saat Ini
                         <span class="badge" id="testCurrentLang" style="margin-left:8px;">-</span>
+                        <span style="margin-left:8px;font-size:0.75rem;color:var(--text2);">Tingkat: <strong id="testCurrentDifficulty">-</strong></span>
                     </h3>
-                    <div class="syntax-display active-syntax" id="testSyntaxDisplay">-- Siap --</div>
+                    <div class="syntax-display active-syntax" id="testSyntaxDisplay">
+                        <span class="syntax-number" id="syntaxNumber">#1</span>
+                        -- Siap --
+                    </div>
                     <div style="margin-top:12px;">
-                        <label>Jawaban Peserta <span id="testParticipantLabel">(-)</span>:</label>
-                        <input type="text" id="testAnswerInput" placeholder="Ketik jawaban di sini lalu tekan Enter..." style="width:100%;font-size:1rem;" disabled>
+                        <label>⌨️ Jawaban <span id="testParticipantLabel">(-)</span> <small style="text-transform:none;">(Enter = Kirim & Lanjut)</small></label>
+                        <input type="text" id="testAnswerInput" placeholder="Ketik jawaban di sini..." style="width:100%;font-size:1rem;" disabled autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -985,21 +1398,49 @@
         <div id="tab-results" class="hidden">
             <div class="grid-2">
                 <div class="card">
-                    <h3><span class="icon icon-green">📊</span> Grafik Bahasa Dominan</h3>
-                    <div id="chartArea">
-                        <p style="color:var(--text2);">Grafik akan muncul setelah sesi tes selesai dan divalidasi.</p>
+                    <h3><span class="icon icon-green">📊</span> Grafik Performa</h3>
+                    <div class="score-circle-container">
+                        <div class="score-circle">
+                            <svg width="120" height="120" viewBox="0 0 120 120">
+                                <defs>
+                                    <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:var(--accent);stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:var(--purple);stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <circle class="bg-circle" cx="60" cy="60" r="52"/>
+                                <circle class="fg-circle" id="scoreCircle" cx="60" cy="60" r="52" stroke-dasharray="326.73" stroke-dashoffset="326.73"/>
+                            </svg>
+                            <div class="score-text" id="scoreText">0%</div>
+                        </div>
+                        <div>
+                            <p style="font-weight:600;">Total Skor</p>
+                            <p style="color:var(--text2);"><span id="scoreCorrect">0</span> benar dari <span id="scoreTotal">0</span> soal</p>
+                        </div>
+                    </div>
+                    <div id="chartArea" style="margin-top:12px;">
+                        <p style="color:var(--text2);">Grafik muncul setelah validasi.</p>
                     </div>
                 </div>
                 <div class="card">
-                    <h3><span class="icon icon-purple">⏱️</span> Riwayat Waktu Lengkap (per 10 soal)</h3>
+                    <h3><span class="icon icon-purple">⏱️</span> Riwayat Waktu (per 10 soal)</h3>
                     <div id="riwayatWaktuContent">
-                        <p style="color:var(--text2);">Data akan muncul saat sesi tes berjalan.</p>
+                        <p style="color:var(--text2);">Data muncul saat sesi berjalan.</p>
                     </div>
                 </div>
             </div>
 
             <div class="card">
-                <h3><span class="icon icon-blue">📝</span> Log Jawaban Peserta - <span id="logParticipantLabel">Peserta: -</span></h3>
+                <h3>
+                    <span class="icon icon-blue">📝</span> Log Jawaban
+                    <span style="font-size:0.8rem;color:var(--text2);font-weight:400;" id="logParticipantLabel">Peserta: -</span>
+                    <span style="margin-left:auto;font-size:0.8rem;color:var(--text2);">
+                        <span class="search-box">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="logSearch" placeholder="Cari di log..." oninput="filterLogTable()" style="width:180px;padding:6px 10px 6px 32px;font-size:0.8rem;">
+                        </span>
+                    </span>
+                </h3>
                 <div class="table-wrapper">
                     <table id="logTable">
                         <thead>
@@ -1019,75 +1460,200 @@
                     </table>
                 </div>
                 <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
-                    <button class="btn-primary btn-sm" onclick="exportData('clipboard')">📋 Salin Data</button>
-                    <button class="btn-success btn-sm" onclick="exportData('csv')">📄 Export CSV</button>
-                    <button class="btn-purple btn-sm" onclick="exportData('spreadsheet')">📊 Export Spreadsheet</button>
-                    <button class="btn-warning btn-sm" onclick="exportData('json')">🔧 Export JSON</button>
+                    <button class="btn-primary btn-sm" onclick="exportData('clipboard')">📋 Salin</button>
+                    <button class="btn-success btn-sm" onclick="exportData('csv')">📄 CSV</button>
+                    <button class="btn-purple btn-sm" onclick="exportData('spreadsheet')">📊 Spreadsheet</button>
+                    <button class="btn-warning btn-sm" onclick="exportData('json')">🔧 JSON</button>
+                    <button class="btn-outline btn-sm" onclick="validateAllCorrect()">✅ Validasi Semua Benar</button>
                 </div>
             </div>
         </div>
-
     </div>
 
     <script>
-        // ==================== BANK SOAL 1000 SINTAKS ====================
+        // ==================== PARTICLES BACKGROUND ====================
+        function createParticles() {
+            const container = document.getElementById('particlesContainer');
+            const colors = ['#4f8cf7', '#8b5cf6', '#10b981', '#f59e0b'];
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 15) + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // ==================== LOGO HANDLER ====================
+        function handleLogoError() {
+            document.getElementById('logoImg').style.display = 'none';
+            document.getElementById('logoFallback').style.display = 'flex';
+        }
+        // Try to load logo
+        const logoImg = document.getElementById('logoImg');
+        logoImg.onload = function() {
+            document.getElementById('logoFallback').style.display = 'none';
+            logoImg.style.display = 'block';
+        };
+        logoImg.onerror = handleLogoError;
+
+        // ==================== NOTIFICATION SYSTEM ====================
+        let notifications = [];
+
+        function addNotification(message, type = 'info') {
+            notifications.unshift({
+                message,
+                type,
+                time: new Date().toLocaleString('id-ID')
+            });
+            if (notifications.length > 50) notifications.pop();
+            updateNotifDot();
+            showToast(message, type);
+        }
+
+        function updateNotifDot() {
+            const dot = document.getElementById('notifDot');
+            if (notifications.length > 0) dot.classList.add('active');
+            else dot.classList.remove('active');
+        }
+
+        function openNotifModal() {
+            const content = document.getElementById('notifContent');
+            if (notifications.length === 0) {
+                content.innerHTML = '<p style="color:var(--text2);">Belum ada notifikasi.</p>';
+            } else {
+                content.innerHTML = notifications.map(n =>
+                    `<div style="padding:8px 0;border-bottom:1px solid var(--border);">
+                        <span style="color:${n.type==='success'?'var(--success)':n.type==='error'?'var(--danger)':'var(--accent)'};">${n.type==='success'?'✅':n.type==='error'?'❌':'ℹ️'}</span>
+                        ${n.message} <small style="color:var(--text2);">(${n.time})</small>
+                    </div>`
+                ).join('');
+            }
+            document.getElementById('notifModal').classList.remove('hidden');
+        }
+
+        function closeNotifModal() {
+            document.getElementById('notifModal').classList.add('hidden');
+        }
+
+        function clearNotifications() {
+            notifications = [];
+            updateNotifDot();
+            document.getElementById('notifContent').innerHTML = '<p style="color:var(--text2);">Notifikasi dihapus.</p>';
+        }
+
+        // ==================== TOAST SYSTEM ====================
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.classList.add('toast', type);
+            const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+            toast.innerHTML = `${icons[type] || 'ℹ️'} ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // ==================== SOUND SYSTEM ====================
+        function playSound(type) {
+            if (!document.getElementById('soundToggle').checked) return;
+            const audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            gainNode.gain.value = 0.08;
+            if (type === 'correct') {
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+            } else if (type === 'wrong') {
+                oscillator.frequency.value = 200;
+                oscillator.type = 'sawtooth';
+            } else if (type === 'tick') {
+                oscillator.frequency.value = 1000;
+                oscillator.type = 'sine';
+                gainNode.gain.value = 0.03;
+            } else if (type === 'complete') {
+                oscillator.frequency.value = 600;
+                oscillator.type = 'triangle';
+            }
+            oscillator.start();
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+            oscillator.stop(audioCtx.currentTime + 0.3);
+        }
+
+        // ==================== BANK SOAL ====================
         const languageKeywords = {
-            Python: ["def", "class", "import", "from", "lambda", "yield", "with", "async", "await", "print()", "range()",
-                "len()", "list comprehension", "dict", "set", "tuple", "try/except", "raise", "assert", "__init__", "self",
-                "super()", "@staticmethod", "@classmethod", "@property", "if __name__ == '__main__'", "f-string", "*args",
-                "**kwargs", "map()", "filter()", "zip()", "enumerate()", "isinstance()", "hasattr()", "open()", "read()",
-                "write()", "append()", "pop()", "sort()", "sorted()", "reversed()", "type hinting", "dataclass",
-                "collections.Counter", "itertools", "functools", "os.path", "sys.argv", "json.loads()", "requests.get()"
+            Python: ["def", "class", "import", "from", "lambda", "yield", "with", "async", "await", "print()",
+                "range()", "len()", "list comprehension", "dict", "set", "tuple", "try/except", "raise",
+                "assert", "__init__", "self", "super()", "@staticmethod", "@classmethod", "@property",
+                "if __name__ == '__main__'", "f-string", "*args", "**kwargs", "map()", "filter()", "zip()",
+                "enumerate()", "isinstance()", "hasattr()", "open()", "read()", "write()", "append()",
+                "pop()", "sort()", "sorted()", "reversed()", "type hinting", "dataclass",
+                "collections.Counter", "itertools", "functools", "os.path", "sys.argv", "json.loads()",
+                "requests.get()", "generator expression", "contextlib", "asyncio.run()"
             ],
-            JavaScript: ["function", "const", "let", "var", "arrow function =>", "async/await", "Promise", "fetch()",
-                "addEventListener", "querySelector", "getElementById", "map()", "filter()", "reduce()", "forEach()",
-                "spread ...", "destructuring", "template literal", "class", "extends", "super", "import", "export",
-                "default", "nullish ??", "optional chaining ?.", "setTimeout", "setInterval", "localStorage",
-                "JSON.parse", "JSON.stringify", "console.log", "typeof", "instanceof", "new", "this", "bind", "call",
-                "apply", "Object.keys", "Object.values", "Array.isArray", "String.includes", "Math.random", "Date.now",
-                "event.preventDefault", "event.stopPropagation", "DOMContentLoaded", "window.onload"
+            JavaScript: ["function", "const", "let", "var", "arrow function =>", "async/await", "Promise",
+                "fetch()", "addEventListener", "querySelector", "getElementById", "map()", "filter()",
+                "reduce()", "forEach()", "spread ...", "destructuring", "template literal", "class",
+                "extends", "super", "import", "export", "default", "nullish ??", "optional chaining ?.",
+                "setTimeout", "setInterval", "localStorage", "JSON.parse", "JSON.stringify", "console.log",
+                "typeof", "instanceof", "new", "this", "bind", "call", "apply", "Object.keys",
+                "Object.values", "Array.isArray", "String.includes", "Math.random", "Date.now",
+                "event.preventDefault", "event.stopPropagation", "DOMContentLoaded", "window.onload",
+                "IntersectionObserver", "AbortController", "Proxy", "Reflect"
             ],
-            HTML: ["<div>", "<span>", "<p>", "<a href>", "<img src>", "<ul>/<ol>", "<li>", "<table>", "<tr>/<td>", "<th>",
-                "<form>", "<input>", "<button>", "<select>", "<textarea>", "<label>", "<header>", "<footer>", "<nav>",
-                "<section>", "<article>", "<aside>", "<main>", "<figure>", "<figcaption>", "<video>", "<audio>",
-                "<canvas>", "<svg>", "<iframe>", "data-* attributes", "<!DOCTYPE html>", "<meta>", "<link>", "<script>",
-                "<style>", 'class=""', 'id=""', "onclick", "onchange", "onkeydown", "placeholder", "required",
-                "disabled", "readonly", "maxlength", "pattern", "autocomplete"
+            HTML: ["<div>", "<span>", "<p>", "<a href>", "<img src>", "<ul>/<ol>", "<li>", "<table>",
+                "<tr>/<td>", "<th>", "<form>", "<input>", "<button>", "<select>", "<textarea>", "<label>",
+                "<header>", "<footer>", "<nav>", "<section>", "<article>", "<aside>", "<main>", "<figure>",
+                "<figcaption>", "<video>", "<audio>", "<canvas>", "<svg>", "<iframe>", "data-* attributes",
+                "<!DOCTYPE html>", "<meta>", "<link>", "<script>", "<style>", 'class=""', 'id=""',
+                "onclick", "onchange", "onkeydown", "placeholder", "required", "disabled", "readonly",
+                "maxlength", "pattern", "autocomplete", "<details>/<summary>", "<datalist>", "<output>"
             ],
-            C: ["#include <stdio.h>", "int main()", "printf()", "scanf()", "malloc()", "free()", "sizeof", "struct",
-                "typedef", "enum", "union", "pointer *", "& address", "const", "static", "extern", "volatile",
-                "#define", "#ifdef", "#ifndef", "FILE *", "fopen()", "fclose()", "fread()", "fwrite()", "fprintf()",
-                "fscanf()", "strlen()", "strcpy()", "strcmp()", "memcpy()", "memset()", "atoi()", "atof()", "rand()",
-                "srand()", "qsort()", "void", "char", "int", "float", "double", "long", "unsigned", "break",
-                "continue", "switch/case", "goto"
+            C: ["#include <stdio.h>", "int main()", "printf()", "scanf()", "malloc()", "free()", "sizeof",
+                "struct", "typedef", "enum", "union", "pointer *", "& address", "const", "static",
+                "extern", "volatile", "#define", "#ifdef", "#ifndef", "FILE *", "fopen()", "fclose()",
+                "fread()", "fwrite()", "fprintf()", "fscanf()", "strlen()", "strcpy()", "strcmp()",
+                "memcpy()", "memset()", "atoi()", "atof()", "rand()", "srand()", "qsort()", "void",
+                "char", "int", "float", "double", "long", "unsigned", "break", "continue", "switch/case",
+                "goto", "calloc()", "realloc()"
             ],
-            "C++": ["#include <iostream>", "using namespace std", "cout<<", "cin>>", "class", "public:", "private:",
-                "protected:", "virtual", "override", "friend", "operator", "template<typename T>", "vector", "map",
-                "set", "unordered_map", "shared_ptr", "unique_ptr", "make_shared", "lambda [](){}", "auto",
-                "decltype", "nullptr", "constexpr", "range-based for", "std::string", "std::array", "std::tuple",
-                "std::optional", "std::variant", "std::any", "move semantics", "RAII", "destructor ~", "constructor",
-                "copy constructor", "initializer list", "exception try/catch", "throw", "noexcept", "static_cast",
-                "dynamic_cast", "const_cast", "reinterpret_cast", "STL algorithm", "sort()", "find()", "accumulate()"
+            "C++": ["#include <iostream>", "using namespace std", "cout<<", "cin>>", "class", "public:",
+                "private:", "protected:", "virtual", "override", "friend", "operator",
+                "template<typename T>", "vector", "map", "set", "unordered_map", "shared_ptr",
+                "unique_ptr", "make_shared", "lambda [](){}", "auto", "decltype", "nullptr", "constexpr",
+                "range-based for", "std::string", "std::array", "std::tuple", "std::optional",
+                "std::variant", "std::any", "move semantics", "RAII", "destructor ~", "constructor",
+                "copy constructor", "initializer list", "exception try/catch", "throw", "noexcept",
+                "static_cast", "dynamic_cast", "const_cast", "reinterpret_cast", "STL algorithm",
+                "sort()", "find()", "accumulate()", "std::function", "std::bind"
             ],
             Java: ["public class", "public static void main", "System.out.println()", "Scanner",
-                "import java.util.*", "ArrayList", "HashMap", "HashSet", "LinkedList", "interface", "implements",
-                "extends", "super", "@Override", "try/catch/finally", "throw new Exception", "throws", "synchronized",
-                "volatile", "transient", "StringBuilder", "StringBuffer", "Integer.parseInt()",
-                "Double.parseDouble()", "Math.random()", "Math.sqrt()", "Arrays.sort()", "Collections.sort()",
-                "Comparator", "Comparable", "lambda ->", "stream()", "filter()", "map()", "collect()", "Optional",
-                "enum", "abstract", "final", "static", "this", "new", "instanceof", "FileReader", "BufferedReader",
-                "FileWriter", "PrintWriter"
+                "import java.util.*", "ArrayList", "HashMap", "HashSet", "LinkedList", "interface",
+                "implements", "extends", "super", "@Override", "try/catch/finally",
+                "throw new Exception", "throws", "synchronized", "volatile", "transient",
+                "StringBuilder", "StringBuffer", "Integer.parseInt()", "Double.parseDouble()",
+                "Math.random()", "Math.sqrt()", "Arrays.sort()", "Collections.sort()", "Comparator",
+                "Comparable", "lambda ->", "stream()", "filter()", "map()", "collect()", "Optional",
+                "enum", "abstract", "final", "static", "this", "new", "instanceof", "FileReader",
+                "BufferedReader", "FileWriter", "PrintWriter", "Path", "Files"
             ],
-            PHP: ["<?php", "echo", "print", "$variable", "$_GET", "$_POST", "$_SESSION", "$_COOKIE", "$_SERVER",
-                "array()", "[]", "foreach", "for", "while", "if/else", "switch", "function", "return", "class", "new",
-                "->", "::", "public", "private", "protected", "static", "extends", "implements", "interface", "trait",
-                "namespace", "use", "require", "include", "require_once", "mysqli_connect", "PDO", "prepare()",
-                "execute()", "fetch()", "json_encode", "json_decode", "header()", "session_start()", "password_hash",
-                "password_verify", "strlen()", "str_replace", "explode()", "implode()"
+            PHP: ["<?php", "echo", "print", "$variable", "$_GET", "$_POST", "$_SESSION", "$_COOKIE",
+                "$_SERVER", "array()", "[]", "foreach", "for", "while", "if/else", "switch", "function",
+                "return", "class", "new", "->", "::", "public", "private", "protected", "static",
+                "extends", "implements", "interface", "trait", "namespace", "use", "require", "include",
+                "require_once", "mysqli_connect", "PDO", "prepare()", "execute()", "fetch()",
+                "json_encode", "json_decode", "header()", "session_start()", "password_hash",
+                "password_verify", "strlen()", "str_replace", "explode()", "implode()", "array_merge()"
             ]
         };
 
-        // Generate full 1000 keyword bank
         let fullSyntaxBank = [];
 
         function generateFullBank() {
@@ -1096,13 +1662,18 @@
                 keywords.forEach(kw => {
                     let diff = 'basic';
                     if (kw.includes('::') || kw.includes('template') || kw.includes('virtual') || kw
-                        .includes('async') || kw.includes('lambda') || kw.includes('RAII') || kw.includes(
-                            'move semantics') || kw.includes('constexpr') || kw.includes('trait') || kw.includes(
-                            'namespace')) {
+                        .includes('async') || kw.includes('lambda') || kw.includes('RAII') || kw
+                        .includes('move semantics') || kw.includes('constexpr') || kw.includes(
+                            'trait') || kw.includes('namespace') || kw.includes('Proxy') || kw
+                        .includes('Reflect') || kw.includes('AbortController') || kw.includes(
+                            'IntersectionObserver') || kw.includes('asyncio.run') || kw.includes(
+                            'contextlib') || kw.includes('generator expression')) {
                         diff = 'advanced';
-                    } else if (kw.includes('class') || kw.includes('extends') || kw.includes('interface') || kw
-                        .includes('try') || kw.includes('throw') || kw.includes('shared_ptr') || kw.includes(
-                            'Promise') || kw.includes('fetch') || kw.includes('yield') || kw.includes('dataclass')) {
+                    } else if (kw.includes('class') || kw.includes('extends') || kw.includes(
+                            'interface') || kw.includes('try') || kw.includes('throw') || kw
+                        .includes('shared_ptr') || kw.includes('Promise') || kw.includes('fetch') ||
+                        kw.includes('yield') || kw.includes('dataclass') || kw.includes('Optional') ||
+                        kw.includes('stream') || kw.includes('PDO') || kw.includes('trait')) {
                         diff = 'intermediate';
                     }
                     fullSyntaxBank.push({ lang, keyword: kw, difficulty: diff });
@@ -1111,8 +1682,10 @@
             while (fullSyntaxBank.length < 1000) {
                 const idx = fullSyntaxBank.length % Object.keys(languageKeywords).length;
                 const lang = Object.keys(languageKeywords)[idx];
-                const base = languageKeywords[lang][fullSyntaxBank.length % languageKeywords[lang].length];
-                fullSyntaxBank.push({ lang, keyword: base + ' (var)', difficulty: 'basic' });
+                const base = languageKeywords[lang][fullSyntaxBank.length % languageKeywords[lang]
+                    .length];
+                fullSyntaxBank.push({ lang, keyword: base + ' [v' + Math.floor(Math.random() * 100) +
+                        ']', difficulty: 'basic' });
             }
         }
         generateFullBank();
@@ -1152,6 +1725,7 @@
             if (input) {
                 participantName = input;
                 updateParticipantUI();
+                addNotification(`Nama peserta diatur: ${participantName}`, 'success');
             }
             closeNameModal();
         }
@@ -1162,7 +1736,6 @@
             const manualLabel = document.getElementById('manualParticipantLabel');
             const logLabel = document.getElementById('logParticipantLabel');
             const testLabel = document.getElementById('testParticipantLabel');
-
             if (participantName) {
                 displayName.textContent = participantName;
                 avatar.textContent = participantName.charAt(0).toUpperCase();
@@ -1170,7 +1743,7 @@
                 logLabel.textContent = 'Peserta: ' + participantName;
                 testLabel.textContent = '(' + participantName + ')';
             } else {
-                displayName.textContent = 'Klik untuk atur nama';
+                displayName.textContent = 'Atur Nama';
                 avatar.textContent = '?';
                 manualLabel.textContent = 'Peserta: -';
                 logLabel.textContent = 'Peserta: -';
@@ -1178,10 +1751,10 @@
             }
         }
 
-        // Listen for Enter key in modal
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && !document.getElementById('nameModal').classList.contains('hidden') &&
-                document.activeElement === document.getElementById('participantNameInput')) {
+            if (e.key === 'Enter' && !document.getElementById('nameModal').classList.contains(
+                    'hidden') && document.activeElement === document.getElementById(
+                    'participantNameInput')) {
                 saveParticipantName();
             }
         });
@@ -1194,7 +1767,7 @@
                 minute: '2-digit',
                 second: '2-digit',
                 day: '2-digit',
-                month: '2-digit',
+                month: 'short',
                 year: 'numeric'
             });
         }
@@ -1215,7 +1788,27 @@
                 updateChart();
                 updateRiwayatWaktu();
                 updateLogTable();
+                updateQuickStats();
             }
+            if (tab === 'manual') {
+                document.getElementById('manualCount').textContent = manualEntries.length;
+            }
+        }
+
+        // ==================== QUICK STATS ====================
+        function updateQuickStats() {
+            const total = testAnswers.length;
+            const correct = testAnswers.filter(a => a.validation === true).length;
+            const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
+            const avgTime = total > 0 ? Math.round(testAnswers.reduce((sum, a) => {
+                const d = parseInt(a.duration);
+                return sum + (isNaN(d) ? 0 : d);
+            }, 0) / total) : 0;
+            document.getElementById('statTotalSyntax').textContent = fullSyntaxBank.length;
+            document.getElementById('statCorrect').textContent = correct;
+            document.getElementById('statAccuracy').textContent = accuracy + '%';
+            document.getElementById('statAvgTime').textContent = avgTime + 's';
+            document.getElementById('resultsCount').textContent = total;
         }
 
         // ==================== MODE MANUAL ====================
@@ -1233,9 +1826,13 @@
                 if (manualTimerRemaining <= 0) {
                     clearInterval(manualTimerInterval);
                     manualTimerInterval = null;
-                    alert('⏰ Waktu manual habis!');
+                    playSound('complete');
+                    addNotification('⏰ Waktu manual habis!', 'error');
+                    showToast('Waktu manual habis!', 'error');
                 }
+                if (manualTimerRemaining <= 5 && manualTimerRemaining > 0) playSound('tick');
             }, 1000);
+            addNotification('Timer manual dimulai', 'info');
         }
 
         function resetManualTimer() {
@@ -1272,30 +1869,66 @@
             manualEntries.push({ no: entryNumber, answer, duration, timestamp });
             input.value = '';
             renderManualTable();
+            document.getElementById('manualCount').textContent = manualEntries.length;
+            playSound('correct');
         }
 
-        function renderManualTable() {
+        function renderManualTable(filterText = '') {
             const tbody = document.getElementById('manualTableBody');
-            if (manualEntries.length === 0) {
+            let entries = manualEntries;
+            if (filterText) {
+                entries = entries.filter(e => e.answer.toLowerCase().includes(filterText.toLowerCase()));
+            }
+            if (entries.length === 0) {
                 tbody.innerHTML =
-                    '<tr><td colspan="4" style="text-align:center;color:var(--text2);">Belum ada data. Ketik jawaban dan tekan Enter.</td></tr>';
+                    '<tr><td colspan="5" style="text-align:center;color:var(--text2);">Tidak ada data.</td></tr>';
                 return;
             }
-            tbody.innerHTML = manualEntries.map(e => `
+            tbody.innerHTML = entries.map((e, idx) => `
                 <tr>
                     <td><strong>#${e.no}</strong></td>
                     <td>${e.answer}</td>
                     <td>${e.duration}</td>
-                    <td>${e.timestamp}</td>
+                    <td style="font-size:0.8rem;">${e.timestamp}</td>
+                    <td><button class="btn-danger btn-sm" style="padding:4px 8px;font-size:0.7rem;" onclick="deleteManualEntry(${manualEntries.indexOf(e)})">🗑️</button></td>
                 </tr>
             `).join('');
         }
 
+        function deleteManualEntry(index) {
+            manualEntries.splice(index, 1);
+            manualEntries.forEach((e, i) => e.no = i + 1);
+            renderManualTable();
+            document.getElementById('manualCount').textContent = manualEntries.length;
+            addNotification('Entri manual dihapus', 'info');
+        }
+
+        function filterManualTable() {
+            const filterText = document.getElementById('manualSearch').value;
+            renderManualTable(filterText);
+        }
+
         function clearManualTable() {
-            if (confirm('Hapus semua data manual?')) {
+            if (manualEntries.length === 0) return;
+            if (confirm(`Hapus semua ${manualEntries.length} data manual?`)) {
                 manualEntries = [];
                 renderManualTable();
+                document.getElementById('manualCount').textContent = 0;
+                addNotification('Semua data manual dihapus', 'error');
             }
+        }
+
+        function exportManualData() {
+            if (manualEntries.length === 0) {
+                showToast('Tidak ada data untuk diekspor!', 'error');
+                return;
+            }
+            const text = 'TechnoPiousQuiz - Data Manual\nPeserta: ' + (participantName || '-') + '\n\nNo\tJawaban\tDurasi\tTimestamp\n' +
+                manualEntries.map(e => `${e.no}\t${e.answer}\t${e.duration}\t${e.timestamp}`).join('\n');
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Data manual disalin ke clipboard!', 'success');
+                addNotification('Data manual diekspor', 'success');
+            });
         }
 
         // ==================== MODE TES ====================
@@ -1310,22 +1943,20 @@
 
         function startTestSession() {
             if (!participantName) {
-                alert('⚠️ Silakan atur nama peserta terlebih dahulu! Klik badge nama di header.');
+                showToast('⚠️ Atur nama peserta terlebih dahulu!', 'error');
                 openNameModal();
                 return;
             }
             if (testSessionActive) return;
             const langs = getTestLangFilters();
-            if (langs.length === 0) { alert('Pilih minimal satu bahasa pemrograman!'); return; }
+            if (langs.length === 0) { showToast('Pilih minimal satu bahasa!', 'error'); return; }
             const difficulty = getTestDifficulty();
             const order = document.getElementById('testOrder').value;
             const maxQuestions = parseInt(document.getElementById('testMaxQuestions').value) || 20;
             const sessionLimitMin = parseInt(document.getElementById('testSessionLimit').value) || 10;
-
             let pool = fullSyntaxBank.filter(item => langs.includes(item.lang));
             if (difficulty !== 'all') pool = pool.filter(item => item.difficulty === difficulty);
-            if (pool.length === 0) { alert('Tidak ada soal dengan filter tersebut!'); return; }
-
+            if (pool.length === 0) { showToast('Tidak ada soal dengan filter tersebut!', 'error'); return; }
             if (order === 'random') pool = shuffleArray([...pool]);
             testQuestions = pool.slice(0, maxQuestions);
             testCurrentIndex = 0;
@@ -1337,11 +1968,11 @@
             testStartTime = new Date();
             riwayatWaktuData = [];
             document.getElementById('pausedOverlay').classList.add('hidden');
-
             document.getElementById('testActiveArea').classList.remove('hidden');
             document.getElementById('btnStopManual').disabled = false;
             document.getElementById('btnPause').disabled = false;
             document.getElementById('btnResume').disabled = true;
+            document.getElementById('btnSkip').disabled = false;
             document.getElementById('testAnswerInput').disabled = false;
             document.getElementById('testMaxDisplay').textContent = testQuestions.length;
             document.getElementById('testQuestionCount').textContent = '0';
@@ -1350,9 +1981,14 @@
             updateTestSessionTimerDisplay();
             showCurrentSyntax();
             startTestTimers();
+            addNotification(`Tes dimulai untuk ${participantName} - ${testQuestions.length} soal`, 'success');
+            showToast('🚀 Sesi tes dimulai!', 'success');
         }
 
         function stopTestSession() {
+            if (testSessionActive) {
+                addNotification('Sesi dihentikan manual', 'error');
+            }
             endTestSession('manual');
         }
 
@@ -1368,20 +2004,26 @@
             document.getElementById('btnStopManual').disabled = true;
             document.getElementById('btnPause').disabled = true;
             document.getElementById('btnResume').disabled = true;
+            document.getElementById('btnSkip').disabled = true;
             document.getElementById('testAnswerInput').disabled = true;
             document.getElementById('pausedOverlay').classList.add('hidden');
             document.getElementById('testSyntaxDisplay').textContent = '-- Sesi berakhir --';
             document.getElementById('testSyntaxDisplay').classList.remove('active-syntax');
             document.getElementById('testCurrentLang').textContent = '-';
             document.getElementById('testCurrentLang').className = 'badge';
+            document.getElementById('testCurrentDifficulty').textContent = '-';
+            document.getElementById('syntaxNumber').textContent = '';
             updateLogTable();
             updateRiwayatWaktu();
             updateChart();
+            updateQuickStats();
+            document.getElementById('resultsCount').textContent = testAnswers.length;
+            playSound('complete');
             const msg = reason === 'manual' ? 'dihentikan manual' : reason === 'timeout' ? 'waktu habis' :
                 'semua soal selesai';
-            alert(
-                `✅ Sesi tes berakhir (${msg}).\nPeserta: ${participantName}\nJawaban tercatat: ${testAnswers.length}\nSilakan cek tab Hasil & Log.`
-                );
+            showToast(`✅ Tes selesai (${msg}). Cek tab Hasil.`, 'success');
+            addNotification(`Tes selesai: ${msg} - ${testAnswers.length} jawaban tercatat`, 'success');
+            switchTab('results');
         }
 
         function pauseTest() {
@@ -1392,6 +2034,8 @@
             document.getElementById('pausedOverlay').classList.remove('hidden');
             document.getElementById('btnPause').disabled = true;
             document.getElementById('btnResume').disabled = false;
+            document.getElementById('btnSkip').disabled = true;
+            addNotification('Sesi dijeda', 'info');
         }
 
         function resumeTest() {
@@ -1400,7 +2044,16 @@
             document.getElementById('pausedOverlay').classList.add('hidden');
             document.getElementById('btnPause').disabled = false;
             document.getElementById('btnResume').disabled = true;
+            document.getElementById('btnSkip').disabled = false;
             startTestTimers();
+            addNotification('Sesi dilanjutkan', 'info');
+        }
+
+        function skipSyntax() {
+            if (!testSessionActive || testPaused) return;
+            submitCurrentAnswer(true);
+            nextSyntax();
+            addNotification('Soal dilewati', 'info');
         }
 
         function startTestTimers() {
@@ -1410,6 +2063,7 @@
                 if (testPaused) return;
                 testPerSyntaxRemaining--;
                 updateTestTimerDisplay();
+                if (testPerSyntaxRemaining <= 5 && testPerSyntaxRemaining > 0) playSound('tick');
                 if (testPerSyntaxRemaining <= 0) {
                     submitCurrentAnswer(true);
                     nextSyntax();
@@ -1419,6 +2073,8 @@
                 if (testPaused) return;
                 testSessionRemaining--;
                 updateTestSessionTimerDisplay();
+                if (testSessionRemaining <= 60 && testSessionRemaining > 0 && testSessionRemaining % 10 ===
+                    0) playSound('tick');
                 if (testSessionRemaining <= 0) {
                     endTestSession('timeout');
                 }
@@ -1434,8 +2090,11 @@
             document.getElementById('testSyntaxDisplay').textContent = q.keyword;
             document.getElementById('testSyntaxDisplay').classList.add('active-syntax');
             document.getElementById('testCurrentLang').textContent = q.lang;
-            document.getElementById('testCurrentLang').className = 'badge badge-' + q.lang.toLowerCase().replace('+',
-            'p');
+            document.getElementById('testCurrentLang').className = 'badge badge-' + q.lang.toLowerCase().replace(
+                '+', 'p');
+            document.getElementById('testCurrentDifficulty').textContent = q.difficulty === 'basic' ? 'Dasar' : q
+                .difficulty === 'intermediate' ? 'Menengah' : 'Lanjutan';
+            document.getElementById('syntaxNumber').textContent = '#' + (testCurrentIndex + 1);
             document.getElementById('testQuestionCount').textContent = testCurrentIndex;
             updateTestProgress();
             testPerSyntaxRemaining = parseInt(document.getElementById('testTimePerSyntax').value) || 15;
@@ -1461,6 +2120,7 @@
                 no: testCurrentIndex + 1,
                 lang: q.lang,
                 syntax: q.keyword,
+                difficulty: q.difficulty,
                 answer: answer || '(kosong)',
                 duration: duration + ' detik',
                 timestamp: now.toLocaleString('id-ID'),
@@ -1503,58 +2163,108 @@
                 .getElementById('testAnswerInput')) {
                 submitCurrentAnswer(false);
                 nextSyntax();
+                playSound('correct');
             }
         });
 
         // ==================== LOG & VALIDASI ====================
-        function updateLogTable() {
+        function updateLogTable(filterText = '') {
             const tbody = document.getElementById('logTableBody');
-            if (testAnswers.length === 0) {
+            let answers = testAnswers;
+            if (filterText) {
+                answers = answers.filter(a =>
+                    a.syntax.toLowerCase().includes(filterText.toLowerCase()) ||
+                    a.answer.toLowerCase().includes(filterText.toLowerCase()) ||
+                    a.lang.toLowerCase().includes(filterText.toLowerCase())
+                );
+            }
+            if (answers.length === 0) {
                 tbody.innerHTML =
                     '<tr><td colspan="7" style="text-align:center;color:var(--text2);">Belum ada data log.</td></tr>';
                 return;
             }
-            tbody.innerHTML = testAnswers.map((a, idx) => `
+            tbody.innerHTML = answers.map((a, idx) => {
+                const realIdx = testAnswers.indexOf(a);
+                return `
                 <tr>
                     <td><strong>#${a.no}</strong></td>
                     <td><span class="badge badge-${a.lang.toLowerCase().replace('+','p')}">${a.lang}</span></td>
-                    <td style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;">${a.syntax}</td>
+                    <td style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;">${a.syntax}</td>
                     <td>${a.answer}</td>
                     <td>${a.duration}</td>
-                    <td style="font-size:0.8rem;">${a.timestamp}</td>
+                    <td style="font-size:0.78rem;">${a.timestamp}</td>
                     <td>
-                        <button class="validate-btn correct" onclick="validateAnswer(${idx}, true)" title="Tandai Benar">✓</button>
-                        <button class="validate-btn wrong" onclick="validateAnswer(${idx}, false)" title="Tandai Salah">✗</button>
+                        <button class="validate-btn correct" onclick="validateAnswer(${realIdx}, true)" title="Benar">✓</button>
+                        <button class="validate-btn wrong" onclick="validateAnswer(${realIdx}, false)" title="Salah">✗</button>
                         <span class="validation-status">${a.validation === true ? '✅' : a.validation === false ? '❌' : '⏳'}</span>
                     </td>
                 </tr>
-            `).join('');
+            `;
+            }).join('');
+        }
+
+        function filterLogTable() {
+            const filterText = document.getElementById('logSearch').value;
+            updateLogTable(filterText);
         }
 
         function validateAnswer(idx, isCorrect) {
             testAnswers[idx].validation = isCorrect;
             updateLogTable();
             updateChart();
+            updateQuickStats();
+            playSound(isCorrect ? 'correct' : 'wrong');
+            addNotification(`Jawaban #${testAnswers[idx].no} divalidasi ${isCorrect ? 'Benar' : 'Salah'}`, isCorrect ?
+                'success' : 'error');
+        }
+
+        function validateAllCorrect() {
+            if (testAnswers.length === 0) return;
+            if (confirm('Tandai SEMUA jawaban sebagai BENAR?')) {
+                testAnswers.forEach(a => a.validation = true);
+                updateLogTable();
+                updateChart();
+                updateQuickStats();
+                playSound('correct');
+                addNotification('Semua jawaban divalidasi Benar', 'success');
+                showToast('✅ Semua jawaban ditandai benar!', 'success');
+            }
         }
 
         function updateRiwayatWaktu() {
             const content = document.getElementById('riwayatWaktuContent');
             if (riwayatWaktuData.length === 0) {
                 content.innerHTML =
-                    '<p style="color:var(--text2);">Data akan muncul saat sesi tes berjalan (per 10 soal).</p>';
+                    '<p style="color:var(--text2);">Data muncul saat sesi tes berjalan (per 10 soal).</p>';
                 return;
             }
             content.innerHTML = '<ul style="list-style:none;padding:0;">' + riwayatWaktuData.map(r =>
-                `<li style="padding:8px 0;border-bottom:1px solid var(--border);">📌 <strong>${r.checkpoint} soal:</strong> ⏱️ ${r.waktu}</li>`
-                ).join('') + '</ul>';
+                `<li style="padding:10px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
+                    <span>📌 <strong>${r.checkpoint} soal</strong></span>
+                    <span>⏱️ ${r.waktu}</span>
+                </li>`
+            ).join('') + '</ul>';
         }
 
         function updateChart() {
             const chartArea = document.getElementById('chartArea');
+            const scoreCircle = document.getElementById('scoreCircle');
+            const scoreText = document.getElementById('scoreText');
+            const scoreCorrect = document.getElementById('scoreCorrect');
+            const scoreTotal = document.getElementById('scoreTotal');
+            const total = testAnswers.length;
+            const correct = testAnswers.filter(a => a.validation === true).length;
+            const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
+            const circumference = 2 * Math.PI * 52; // ~326.73
+            const offset = circumference - (accuracy / 100) * circumference;
+            scoreCircle.style.strokeDashoffset = offset;
+            scoreText.textContent = accuracy + '%';
+            scoreCorrect.textContent = correct;
+            scoreTotal.textContent = total;
             const validated = testAnswers.filter(a => a.validation === true);
             if (validated.length === 0) {
                 chartArea.innerHTML =
-                    '<p style="color:var(--text2);">Grafik akan muncul setelah sesi tes selesai dan divalidasi.</p>';
+                    '<p style="color:var(--text2);margin-top:12px;">Grafik muncul setelah validasi.</p>';
                 return;
             }
             const langCounts = {};
@@ -1568,7 +2278,7 @@
                     <div class="chart-bar">
                         <span class="label">${lang}</span>
                         <div class="bar">
-                            <div class="fill" style="width:${pct}%;">${count} benar</div>
+                            <div class="fill" style="width:${Math.max(pct, 10)}%;">${count} benar</div>
                         </div>
                     </div>
                 `;
@@ -1577,32 +2287,36 @@
 
         // ==================== EKSPOR ====================
         function exportData(format) {
-            if (testAnswers.length === 0) { alert('Tidak ada data untuk diekspor!'); return; }
-            const header = `TechnoPiousQuiz - Hasil Ujian\nPeserta: ${participantName || 'Tidak Diketahui'}\nTanggal: ${new Date().toLocaleString('id-ID')}\n\n`;
+            if (testAnswers.length === 0) { showToast('Tidak ada data untuk diekspor!', 'error'); return; }
+            const header = `TechnoPiousQuiz - Hasil Ujian\nPeserta: ${participantName || 'Tidak Diketahui'}\nTanggal: ${new Date().toLocaleString('id-ID')}\nTotal: ${testAnswers.length} soal\n\n`;
             switch (format) {
                 case 'clipboard':
                     const text = header + testAnswers.map(a =>
                         `${a.no}\t${a.lang}\t${a.syntax}\t${a.answer}\t${a.duration}\t${a.timestamp}\t${a.validation === true ? 'Benar' : a.validation === false ? 'Salah' : 'Belum'}`
-                        ).join('\n');
-                    navigator.clipboard.writeText(text).then(() => alert('📋 Data berhasil disalin ke clipboard!'));
+                    ).join('\n');
+                    navigator.clipboard.writeText(text).then(() => {
+                        showToast('📋 Data disalin ke clipboard!', 'success');
+                        addNotification('Data diekspor ke clipboard', 'success');
+                    });
                     break;
                 case 'csv':
-                    downloadFile(`hasil_${participantName || 'peserta'}.csv`, 'text/csv', header + 'No,Bahasa,Sintaks,Jawaban,Durasi,Timestamp,Validasi\n' +
-                        testAnswers.map(a =>
+                    downloadFile(`hasil_${participantName || 'peserta'}.csv`, 'text/csv', header +
+                        'No,Bahasa,Sintaks,Jawaban,Durasi,Timestamp,Validasi\n' + testAnswers.map(a =>
                             `"${a.no}","${a.lang}","${a.syntax}","${a.answer}","${a.duration}","${a.timestamp}","${a.validation === true ? 'Benar' : a.validation === false ? 'Salah' : 'Belum'}"`
-                            ).join('\n'));
+                        ).join('\n'));
                     break;
                 case 'spreadsheet':
                     downloadFile(`hasil_${participantName || 'peserta'}.tsv`, 'text/tab-separated-values', header +
                         'No\tBahasa\tSintaks\tJawaban\tDurasi\tTimestamp\tValidasi\n' + testAnswers.map(a =>
                             `${a.no}\t${a.lang}\t${a.syntax}\t${a.answer}\t${a.duration}\t${a.timestamp}\t${a.validation === true ? 'Benar' : a.validation === false ? 'Salah' : 'Belum'}`
-                            ).join('\n'));
+                        ).join('\n'));
                     break;
                 case 'json':
                     const exportObj = {
                         platform: 'TechnoPiousQuiz',
                         participant: participantName,
                         exportDate: new Date().toISOString(),
+                        totalQuestions: testAnswers.length,
                         answers: testAnswers
                     };
                     downloadFile(`hasil_${participantName || 'peserta'}.json`, 'application/json', JSON.stringify(
@@ -1619,7 +2333,8 @@
             a.download = filename;
             a.click();
             URL.revokeObjectURL(url);
-            alert(`✅ File "${filename}" berhasil diunduh!`);
+            showToast(`✅ File "${filename}" diunduh!`, 'success');
+            addNotification(`File diekspor: ${filename}`, 'success');
         }
 
         // ==================== UTILS ====================
@@ -1636,6 +2351,23 @@
         renderManualTable();
         updateLiveClock();
         updateParticipantUI();
+        updateQuickStats();
+
+        // Keyboard shortcut for pause/resume
+        document.addEventListener('keydown', function(e) {
+            if (e.key === ' ' && testSessionActive && !document.getElementById('nameModal').classList
+                .contains('hidden') === false && document.activeElement !== document.getElementById(
+                    'testAnswerInput') && document.activeElement !== document.getElementById(
+                    'manualAnswerInput') && document.activeElement !== document.getElementById(
+                    'participantNameInput') && document.activeElement !== document.getElementById(
+                    'manualSearch') && document.activeElement !== document.getElementById('logSearch')) {
+                e.preventDefault();
+                if (testPaused) resumeTest();
+                else pauseTest();
+            }
+        });
+
+        addNotification('Selamat datang di TechnoPiousQuiz! 🚀', 'info');
     </script>
 </body>
 </html>

@@ -26,12 +26,10 @@
             --border: #1e3050;
             --border-light: #2a4070;
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-            --shadow-glow: 0 0 40px rgba(79, 140, 247, 0.12);
             --radius: 16px;
             --radius-sm: 10px;
-            --radius-xs: 6px;
+            --radius-xs: 8px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --safe-bottom: env(safe-area-inset-bottom, 16px);
         }
 
         * {
@@ -48,65 +46,28 @@
             min-height: 100dvh;
             line-height: 1.6;
             background-image:
-                radial-gradient(ellipse at 15% 15%, rgba(79, 140, 247, 0.04) 0%, transparent 55%),
-                radial-gradient(ellipse at 85% 75%, rgba(139, 92, 246, 0.04) 0%, transparent 55%),
+                radial-gradient(ellipse at 20% 20%, rgba(79, 140, 247, 0.04) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 80%, rgba(139, 92, 246, 0.04) 0%, transparent 55%),
                 radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.02) 0%, transparent 70%);
             background-attachment: fixed;
             -webkit-tap-highlight-color: transparent;
-            -webkit-user-select: none;
-            user-select: none;
             overscroll-behavior: none;
         }
 
         input,
         textarea,
         select {
-            -webkit-user-select: text;
             user-select: text;
+            -webkit-user-select: text;
         }
 
-        /* Particles */
-        .particles-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.25;
-        }
-        .particle {
-            position: absolute;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: floatUp linear infinite;
-            opacity: 0;
-        }
-        @keyframes floatUp {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.7;
-            }
-            90% {
-                opacity: 0.15;
-            }
-            100% {
-                transform: translateY(-10vh) scale(1);
-                opacity: 0;
-            }
-        }
-
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
         ::-webkit-scrollbar-track {
             background: var(--surface);
-            border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb {
             background: var(--surface3);
@@ -121,33 +82,33 @@
             z-index: 1;
         }
 
-        /* Header - Mobile Friendly */
+        /* ========== HEADER ========== */
         .header {
-            background: linear-gradient(180deg, rgba(13, 21, 37, 0.98) 0%, rgba(13, 21, 37, 0.9) 100%);
+            background: rgba(13, 21, 37, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            padding: 10px 16px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
             position: sticky;
             top: 0;
             z-index: 100;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
             border-radius: 0 0 var(--radius) var(--radius);
-            margin-bottom: 8px;
+            margin-bottom: 16px;
         }
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         .logo-img {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 10px;
             object-fit: contain;
             filter: drop-shadow(0 0 15px rgba(79, 140, 247, 0.4));
@@ -163,28 +124,17 @@
             }
         }
         .logo-fallback {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, var(--accent), var(--purple));
             border-radius: 10px;
             display: none;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: 0 0 20px var(--accent-glow);
-            animation: logoPulse 3s ease-in-out infinite;
-        }
-        @keyframes logoPulse {
-            0%,
-            100% {
-                box-shadow: 0 0 20px var(--accent-glow);
-            }
-            50% {
-                box-shadow: 0 0 32px var(--purple-glow);
-            }
+            font-size: 1.3rem;
         }
         .logo-text {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 800;
             background: linear-gradient(135deg, #4f8cf7, #8b5cf6, #4f8cf7);
             background-size: 200% auto;
@@ -201,118 +151,84 @@
         .header-right {
             display: flex;
             align-items: center;
-            gap: 8px;
-        }
-        .notification-bell {
-            position: relative;
-            cursor: pointer;
-            font-size: 1.1rem;
-            padding: 6px;
-            border-radius: 50%;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            transition: var(--transition);
-            width: 34px;
-            height: 34px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .notification-dot {
-            position: absolute;
-            top: 4px;
-            right: 4px;
-            width: 8px;
-            height: 8px;
-            background: var(--danger);
-            border-radius: 50%;
-            display: none;
-            animation: pulse 1.5s infinite;
-        }
-        .notification-dot.active {
-            display: block;
+            gap: 10px;
         }
         .participant-badge {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             background: var(--surface2);
-            padding: 6px 12px;
+            padding: 8px 14px;
             border-radius: 25px;
             border: 1px solid var(--border);
-            transition: var(--transition);
             cursor: pointer;
-            max-width: 150px;
+            transition: var(--transition);
+        }
+        .participant-badge:hover {
+            border-color: var(--accent);
         }
         .participant-avatar {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--accent), var(--purple));
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: white;
             flex-shrink: 0;
         }
         .participant-name {
             font-weight: 600;
-            color: var(--text);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            max-width: 120px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        .edit-name-btn {
-            background: none;
-            border: none;
-            color: var(--text2);
-            cursor: pointer;
-            padding: 2px 4px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            flex-shrink: 0;
-        }
         .live-clock {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 600;
             background: var(--surface2);
-            padding: 8px 12px;
+            padding: 8px 14px;
             border-radius: 20px;
             font-family: 'JetBrains Mono', 'Courier New', monospace;
-            letter-spacing: 0.5px;
             border: 1px solid var(--border);
             color: var(--accent);
             white-space: nowrap;
         }
 
-        /* Quick Stats - Mobile Grid */
+        /* ========== QUICK STATS ========== */
         .quick-stats {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-bottom: 14px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
         }
         .stat-card {
             background: var(--surface);
             border-radius: var(--radius-sm);
-            padding: 10px 14px;
+            padding: 12px 16px;
             border: 1px solid var(--border);
             display: flex;
             align-items: center;
             gap: 10px;
             transition: var(--transition);
         }
+        .stat-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
         .stat-icon {
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 1.1rem;
             flex-shrink: 0;
         }
         .stat-icon.blue {
@@ -327,38 +243,37 @@
         .stat-icon.orange {
             background: rgba(245, 158, 11, 0.2);
         }
-        .stat-info .stat-value {
-            font-size: 1.2rem;
+        .stat-value {
+            font-size: 1.4rem;
             font-weight: 800;
             line-height: 1;
         }
-        .stat-info .stat-label {
-            font-size: 0.65rem;
+        .stat-label {
+            font-size: 0.7rem;
             color: var(--text2);
             text-transform: uppercase;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.5px;
         }
 
-        /* Tab Navigation - Scrollable on mobile */
+        /* ========== TAB NAVIGATION ========== */
         .tab-nav {
             display: flex;
-            gap: 4px;
+            gap: 6px;
             background: var(--surface);
             border-radius: var(--radius);
-            padding: 4px;
-            margin-bottom: 16px;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            padding: 6px;
+            margin-bottom: 20px;
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
         }
         .tab-nav::-webkit-scrollbar {
             display: none;
         }
         .tab-btn {
-            padding: 10px 16px;
+            padding: 12px 24px;
             border: none;
             background: transparent;
             color: var(--text2);
@@ -366,9 +281,8 @@
             border-radius: var(--radius-sm);
             font-weight: 600;
             transition: var(--transition);
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             position: relative;
-            overflow: hidden;
             z-index: 1;
             white-space: nowrap;
             flex-shrink: 0;
@@ -376,10 +290,7 @@
         .tab-btn::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background: linear-gradient(135deg, var(--accent), var(--purple));
             opacity: 0;
             transition: var(--transition);
@@ -388,50 +299,36 @@
         }
         .tab-btn.active {
             color: white;
-            box-shadow: 0 4px 16px var(--accent-glow);
+            box-shadow: 0 4px 20px var(--accent-glow);
         }
         .tab-btn.active::before {
             opacity: 1;
         }
+        .tab-btn:hover:not(.active) {
+            color: var(--text);
+            background: var(--surface2);
+        }
         .tab-badge {
-            display: inline-block;
             background: rgba(255, 255, 255, 0.2);
-            padding: 1px 6px;
-            border-radius: 10px;
-            font-size: 0.7rem;
-            margin-left: 4px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-left: 6px;
         }
 
-        /* Cards */
+        /* ========== CARDS ========== */
         .card {
             background: var(--surface);
             border-radius: var(--radius);
-            padding: 16px;
-            margin-bottom: 14px;
+            padding: 20px;
+            margin-bottom: 16px;
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
             transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        .card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), var(--purple), transparent);
-            opacity: 0;
-            transition: var(--transition);
-        }
-        .card:hover::after {
-            opacity: 0.5;
         }
         .card h3 {
-            margin-bottom: 12px;
-            color: var(--text);
-            font-size: 1rem;
+            margin-bottom: 14px;
+            font-size: 1.05rem;
             font-weight: 700;
             display: flex;
             align-items: center;
@@ -460,14 +357,10 @@
         .icon-orange {
             background: rgba(245, 158, 11, 0.2);
         }
-        .icon-red {
-            background: rgba(239, 68, 68, 0.2);
-        }
 
-        /* Form Elements - Larger touch targets */
+        /* ========== FORM ELEMENTS ========== */
         input,
         select,
-        button,
         textarea {
             font-family: inherit;
             font-size: 0.9rem;
@@ -478,25 +371,26 @@
             color: var(--text);
             transition: var(--transition);
             outline: none;
-            -webkit-appearance: none;
-            appearance: none;
+            width: 100%;
         }
         input:focus,
         select:focus,
         textarea:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(79, 140, 247, 0.12), 0 0 15px rgba(79, 140, 247, 0.08);
+            box-shadow: 0 0 0 3px rgba(79, 140, 247, 0.15);
         }
         label {
-            font-size: 0.72rem;
+            font-size: 0.75rem;
             color: var(--text2);
             font-weight: 600;
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             text-transform: uppercase;
-            letter-spacing: 0.4px;
+            letter-spacing: 0.5px;
         }
         select {
+            appearance: none;
+            -webkit-appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238899b4' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 10px center;
@@ -508,19 +402,23 @@
             font-weight: 600;
             border: none;
             transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
             min-height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
         button:active {
-            transform: scale(0.95);
+            transform: scale(0.96);
         }
         .btn-primary {
             background: linear-gradient(135deg, var(--accent), #3b6fd4);
             color: white;
             box-shadow: 0 4px 16px var(--accent-glow);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 6px 24px var(--accent-glow);
+            transform: translateY(-1px);
         }
         .btn-success {
             background: linear-gradient(135deg, var(--success), #059669);
@@ -543,23 +441,23 @@
             box-shadow: 0 4px 16px var(--purple-glow);
         }
         .btn-sm {
-            padding: 6px 12px;
+            padding: 7px 14px;
             font-size: 0.8rem;
             border-radius: 8px;
             min-height: 34px;
         }
         .btn-lg {
-            padding: 12px 20px;
-            font-size: 0.95rem;
+            padding: 13px 24px;
+            font-size: 1rem;
             border-radius: 12px;
-            min-height: 44px;
+            min-height: 46px;
         }
         .btn:disabled {
             opacity: 0.4;
             cursor: not-allowed;
             transform: none !important;
             box-shadow: none !important;
-            filter: grayscale(40%);
+            filter: grayscale(30%);
         }
         .btn-outline {
             background: transparent;
@@ -568,30 +466,29 @@
         }
         .btn-outline:hover {
             border-color: var(--accent);
-            background: rgba(79, 140, 247, 0.06);
         }
 
-        /* Grid */
+        /* ========== GRID LAYOUTS ========== */
         .grid-2 {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
         }
         .grid-3 {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
         }
         .grid-4 {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 6px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
         }
 
-        /* Table */
+        /* ========== TABLE ========== */
         .table-wrapper {
             overflow-x: auto;
-            max-height: 400px;
+            max-height: 450px;
             overflow-y: auto;
             border-radius: var(--radius-sm);
             border: 1px solid var(--border);
@@ -600,12 +497,12 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.8rem;
-            min-width: 600px;
+            font-size: 0.85rem;
+            min-width: 650px;
         }
         th,
         td {
-            padding: 8px 10px;
+            padding: 10px 12px;
             text-align: left;
             border-bottom: 1px solid var(--border);
         }
@@ -617,179 +514,83 @@
             font-weight: 700;
             color: var(--accent);
             text-transform: uppercase;
-            font-size: 0.7rem;
+            font-size: 0.72rem;
             letter-spacing: 0.4px;
         }
+        tr:hover {
+            background: rgba(79, 140, 247, 0.03);
+        }
 
-        /* Syntax Display */
+        /* ========== SYNTAX DISPLAY ========== */
         .syntax-display {
             background: #040a14;
             color: #58a6ff;
-            padding: 20px 16px;
+            padding: 24px 20px;
             border-radius: var(--radius);
             font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             text-align: center;
-            min-height: 70px;
+            min-height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 2px solid var(--border);
-            letter-spacing: 0.3px;
+            letter-spacing: 0.5px;
             word-break: break-all;
-            box-shadow: inset 0 0 25px rgba(79, 140, 247, 0.03);
             transition: var(--transition);
-            position: relative;
         }
         .syntax-display.active-syntax {
             border-color: var(--accent);
-            box-shadow: inset 0 0 35px rgba(79, 140, 247, 0.06), 0 0 25px var(--accent-glow);
+            box-shadow: inset 0 0 35px rgba(79, 140, 247, 0.06), 0 0 30px var(--accent-glow);
             animation: syntaxGlow 2.5s ease-in-out infinite;
         }
         @keyframes syntaxGlow {
             0%,
             100% {
-                box-shadow: inset 0 0 35px rgba(79, 140, 247, 0.06), 0 0 25px var(--accent-glow);
+                box-shadow: inset 0 0 35px rgba(79, 140, 247, 0.06), 0 0 30px var(--accent-glow);
             }
             50% {
-                box-shadow: inset 0 0 45px rgba(139, 92, 246, 0.1), 0 0 35px var(--purple-glow);
+                box-shadow: inset 0 0 50px rgba(139, 92, 246, 0.1), 0 0 40px var(--purple-glow);
             }
         }
-        .syntax-number {
-            position: absolute;
-            top: 8px;
-            left: 12px;
-            font-size: 0.65rem;
-            color: var(--text2);
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 0;
-        }
 
-        /* Timer Display - Compact */
+        /* ========== TIMER DISPLAY ========== */
         .timer-display {
-            font-size: 2.2rem;
+            font-size: 2.8rem;
             font-weight: 800;
             font-family: 'JetBrains Mono', 'Courier New', monospace;
             text-align: center;
             color: var(--warning);
             background: #040a14;
-            padding: 10px 16px;
+            padding: 14px 20px;
             border-radius: var(--radius-sm);
             border: 2px solid var(--border);
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             transition: var(--transition);
         }
         .timer-display.warning {
             color: var(--danger);
             border-color: var(--danger);
             animation: timerPulse 0.7s infinite;
-            box-shadow: 0 0 25px var(--danger-glow);
+            box-shadow: 0 0 30px var(--danger-glow);
         }
         @keyframes timerPulse {
             0%,
             100% {
                 opacity: 1;
-                transform: scale(1);
             }
             50% {
                 opacity: 0.5;
-                transform: scale(1.03);
             }
         }
 
-        /* Dual Timer Row - Side by side on mobile */
-        .dual-timer-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-        .dual-timer-row .timer-label {
-            font-size: 0.65rem;
-            color: var(--text2);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-            text-align: center;
-        }
-        .dual-timer-row .timer-display {
-            font-size: 1.6rem;
-            padding: 8px 10px;
-            letter-spacing: 1px;
-        }
-
-        /* Test Controls - Sticky Bottom Bar */
-        .test-controls-bar {
-            position: sticky;
-            bottom: 12px;
-            z-index: 50;
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            background: rgba(13, 21, 37, 0.95);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 8px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.5);
-            margin-top: 8px;
-        }
-        .test-controls-bar button {
-            flex: 1;
-            min-width: 50px;
-            font-size: 0.75rem;
-            padding: 10px 6px;
-            border-radius: 10px;
-            min-height: 38px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 3px;
-            white-space: nowrap;
-        }
-        .test-controls-bar .btn-icon {
-            font-size: 1rem;
-        }
-
-        /* Answer Input Area */
-        .answer-input-area {
-            position: relative;
-        }
-        .answer-input-area input {
-            width: 100%;
-            font-size: 1rem;
-            padding: 14px 16px;
-            border-radius: var(--radius-sm);
-            border: 2px solid var(--border);
-            background: var(--surface2);
-            transition: var(--transition);
-        }
-        .answer-input-area input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-        .answer-input-area .input-hint {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.65rem;
-            color: var(--text2);
-            pointer-events: none;
-            transition: var(--transition);
-        }
-        .answer-input-area input:focus+.input-hint {
-            opacity: 0;
-        }
-
-        /* Badges */
+        /* ========== BADGES ========== */
         .badge {
             display: inline-block;
-            padding: 3px 8px;
+            padding: 4px 10px;
             border-radius: 15px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 700;
-            letter-spacing: 0.2px;
         }
         .badge-python {
             background: #306998;
@@ -820,11 +621,11 @@
             color: #fff;
         }
 
-        /* Validate Buttons */
+        /* ========== VALIDATE BUTTONS ========== */
         .validate-btn {
             cursor: pointer;
-            font-size: 1.1rem;
-            padding: 4px 8px;
+            font-size: 1.2rem;
+            padding: 5px 9px;
             border-radius: 6px;
             border: 2px solid transparent;
             background: transparent;
@@ -833,48 +634,49 @@
         .validate-btn.correct {
             color: var(--success);
         }
+        .validate-btn.correct:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--success);
+        }
         .validate-btn.wrong {
             color: var(--danger);
         }
-        .validation-status {
-            font-size: 0.9rem;
-            margin-left: 2px;
+        .validate-btn.wrong:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--danger);
         }
 
-        /* Progress Bar */
+        /* ========== PROGRESS BAR ========== */
         .progress-bar {
             height: 8px;
             background: var(--surface2);
             border-radius: 4px;
             overflow: hidden;
             margin: 8px 0;
-            border: 1px solid var(--border);
         }
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--accent), var(--purple));
-            transition: width 0.5s ease;
+            transition: width 0.4s ease;
             border-radius: 4px;
-            box-shadow: 0 0 10px var(--accent-glow);
         }
 
-        /* Chart */
+        /* ========== CHART ========== */
         .chart-bar {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             margin: 8px 0;
         }
         .chart-bar .label {
-            width: 70px;
-            font-size: 0.75rem;
+            width: 80px;
+            font-size: 0.8rem;
             font-weight: 600;
             text-align: right;
-            flex-shrink: 0;
         }
         .chart-bar .bar {
             flex: 1;
-            height: 24px;
+            height: 26px;
             background: var(--surface2);
             border-radius: 6px;
             overflow: hidden;
@@ -884,28 +686,26 @@
             height: 100%;
             background: linear-gradient(90deg, var(--accent), var(--purple));
             border-radius: 6px;
-            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: width 0.8s ease;
             display: flex;
             align-items: center;
             padding-left: 10px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 700;
             color: white;
-            box-shadow: 0 0 12px var(--accent-glow);
         }
 
-        /* Score Circle */
+        /* ========== SCORE CIRCLE ========== */
         .score-circle-container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 14px;
+            gap: 16px;
             flex-wrap: wrap;
         }
         .score-circle {
             position: relative;
-            width: 90px;
-            height: 90px;
+            width: 100px;
+            height: 100px;
         }
         .score-circle svg {
             transform: rotate(-90deg);
@@ -922,22 +722,19 @@
             stroke-linecap: round;
             transition: stroke-dashoffset 0.8s ease;
         }
-        .score-circle .score-text {
+        .score-text {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 800;
         }
 
-        /* Paused Overlay */
+        /* ========== PAUSED OVERLAY ========== */
         .paused-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -946,45 +743,49 @@
             align-items: center;
             justify-content: center;
             z-index: 200;
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--warning);
-            letter-spacing: 4px;
-            gap: 12px;
+            gap: 16px;
             text-align: center;
             padding: 20px;
         }
+        .paused-overlay .title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--warning);
+            letter-spacing: 6px;
+        }
         .paused-overlay .sub {
-            font-size: 0.9rem;
             color: var(--text2);
             letter-spacing: 2px;
-            animation: fadeInOut 2s ease-in-out infinite;
-        }
-        @keyframes fadeInOut {
-            0%,
-            100% {
-                opacity: 0.5;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-        .paused-overlay button {
-            margin-top: 16px;
-            font-size: 1rem;
-            padding: 12px 30px;
-        }
-        .hidden {
-            display: none !important;
         }
 
-        /* Modal */
+        /* ========== TEST CONTROLS BAR ========== */
+        .test-controls-bar {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            position: sticky;
+            bottom: 16px;
+            background: rgba(13, 21, 37, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 10px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.5);
+            z-index: 50;
+        }
+        .test-controls-bar button {
+            flex: 1;
+            min-width: 60px;
+            font-size: 0.85rem;
+            padding: 11px 10px;
+            border-radius: 10px;
+        }
+
+        /* ========== MODAL ========== */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background: rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
@@ -999,10 +800,9 @@
             border-radius: var(--radius);
             padding: 24px;
             border: 1px solid var(--border);
-            box-shadow: var(--shadow), var(--shadow-glow);
             width: 100%;
-            max-width: 400px;
-            animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 420px;
+            animation: modalIn 0.3s ease;
         }
         @keyframes modalIn {
             from {
@@ -1014,20 +814,11 @@
                 transform: scale(1) translateY(0);
             }
         }
-        .modal h3 {
-            margin-bottom: 14px;
-            font-size: 1.1rem;
-        }
-        .modal input {
-            width: 100%;
-            padding: 12px 14px;
-            font-size: 1rem;
-        }
 
-        /* Toast */
+        /* ========== TOAST ========== */
         .toast {
             position: fixed;
-            bottom: 20px;
+            bottom: 24px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--surface);
@@ -1036,18 +827,15 @@
             border-radius: 25px;
             box-shadow: var(--shadow);
             z-index: 400;
-            animation: toastIn 0.4s ease, toastOut 0.4s ease 2.5s forwards;
             font-weight: 600;
             font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            animation: toastIn 0.4s ease;
             white-space: nowrap;
             max-width: 90vw;
         }
         @keyframes toastIn {
             from {
-                transform: translateX(-50%) translateY(100px);
+                transform: translateX(-50%) translateY(80px);
                 opacity: 0;
             }
             to {
@@ -1055,193 +843,164 @@
                 opacity: 1;
             }
         }
-        @keyframes toastOut {
-            from {
-                transform: translateX(-50%) translateY(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(-50%) translateY(100px);
-                opacity: 0;
-            }
-        }
-        .toast.success {
-            border-color: var(--success);
-        }
-        .toast.error {
-            border-color: var(--danger);
-        }
-        .toast.info {
-            border-color: var(--accent);
+
+        .hidden {
+            display: none !important;
         }
 
-        /* Toggle Switch */
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 42px;
-            height: 24px;
-        }
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--surface3);
-            border-radius: 24px;
-            transition: var(--transition);
-            border: 1px solid var(--border);
-        }
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 2px;
-            bottom: 2px;
-            background: white;
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-        input:checked+.toggle-slider {
-            background: var(--accent);
-        }
-        input:checked+.toggle-slider:before {
-            transform: translateX(18px);
-        }
-
-        /* Search */
-        .search-box {
-            position: relative;
-            display: inline-block;
-        }
-        .search-box input {
-            padding-left: 32px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            padding: 7px 10px 7px 30px;
-        }
-        .search-box .search-icon {
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text2);
-            font-size: 0.8rem;
-        }
-
-        /* Inline Test Info */
-        .test-info-inline {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            font-size: 0.75rem;
-            color: var(--text2);
-        }
-
-        /* Media Queries */
-        @media (min-width: 600px) {
-            .container {
-                padding: 16px;
-            }
-            .grid-2 {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            }
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
             .grid-3 {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
             }
             .grid-4 {
-                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            }
-            .quick-stats {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
             .timer-display {
-                font-size: 2.8rem;
-            }
-            .dual-timer-row .timer-display {
-                font-size: 2rem;
+                font-size: 2.2rem;
+                padding: 10px 14px;
             }
             .syntax-display {
-                font-size: 1.3rem;
-                padding: 24px 20px;
-                min-height: 85px;
+                font-size: 1.1rem;
+                padding: 18px 14px;
             }
-            .test-controls-bar button {
-                font-size: 0.85rem;
-                padding: 12px 10px;
-            }
-            .tab-btn {
-                padding: 12px 20px;
-                font-size: 0.9rem;
-            }
+        }
+
+        @media (max-width: 768px) {
             .header {
-                padding: 12px 24px;
+                padding: 10px 14px;
+                gap: 8px;
             }
             .logo-text {
-                font-size: 1.4rem;
+                font-size: 1.1rem;
             }
             .logo-img {
-                width: 40px;
-                height: 40px;
+                width: 32px;
+                height: 32px;
             }
             .logo-fallback {
-                width: 40px;
-                height: 40px;
-                font-size: 1.3rem;
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
             }
-        }
-
-        @media (min-width: 1024px) {
             .container {
-                padding: 20px;
+                padding: 8px;
+            }
+            .quick-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+            .stat-card {
+                padding: 10px 12px;
+            }
+            .stat-value {
+                font-size: 1.1rem;
+            }
+            .stat-label {
+                font-size: 0.6rem;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+            }
+            .card {
+                padding: 14px;
+            }
+            .card h3 {
+                font-size: 0.95rem;
             }
             .timer-display {
-                font-size: 3.2rem;
-            }
-            .dual-timer-row .timer-display {
-                font-size: 2.4rem;
+                font-size: 1.8rem;
+                padding: 8px 10px;
+                letter-spacing: 1px;
             }
             .syntax-display {
-                font-size: 1.5rem;
-                padding: 28px 24px;
-                min-height: 95px;
+                font-size: 1rem;
+                padding: 16px 12px;
+                min-height: 60px;
+            }
+            .test-controls-bar {
+                gap: 5px;
+                padding: 8px;
+                bottom: 8px;
+            }
+            .test-controls-bar button {
+                font-size: 0.72rem;
+                padding: 9px 6px;
+                min-height: 36px;
+            }
+            .btn-lg {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+                min-height: 40px;
+            }
+            .score-circle {
+                width: 75px;
+                height: 75px;
+            }
+            .score-text {
+                font-size: 1.2rem;
+            }
+            input,
+            select {
+                font-size: 16px !important;
             }
         }
 
-        /* Dark mode input fix for iOS */
-        @supports (-webkit-touch-callout: none) {
-            input,
-            textarea,
-            select {
-                font-size: 16px !important;
+        @media (max-width: 400px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-right {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .quick-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 4px;
+            }
+            .stat-card {
+                padding: 8px 10px;
+                gap: 6px;
+            }
+            .stat-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+            }
+            .stat-value {
+                font-size: 1rem;
+            }
+            .test-controls-bar button {
+                font-size: 0.65rem;
+                padding: 8px 4px;
+            }
+            .tab-btn {
+                padding: 8px 12px;
+                font-size: 0.75rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Particles -->
-    <div class="particles-container" id="particlesContainer"></div>
-
-    <!-- Toast Container -->
-    <div id="toastContainer"></div>
-
-    <!-- Modal Edit Nama -->
+    <!-- Modal Nama -->
     <div class="modal-overlay hidden" id="nameModal">
         <div class="modal">
             <h3>✏️ Edit Nama Peserta</h3>
-            <p style="color:var(--text2);margin-bottom:12px;font-size:0.85rem;">Masukkan nama peserta yang sedang diuji:</p>
-            <input type="text" id="participantNameInput" placeholder="Contoh: Ahmad Fauzi" maxlength="50" autocomplete="off" inputmode="text">
+            <p style="color:var(--text2);margin-bottom:12px;font-size:0.9rem;">Masukkan nama peserta ujian:</p>
+            <input type="text" id="participantNameInput" placeholder="Contoh: Ahmad Fauzi" maxlength="50" autocomplete="off">
             <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end;">
                 <button class="btn-outline btn-sm" onclick="closeNameModal()">Batal</button>
                 <button class="btn-primary btn-sm" onclick="saveParticipantName()">💾 Simpan</button>
@@ -1249,28 +1008,17 @@
         </div>
     </div>
 
-    <!-- Modal Notifikasi -->
-    <div class="modal-overlay hidden" id="notifModal">
-        <div class="modal">
-            <h3>🔔 Notifikasi</h3>
-            <div id="notifContent" style="max-height:250px;overflow-y:auto;font-size:0.85rem;">
-                <p style="color:var(--text2);">Belum ada notifikasi.</p>
-            </div>
-            <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end;">
-                <button class="btn-outline btn-sm" onclick="clearNotifications()">Hapus</button>
-                <button class="btn-primary btn-sm" onclick="closeNotifModal()">Tutup</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Paused Overlay -->
     <div id="pausedOverlay" class="paused-overlay hidden">
-        <div>⏸️ PAUSED</div>
-        <div class="sub">Sesi sedang dijeda</div>
+        <div class="title">⏸️ PAUSED</div>
+        <div class="sub">Sesi tes sedang dijeda</div>
         <button class="btn-success btn-lg" onclick="resumeTest()">▶️ Lanjutkan Tes</button>
     </div>
 
-    <!-- Header -->
+    <!-- Toast -->
+    <div id="toastContainer"></div>
+
+    <!-- ========== HEADER ========== -->
     <header class="header">
         <div class="logo-area">
             <img src="LogoTechnoPious.png" alt="Logo" class="logo-img" id="logoImg" onerror="handleLogoError()">
@@ -1278,70 +1026,65 @@
             <div class="logo-text">TechnoPiousQuiz</div>
         </div>
         <div class="header-right">
-            <div class="notification-bell" onclick="openNotifModal()" title="Notifikasi">
-                🔔
-                <span class="notification-dot" id="notifDot"></span>
-            </div>
-            <div class="participant-badge" onclick="openNameModal()" title="Edit nama">
+            <div class="participant-badge" onclick="openNameModal()" title="Klik untuk edit nama">
                 <div class="participant-avatar" id="participantAvatar">?</div>
                 <span class="participant-name" id="participantDisplayName">Atur Nama</span>
-                <button class="edit-name-btn">✏️</button>
             </div>
             <div class="live-clock" id="liveClock">--</div>
         </div>
     </header>
 
     <div class="container">
-        <!-- Quick Stats -->
-        <div class="quick-stats" id="quickStats">
+        <!-- ========== QUICK STATS ========== -->
+        <div class="quick-stats">
             <div class="stat-card">
                 <div class="stat-icon blue">📝</div>
-                <div class="stat-info">
+                <div>
                     <div class="stat-value" id="statTotalSyntax">1000</div>
                     <div class="stat-label">Total Sintaks</div>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon green">✅</div>
-                <div class="stat-info">
+                <div>
                     <div class="stat-value" id="statCorrect">0</div>
                     <div class="stat-label">Benar</div>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon purple">📊</div>
-                <div class="stat-info">
+                <div>
                     <div class="stat-value" id="statAccuracy">0%</div>
                     <div class="stat-label">Akurasi</div>
                 </div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon orange">⏱️</div>
-                <div class="stat-info">
+                <div>
                     <div class="stat-value" id="statAvgTime">0s</div>
                     <div class="stat-label">Rata² Waktu</div>
                 </div>
             </div>
         </div>
 
-        <!-- Tab Nav -->
+        <!-- ========== TAB NAVIGATION ========== -->
         <nav class="tab-nav">
             <button class="tab-btn active" onclick="switchTab('manual')">📋 Manual <span class="tab-badge" id="manualCount">0</span></button>
-            <button class="tab-btn" onclick="switchTab('test')">🧪 Tes</button>
+            <button class="tab-btn" onclick="switchTab('test')">🧪 Mode Tes</button>
             <button class="tab-btn" onclick="switchTab('results')">📊 Hasil <span class="tab-badge" id="resultsCount">0</span></button>
         </nav>
 
-        <!-- ==================== MODE MANUAL ==================== -->
+        <!-- ==================== TAB MANUAL ==================== -->
         <div id="tab-manual">
             <div class="card">
                 <h3><span class="icon icon-orange">⏱️</span> Timer Manual</h3>
                 <div class="grid-3">
                     <div>
-                        <label>Atur Timer (m : d)</label>
-                        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-                            <input type="number" id="manualTimerMin" value="5" min="0" max="60" style="width:55px;text-align:center;" inputmode="numeric">
+                        <label>Atur Timer (menit : detik)</label>
+                        <div style="display:flex;gap:8px;align-items:center;">
+                            <input type="number" id="manualTimerMin" value="5" min="0" max="60" style="width:60px;text-align:center;">
                             <span style="font-weight:700;">:</span>
-                            <input type="number" id="manualTimerSec" value="0" min="0" max="59" style="width:55px;text-align:center;" inputmode="numeric">
+                            <input type="number" id="manualTimerSec" value="0" min="0" max="59" style="width:60px;text-align:center;">
                             <button class="btn-primary btn-sm" onclick="startManualTimer()">▶</button>
                             <button class="btn-warning btn-sm" onclick="resetManualTimer()">↺</button>
                         </div>
@@ -1351,11 +1094,8 @@
                         <div class="timer-display" id="manualTimerDisplay">05:00</div>
                     </div>
                     <div>
-                        <label>Input Jawaban</label>
-                        <div class="answer-input-area">
-                            <input type="text" id="manualAnswerInput" placeholder="Ketik lalu Enter..." onkeydown="if(event.key==='Enter')addManualEntry()" autocomplete="off" inputmode="text">
-                            <span class="input-hint">↵ Enter</span>
-                        </div>
+                        <label>Input Jawaban (Enter = Catat)</label>
+                        <input type="text" id="manualAnswerInput" placeholder="Ketik jawaban..." onkeydown="if(event.key==='Enter'){event.preventDefault();addManualEntry();}" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -1363,60 +1103,53 @@
             <div class="card">
                 <h3>
                     <span class="icon icon-blue">📋</span> Tabel Manual
-                    <span style="font-size:0.7rem;color:var(--text2);" id="manualParticipantLabel">-</span>
+                    <span style="font-size:0.75rem;color:var(--text2);" id="manualParticipantLabel">-</span>
                 </h3>
-                <div style="margin-bottom:8px;">
-                    <span class="search-box">
-                        <span class="search-icon">🔍</span>
-                        <input type="text" id="manualSearch" placeholder="Cari..." oninput="filterManualTable()" autocomplete="off">
-                    </span>
-                </div>
                 <div class="table-wrapper">
-                    <table id="manualTable">
+                    <table>
                         <thead>
-                            <tr><th>No</th><th>Jawaban</th><th>Durasi</th><th>Waktu</th><th></th></tr>
+                            <tr><th>No</th><th>Jawaban</th><th>Durasi</th><th>Timestamp</th><th></th></tr>
                         </thead>
                         <tbody id="manualTableBody">
                             <tr><td colspan="5" style="text-align:center;color:var(--text2);">Belum ada data.</td></tr>
                         </tbody>
                     </table>
                 </div>
-                <div style="margin-top:10px;display:flex;gap:6px;">
-                    <button class="btn-danger btn-sm" onclick="clearManualTable()">🗑️ Hapus</button>
+                <div style="margin-top:10px;display:flex;gap:8px;">
+                    <button class="btn-danger btn-sm" onclick="clearManualTable()">🗑️ Hapus Semua</button>
                     <button class="btn-outline btn-sm" onclick="exportManualData()">📤 Ekspor</button>
                 </div>
             </div>
         </div>
 
-        <!-- ==================== MODE TES ==================== -->
+        <!-- ==================== TAB TES ==================== -->
         <div id="tab-test" class="hidden">
-            <!-- Konfigurasi -->
             <div class="card">
                 <h3><span class="icon icon-purple">⚙️</span> Konfigurasi Tes</h3>
                 <div class="grid-3">
                     <div>
-                        <label>Waktu/Sintaks (detik)</label>
-                        <input type="number" id="testTimePerSyntax" value="15" min="3" max="120" inputmode="numeric">
+                        <label>Waktu per Sintaks (detik)</label>
+                        <input type="number" id="testTimePerSyntax" value="15" min="3" max="120">
                     </div>
                     <div>
                         <label>Batas Sesi (menit)</label>
-                        <input type="number" id="testSessionLimit" value="10" min="1" max="180" inputmode="numeric">
+                        <input type="number" id="testSessionLimit" value="10" min="1" max="180">
                     </div>
                     <div>
                         <label>Maksimal Soal</label>
-                        <input type="number" id="testMaxQuestions" value="20" min="5" max="200" inputmode="numeric">
+                        <input type="number" id="testMaxQuestions" value="20" min="5" max="200">
                     </div>
                     <div>
-                        <label>Kesulitan</label>
+                        <label>Tingkat Kesulitan</label>
                         <select id="testDifficulty">
-                            <option value="all">🌟 Semua</option>
+                            <option value="all">🌟 Semua Level</option>
                             <option value="basic">🟢 Dasar</option>
                             <option value="intermediate">🟡 Menengah</option>
                             <option value="advanced">🔴 Lanjutan</option>
                         </select>
                     </div>
                     <div>
-                        <label>Urutan</label>
+                        <label>Urutan Soal</label>
                         <select id="testOrder">
                             <option value="random">🎲 Acak</option>
                             <option value="sequential">📋 Berurutan</option>
@@ -1424,35 +1157,35 @@
                     </div>
                     <div>
                         <label>Suara</label>
-                        <label class="toggle-switch" style="display:inline-block;margin-left:4px;">
-                            <input type="checkbox" id="soundToggle" checked>
-                            <span class="toggle-slider"></span>
+                        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                            <input type="checkbox" id="soundToggle" checked style="width:auto;">
+                            <span style="font-size:0.8rem;text-transform:none;">Aktifkan suara</span>
                         </label>
                     </div>
                 </div>
-                <div style="margin-top:10px;">
-                    <label>Filter Bahasa</label>
-                    <div class="grid-4" style="font-size:0.78rem;">
-                        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                            <input type="checkbox" class="testLangFilter" value="Python" checked> Python
+                <div style="margin-top:12px;">
+                    <label>Filter Bahasa Pemrograman</label>
+                    <div class="grid-4" style="font-size:0.82rem;">
+                        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;text-transform:none;">
+                            <input type="checkbox" class="testLangFilter" value="Python" checked style="width:auto;"> Python
                         </label>
-                        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                            <input type="checkbox" class="testLangFilter" value="JavaScript" checked> JavaScript
+                        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;text-transform:none;">
+                            <input type="checkbox" class="testLangFilter" value="JavaScript" checked style="width:auto;"> JavaScript
                         </label>
-                        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                            <input type="checkbox" class="testLangFilter" value="HTML" checked> HTML
+                        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;text-transform:none;">
+                            <input type="checkbox" class="testLangFilter" value="HTML" checked style="width:auto;"> HTML
                         </label>
-                        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                            <input type="checkbox" class="testLangFilter" value="C" checked> C
+                        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;text-transform:none;">
+                            <input type="checkbox" class="testLangFilter" value="C" checked style="width:auto;"> C
                         </label>
-                        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                            <input type="checkbox" class="testLangFilter" value="C++" checked> C++
+                        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;text-transform:none;">
+                            <input type="checkbox" class="testLangFilter" value="C++" checked style="width:auto;"> C++
                         </label>
-                        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                            <input type="checkbox" class="testLangFilter" value="Java" checked> Java
+                        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;text-transform:none;">
+                            <input type="checkbox" class="testLangFilter" value="Java" checked style="width:auto;"> Java
                         </label>
-                        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-                            <input type="checkbox" class="testLangFilter" value="PHP" checked> PHP
+                        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;text-transform:none;">
+                            <input type="checkbox" class="testLangFilter" value="PHP" checked style="width:auto;"> PHP
                         </label>
                     </div>
                 </div>
@@ -1461,21 +1194,20 @@
 
             <!-- Area Tes Aktif -->
             <div id="testActiveArea" class="hidden">
-                <!-- Timer & Progress -->
                 <div class="card">
-                    <div class="dual-timer-row">
+                    <div class="grid-2">
                         <div>
-                            <div class="timer-label">⏱️ Timer Soal</div>
+                            <label>⏱️ Timer per Soal</label>
                             <div class="timer-display" id="testTimerDisplay">00:15</div>
                         </div>
                         <div>
-                            <div class="timer-label">⏰ Timer Sesi</div>
+                            <label>⏰ Timer Sesi</label>
                             <div class="timer-display" id="testSessionTimerDisplay">10:00</div>
                         </div>
                     </div>
-                    <div style="margin-top:10px;">
-                        <div class="test-info-inline">
-                            <span>📊 <span id="testQuestionCount">0</span>/<span id="testMaxDisplay">20</span></span>
+                    <div style="margin-top:12px;">
+                        <div style="display:flex;justify-content:space-between;font-size:0.8rem;color:var(--text2);">
+                            <span>Progres: <span id="testQuestionCount">0</span>/<span id="testMaxDisplay">20</span></span>
                             <span id="testCurrentDifficulty" style="color:var(--accent);">-</span>
                         </div>
                         <div class="progress-bar">
@@ -1484,208 +1216,88 @@
                     </div>
                 </div>
 
-                <!-- Syntax & Answer -->
                 <div class="card">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:4px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:6px;">
                         <span class="badge" id="testCurrentLang">-</span>
-                        <span style="font-size:0.7rem;color:var(--text2);" id="testParticipantLabel">(-)</span>
+                        <span style="font-size:0.75rem;color:var(--text2);" id="testParticipantLabel">(-)</span>
                     </div>
                     <div class="syntax-display active-syntax" id="testSyntaxDisplay">
-                        <span class="syntax-number" id="syntaxNumber">#1</span>
                         -- Siap --
                     </div>
-                    <div style="margin-top:10px;">
-                        <label>⌨️ Jawaban</label>
-                        <div class="answer-input-area">
-                            <input type="text" id="testAnswerInput" placeholder="Ketik jawaban..." autocomplete="off" inputmode="text" disabled>
-                            <span class="input-hint">↵ Kirim</span>
-                        </div>
+                    <div style="margin-top:12px;">
+                        <label>⌨️ Jawaban Peserta (Enter = Kirim & Lanjut)</label>
+                        <input type="text" id="testAnswerInput" placeholder="Ketik jawaban di sini..." autocomplete="off" disabled>
                     </div>
                 </div>
 
                 <!-- Sticky Control Bar -->
                 <div class="test-controls-bar">
-                    <button class="btn-danger" id="btnStopManual" onclick="stopTestSession()" disabled>
-                        <span class="btn-icon">⏹️</span> Stop
-                    </button>
-                    <button class="btn-warning" id="btnPause" onclick="pauseTest()" disabled>
-                        <span class="btn-icon">⏸️</span> Pause
-                    </button>
-                    <button class="btn-success" id="btnResume" onclick="resumeTest()" disabled>
-                        <span class="btn-icon">▶️</span> Lanjut
-                    </button>
-                    <button class="btn-outline" id="btnSkip" onclick="skipSyntax()" disabled>
-                        <span class="btn-icon">⏭️</span> Lewati
-                    </button>
+                    <button class="btn-danger" id="btnStopManual" onclick="stopTestSession()" disabled>⏹️ Stop</button>
+                    <button class="btn-warning" id="btnPause" onclick="pauseTest()" disabled>⏸️ Pause</button>
+                    <button class="btn-success" id="btnResume" onclick="resumeTest()" disabled>▶️ Lanjut</button>
+                    <button class="btn-outline" id="btnSkip" onclick="skipSyntax()" disabled>⏭️ Lewati</button>
                 </div>
             </div>
         </div>
 
-        <!-- ==================== HASIL & LOG ==================== -->
+        <!-- ==================== TAB HASIL ==================== -->
         <div id="tab-results" class="hidden">
-            <div class="card">
-                <h3><span class="icon icon-green">📊</span> Performa</h3>
-                <div class="score-circle-container">
-                    <div class="score-circle">
-                        <svg width="90" height="90" viewBox="0 0 90 90">
-                            <defs>
-                                <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" style="stop-color:var(--accent);stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:var(--purple);stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-                            <circle class="bg-circle" cx="45" cy="45" r="38"/>
-                            <circle class="fg-circle" id="scoreCircle" cx="45" cy="45" r="38" stroke-dasharray="238.76" stroke-dashoffset="238.76"/>
-                        </svg>
-                        <div class="score-text" id="scoreText">0%</div>
+            <div class="grid-2">
+                <div class="card">
+                    <h3><span class="icon icon-green">📊</span> Performa</h3>
+                    <div class="score-circle-container">
+                        <div class="score-circle">
+                            <svg width="100" height="100" viewBox="0 0 100 100">
+                                <defs>
+                                    <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:var(--accent);stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:var(--purple);stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <circle class="bg-circle" cx="50" cy="50" r="42"/>
+                                <circle class="fg-circle" id="scoreCircle" cx="50" cy="50" r="42" stroke-dasharray="263.89" stroke-dashoffset="263.89"/>
+                            </svg>
+                            <div class="score-text" id="scoreText">0%</div>
+                        </div>
+                        <div style="font-size:0.9rem;">
+                            <p><strong id="scoreCorrect">0</strong> benar</p>
+                            <p style="color:var(--text2);">dari <span id="scoreTotal">0</span> soal</p>
+                        </div>
                     </div>
-                    <div style="font-size:0.85rem;">
-                        <p><span id="scoreCorrect">0</span> benar dari <span id="scoreTotal">0</span></p>
-                    </div>
+                    <div id="chartArea" style="margin-top:14px;"></div>
                 </div>
-                <div id="chartArea" style="margin-top:10px;"></div>
-            </div>
-            <div class="card">
-                <h3><span class="icon icon-purple">⏱️</span> Riwayat per 10 Soal</h3>
-                <div id="riwayatWaktuContent" style="font-size:0.85rem;"></div>
+                <div class="card">
+                    <h3><span class="icon icon-purple">⏱️</span> Riwayat Waktu (per 10 soal)</h3>
+                    <div id="riwayatWaktuContent" style="font-size:0.85rem;"></div>
+                </div>
             </div>
             <div class="card">
                 <h3>
                     <span class="icon icon-blue">📝</span> Log Jawaban
-                    <span style="font-size:0.7rem;color:var(--text2);" id="logParticipantLabel">-</span>
+                    <span style="font-size:0.75rem;color:var(--text2);" id="logParticipantLabel">-</span>
                 </h3>
-                <div style="margin-bottom:8px;">
-                    <span class="search-box">
-                        <span class="search-icon">🔍</span>
-                        <input type="text" id="logSearch" placeholder="Cari..." oninput="filterLogTable()" autocomplete="off">
-                    </span>
-                </div>
                 <div class="table-wrapper">
-                    <table id="logTable">
+                    <table>
                         <thead>
-                            <tr><th>No</th><th>Bahasa</th><th>Sintaks</th><th>Jawaban</th><th>Durasi</th><th>Waktu</th><th>Validasi</th></tr>
+                            <tr><th>No</th><th>Bahasa</th><th>Sintaks</th><th>Jawaban</th><th>Durasi</th><th>Timestamp</th><th>Validasi</th></tr>
                         </thead>
                         <tbody id="logTableBody">
                             <tr><td colspan="7" style="text-align:center;color:var(--text2);">Belum ada data.</td></tr>
                         </tbody>
                     </table>
                 </div>
-                <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
+                <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
                     <button class="btn-primary btn-sm" onclick="exportData('clipboard')">📋 Salin</button>
                     <button class="btn-success btn-sm" onclick="exportData('csv')">📄 CSV</button>
                     <button class="btn-purple btn-sm" onclick="exportData('spreadsheet')">📊 Sheet</button>
                     <button class="btn-warning btn-sm" onclick="exportData('json')">🔧 JSON</button>
-                    <button class="btn-outline btn-sm" onclick="validateAllCorrect()">✅ Semua Benar</button>
+                    <button class="btn-outline btn-sm" onclick="validateAllCorrect()">✅ Validasi Semua</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== PARTICLES ====================
-        function createParticles() {
-            const container = document.getElementById('particlesContainer');
-            const colors = ['#4f8cf7', '#8b5cf6', '#10b981', '#f59e0b'];
-            const count = window.innerWidth < 600 ? 15 : 30;
-            for (let i = 0; i < count; i++) {
-                const p = document.createElement('div');
-                p.classList.add('particle');
-                const size = Math.random() * 3 + 1.5;
-                p.style.width = size + 'px';
-                p.style.height = size + 'px';
-                p.style.left = Math.random() * 100 + '%';
-                p.style.background = colors[Math.floor(Math.random() * colors.length)];
-                p.style.animationDuration = (Math.random() * 12 + 8) + 's';
-                p.style.animationDelay = (Math.random() * 12) + 's';
-                container.appendChild(p);
-            }
-        }
-        createParticles();
-
-        // ==================== LOGO ====================
-        function handleLogoError() {
-            document.getElementById('logoImg').style.display = 'none';
-            document.getElementById('logoFallback').style.display = 'flex';
-        }
-        const logoImg = document.getElementById('logoImg');
-        logoImg.onload = function() {
-            document.getElementById('logoFallback').style.display = 'none';
-            logoImg.style.display = 'block';
-        };
-        logoImg.onerror = handleLogoError;
-
-        // ==================== NOTIFICATION ====================
-        let notifications = [];
-
-        function addNotification(message, type = 'info') {
-            notifications.unshift({ message, type, time: new Date().toLocaleString('id-ID') });
-            if (notifications.length > 50) notifications.pop();
-            updateNotifDot();
-            showToast(message, type);
-        }
-
-        function updateNotifDot() {
-            const dot = document.getElementById('notifDot');
-            if (notifications.length > 0) dot.classList.add('active');
-            else dot.classList.remove('active');
-        }
-
-        function openNotifModal() {
-            const content = document.getElementById('notifContent');
-            if (notifications.length === 0) {
-                content.innerHTML = '<p style="color:var(--text2);">Belum ada notifikasi.</p>';
-            } else {
-                content.innerHTML = notifications.map(n =>
-                    `<div style="padding:6px 0;border-bottom:1px solid var(--border);font-size:0.8rem;">
-                        <span style="color:${n.type==='success'?'var(--success)':n.type==='error'?'var(--danger)':'var(--accent)'};">${n.type==='success'?'✅':n.type==='error'?'❌':'ℹ️'}</span>
-                        ${n.message} <small style="color:var(--text2);">(${n.time})</small>
-                    </div>`
-                ).join('');
-            }
-            document.getElementById('notifModal').classList.remove('hidden');
-        }
-
-        function closeNotifModal() { document.getElementById('notifModal').classList.add('hidden'); }
-
-        function clearNotifications() {
-            notifications = [];
-            updateNotifDot();
-            document.getElementById('notifContent').innerHTML = '<p style="color:var(--text2);">Dihapus.</p>';
-        }
-
-        // ==================== TOAST ====================
-        function showToast(message, type = 'info') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.classList.add('toast', type);
-            const icons = { success: '✅', error: '❌', info: 'ℹ️' };
-            toast.textContent = `${icons[type] || 'ℹ️'} ${message}`;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
-        }
-
-        // ==================== SOUND ====================
-        function playSound(type) {
-            if (!document.getElementById('soundToggle').checked) return;
-            try {
-                const audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                gain.gain.value = 0.06;
-                if (type === 'correct') { osc.frequency.value = 800;
-                    osc.type = 'sine'; } else if (type === 'wrong') { osc.frequency.value = 200;
-                    osc.type = 'sawtooth'; } else if (type === 'tick') { osc.frequency.value = 1000;
-                    osc.type = 'sine';
-                    gain.gain.value = 0.02; } else if (type === 'complete') { osc.frequency.value = 600;
-                    osc.type = 'triangle'; }
-                osc.start();
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
-                osc.stop(audioCtx.currentTime + 0.25);
-            } catch (e) {}
-        }
-
         // ==================== BANK SOAL ====================
         const languageKeywords = {
             Python: ["def", "class", "import", "from", "lambda", "yield", "with", "async", "await", "print()",
@@ -1753,41 +1365,37 @@
             ]
         };
 
+        // Generate 1000+ syntax bank
         let fullSyntaxBank = [];
-
-        function generateFullBank() {
+        (function generateFullBank() {
             fullSyntaxBank = [];
             for (const [lang, keywords] of Object.entries(languageKeywords)) {
                 keywords.forEach(kw => {
                     let diff = 'basic';
-                    if (kw.includes('::') || kw.includes('template') || kw.includes('virtual') || kw
-                        .includes('async') || kw.includes('lambda') || kw.includes('RAII') || kw
-                        .includes('move semantics') || kw.includes('constexpr') || kw.includes(
-                            'trait') || kw.includes('namespace') || kw.includes('Proxy') || kw
-                        .includes('Reflect') || kw.includes('AbortController') || kw.includes(
-                            'IntersectionObserver') || kw.includes('asyncio.run') || kw.includes(
-                            'contextlib') || kw.includes('generator expression')) diff = 'advanced';
-                    else if (kw.includes('class') || kw.includes('extends') || kw.includes(
-                            'interface') || kw.includes('try') || kw.includes('throw') || kw
-                        .includes('shared_ptr') || kw.includes('Promise') || kw.includes('fetch') ||
-                        kw.includes('yield') || kw.includes('dataclass') || kw.includes('Optional') ||
-                        kw.includes('stream') || kw.includes('PDO') || kw.includes('trait')) diff =
-                        'intermediate';
+                    const advancedPatterns = ['::', 'template', 'virtual', 'async', 'lambda', 'RAII',
+                        'move semantics', 'constexpr', 'trait', 'namespace', 'Proxy', 'Reflect',
+                        'AbortController', 'IntersectionObserver', 'asyncio.run', 'contextlib',
+                        'generator expression'
+                    ];
+                    const intermediatePatterns = ['class', 'extends', 'interface', 'try', 'throw',
+                        'shared_ptr', 'Promise', 'fetch', 'yield', 'dataclass', 'Optional', 'stream',
+                        'PDO', 'trait'
+                    ];
+                    if (advancedPatterns.some(p => kw.includes(p))) diff = 'advanced';
+                    else if (intermediatePatterns.some(p => kw.includes(p))) diff = 'intermediate';
                     fullSyntaxBank.push({ lang, keyword: kw, difficulty: diff });
                 });
             }
             while (fullSyntaxBank.length < 1000) {
                 const idx = fullSyntaxBank.length % Object.keys(languageKeywords).length;
                 const lang = Object.keys(languageKeywords)[idx];
-                const base = languageKeywords[lang][fullSyntaxBank.length % languageKeywords[lang]
-                    .length];
-                fullSyntaxBank.push({ lang, keyword: base + ' [v' + Math.floor(Math.random() * 100) +
-                        ']', difficulty: 'basic' });
+                const base = languageKeywords[lang][fullSyntaxBank.length % languageKeywords[lang].length];
+                fullSyntaxBank.push({ lang, keyword: base + ' [v' + Math.floor(Math.random() * 100) + ']',
+                    difficulty: 'basic' });
             }
-        }
-        generateFullBank();
+        })();
 
-        // ==================== STATE ====================
+        // ==================== GLOBAL STATE ====================
         let currentTab = 'manual';
         let participantName = '';
         let testSessionActive = false;
@@ -1806,11 +1414,22 @@
         let manualLastTimestamp = null;
         let riwayatWaktuData = [];
 
+        // ==================== LOGO HANDLER ====================
+        function handleLogoError() {
+            document.getElementById('logoImg').style.display = 'none';
+            document.getElementById('logoFallback').style.display = 'flex';
+        }
+        document.getElementById('logoImg').onload = function() {
+            document.getElementById('logoFallback').style.display = 'none';
+            this.style.display = 'block';
+        };
+        document.getElementById('logoImg').onerror = handleLogoError;
+
         // ==================== PARTICIPANT ====================
         function openNameModal() {
             document.getElementById('nameModal').classList.remove('hidden');
             document.getElementById('participantNameInput').value = participantName;
-            document.getElementById('participantNameInput').focus();
+            setTimeout(() => document.getElementById('participantNameInput').focus(), 100);
         }
 
         function closeNameModal() { document.getElementById('nameModal').classList.add('hidden'); }
@@ -1820,7 +1439,7 @@
             if (input) {
                 participantName = input;
                 updateParticipantUI();
-                addNotification(`Nama: ${participantName}`, 'success');
+                showToast('✅ Nama disimpan: ' + participantName);
             }
             closeNameModal();
         }
@@ -1846,14 +1465,16 @@
             }
         }
 
+        // Enter key in name modal
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && !document.getElementById('nameModal').classList.contains(
-                'hidden') && document.activeElement === document.getElementById('participantNameInput')) {
+            if (e.key === 'Enter' && !document.getElementById('nameModal').classList.contains('hidden') &&
+                document.activeElement === document.getElementById('participantNameInput')) {
+                e.preventDefault();
                 saveParticipantName();
             }
         });
 
-        // ==================== CLOCK ====================
+        // ==================== LIVE CLOCK ====================
         function updateLiveClock() {
             const now = new Date();
             document.getElementById('liveClock').textContent = now.toLocaleString('id-ID', {
@@ -1868,7 +1489,21 @@
         setInterval(updateLiveClock, 1000);
         updateLiveClock();
 
-        // ==================== TABS ====================
+        // ==================== TOAST ====================
+        function showToast(message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        // ==================== TAB SWITCHING ====================
         function switchTab(tab) {
             currentTab = tab;
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1878,11 +1513,15 @@
             document.getElementById('tab-test').classList.add('hidden');
             document.getElementById('tab-results').classList.add('hidden');
             document.getElementById(`tab-${tab}`).classList.remove('hidden');
-            if (tab === 'results') { updateChart();
+            if (tab === 'results') {
+                updateChart();
                 updateRiwayatWaktu();
                 updateLogTable();
-                updateQuickStats(); }
-            if (tab === 'manual') document.getElementById('manualCount').textContent = manualEntries.length;
+                updateQuickStats();
+            }
+            if (tab === 'manual') {
+                document.getElementById('manualCount').textContent = manualEntries.length;
+            }
         }
 
         // ==================== QUICK STATS ====================
@@ -1890,8 +1529,12 @@
             const total = testAnswers.length;
             const correct = testAnswers.filter(a => a.validation === true).length;
             const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
-            const avgTime = total > 0 ? Math.round(testAnswers.reduce((s, a) => { const d = parseInt(a.duration); return s +
-                    (isNaN(d) ? 0 : d); }, 0) / total) : 0;
+            let totalDuration = 0;
+            testAnswers.forEach(a => {
+                const d = parseInt(a.duration);
+                if (!isNaN(d)) totalDuration += d;
+            });
+            const avgTime = total > 0 ? Math.round(totalDuration / total) : 0;
             document.getElementById('statTotalSyntax').textContent = fullSyntaxBank.length;
             document.getElementById('statCorrect').textContent = correct;
             document.getElementById('statAccuracy').textContent = accuracy + '%';
@@ -1899,7 +1542,7 @@
             document.getElementById('resultsCount').textContent = total;
         }
 
-        // ==================== MANUAL ====================
+        // ==================== MODE MANUAL ====================
         function startManualTimer() {
             const min = parseInt(document.getElementById('manualTimerMin').value) || 0;
             const sec = parseInt(document.getElementById('manualTimerSec').value) || 0;
@@ -1914,12 +1557,9 @@
                 if (manualTimerRemaining <= 0) {
                     clearInterval(manualTimerInterval);
                     manualTimerInterval = null;
-                    playSound('complete');
-                    addNotification('Waktu manual habis!', 'error');
+                    showToast('⏰ Waktu manual habis!');
                 }
-                if (manualTimerRemaining <= 5 && manualTimerRemaining > 0) playSound('tick');
             }, 1000);
-            addNotification('Timer manual dimulai', 'info');
         }
 
         function resetManualTimer() {
@@ -1932,8 +1572,8 @@
         }
 
         function updateManualTimerDisplay() {
-            const m = Math.floor(manualTimerRemaining / 60);
-            const s = manualTimerRemaining % 60;
+            const m = Math.floor(Math.max(0, manualTimerRemaining) / 60);
+            const s = Math.max(0, manualTimerRemaining) % 60;
             const d = document.getElementById('manualTimerDisplay');
             d.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
             if (manualTimerRemaining <= 30) d.classList.add('warning');
@@ -1949,31 +1589,29 @@
             let duration = '-';
             if (manualLastTimestamp) {
                 const diff = Math.round((now - manualLastTimestamp) / 1000);
-                duration = `${diff}d`;
+                duration = diff + 'd';
             }
             manualLastTimestamp = now;
             manualEntries.push({ no: manualEntries.length + 1, answer, duration, timestamp });
             input.value = '';
+            input.focus();
             renderManualTable();
             document.getElementById('manualCount').textContent = manualEntries.length;
-            playSound('correct');
         }
 
-        function renderManualTable(filterText = '') {
+        function renderManualTable() {
             const tbody = document.getElementById('manualTableBody');
-            let entries = filterText ? manualEntries.filter(e => e.answer.toLowerCase().includes(filterText
-                .toLowerCase())) : manualEntries;
-            if (entries.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text2);">Tidak ada data.</td></tr>';
+            if (manualEntries.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text2);">Belum ada data.</td></tr>';
                 return;
             }
-            tbody.innerHTML = entries.map((e) => `
+            tbody.innerHTML = manualEntries.map((e) => `
                 <tr>
                     <td><strong>#${e.no}</strong></td>
                     <td>${e.answer}</td>
                     <td>${e.duration}</td>
-                    <td style="font-size:0.7rem;">${e.timestamp}</td>
-                    <td><button class="btn-danger btn-sm" style="padding:3px 6px;font-size:0.65rem;min-height:24px;" onclick="deleteManualEntry(${manualEntries.indexOf(e)})">🗑️</button></td>
+                    <td style="font-size:0.75rem;">${e.timestamp}</td>
+                    <td><button class="btn-danger btn-sm" style="padding:3px 8px;font-size:0.7rem;min-height:28px;" onclick="deleteManualEntry(${manualEntries.indexOf(e)})">🗑️</button></td>
                 </tr>
             `).join('');
         }
@@ -1985,47 +1623,66 @@
             document.getElementById('manualCount').textContent = manualEntries.length;
         }
 
-        function filterManualTable() { renderManualTable(document.getElementById('manualSearch').value); }
-
         function clearManualTable() {
             if (manualEntries.length === 0) return;
-            if (confirm(`Hapus ${manualEntries.length} data?`)) {
+            if (confirm(`Hapus ${manualEntries.length} data manual?`)) {
                 manualEntries = [];
                 renderManualTable();
                 document.getElementById('manualCount').textContent = 0;
-                addNotification('Data manual dihapus', 'error');
+                showToast('🗑️ Data manual dihapus');
             }
         }
 
         function exportManualData() {
-            if (manualEntries.length === 0) { showToast('Tidak ada data!', 'error'); return; }
-            const text =
-                `TechnoPiousQuiz - Manual\nPeserta: ${participantName||'-'}\n\nNo\tJawaban\tDurasi\tTimestamp\n` +
+            if (manualEntries.length === 0) { showToast('Tidak ada data!'); return; }
+            const text = `TechnoPiousQuiz - Manual\nPeserta: ${participantName||'-'}\n\nNo\tJawaban\tDurasi\tTimestamp\n` +
                 manualEntries.map(e => `${e.no}\t${e.answer}\t${e.duration}\t${e.timestamp}`).join('\n');
-            navigator.clipboard.writeText(text).then(() => showToast('Disalin!', 'success'));
+            navigator.clipboard.writeText(text).then(() => showToast('📋 Data disalin!'));
         }
 
         // ==================== MODE TES ====================
-        function getTestLangFilters() { return Array.from(document.querySelectorAll('.testLangFilter:checked')).map(cb =>
-                cb.value); }
+        function getTestLangFilters() {
+            return Array.from(document.querySelectorAll('.testLangFilter:checked')).map(cb => cb.value);
+        }
 
-        function getTestDifficulty() { return document.getElementById('testDifficulty').value; }
+        function getTestDifficulty() {
+            return document.getElementById('testDifficulty').value;
+        }
 
         function startTestSession() {
-            if (!participantName) { showToast('Atur nama dulu!', 'error');
-                openNameModal(); return; }
+            // Validasi nama peserta
+            if (!participantName) {
+                showToast('⚠️ Silakan atur nama peserta terlebih dahulu!');
+                openNameModal();
+                return;
+            }
             if (testSessionActive) return;
+
             const langs = getTestLangFilters();
-            if (langs.length === 0) { showToast('Pilih bahasa!', 'error'); return; }
+            if (langs.length === 0) { showToast('⚠️ Pilih minimal satu bahasa pemrograman!'); return; }
+
             const difficulty = getTestDifficulty();
             const order = document.getElementById('testOrder').value;
             const maxQ = parseInt(document.getElementById('testMaxQuestions').value) || 20;
             const limitMin = parseInt(document.getElementById('testSessionLimit').value) || 10;
-            let pool = fullSyntaxBank.filter(i => langs.includes(i.lang));
-            if (difficulty !== 'all') pool = pool.filter(i => i.difficulty === difficulty);
-            if (pool.length === 0) { showToast('Tidak ada soal!', 'error'); return; }
-            if (order === 'random') pool = shuffleArray([...pool]);
-            testQuestions = pool.slice(0, maxQ);
+
+            // Filter bank soal
+            let pool = fullSyntaxBank.filter(item => langs.includes(item.lang));
+            if (difficulty !== 'all') {
+                pool = pool.filter(item => item.difficulty === difficulty);
+            }
+            if (pool.length === 0) {
+                showToast('⚠️ Tidak ada soal dengan filter tersebut!');
+                return;
+            }
+
+            // Urutan soal
+            if (order === 'random') {
+                pool = shuffleArray([...pool]);
+            }
+
+            // Siapkan sesi
+            testQuestions = pool.slice(0, Math.min(maxQ, pool.length));
             testCurrentIndex = 0;
             testAnswers = [];
             testSessionActive = true;
@@ -2034,6 +1691,8 @@
             testSessionRemaining = limitMin * 60;
             testStartTime = new Date();
             riwayatWaktuData = [];
+
+            // Tampilkan area tes
             document.getElementById('pausedOverlay').classList.add('hidden');
             document.getElementById('testActiveArea').classList.remove('hidden');
             document.getElementById('btnStopManual').disabled = false;
@@ -2043,28 +1702,45 @@
             document.getElementById('testAnswerInput').disabled = false;
             document.getElementById('testMaxDisplay').textContent = testQuestions.length;
             document.getElementById('testQuestionCount').textContent = '0';
+
+            // Update display
             updateTestProgress();
             updateTestTimerDisplay();
             updateTestSessionTimerDisplay();
+
+            // Tampilkan soal pertama
             showCurrentSyntax();
+
+            // Mulai timer
             startTestTimers();
-            addNotification(`Tes dimulai: ${testQuestions.length} soal`, 'success');
-            showToast('🚀 Tes dimulai!', 'success');
-            // Scroll to test area on mobile
-            setTimeout(() => document.getElementById('testActiveArea').scrollIntoView({ behavior: 'smooth',
-                block: 'start' }), 200);
+
+            // Fokus ke input jawaban
+            setTimeout(() => {
+                document.getElementById('testAnswerInput').focus();
+                document.getElementById('testActiveArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 200);
+
+            showToast('🚀 Tes dimulai! ' + testQuestions.length + ' soal');
         }
 
-        function stopTestSession() { endTestSession('manual'); }
+        function stopTestSession() {
+            if (testSessionActive) {
+                endTestSession('manual');
+            }
+        }
 
         function endTestSession(reason = 'auto') {
             if (!testSessionActive) return;
+
+            // Hentikan timer
             testSessionActive = false;
             testPaused = false;
-            clearInterval(testPerSyntaxTimer);
-            clearInterval(testSessionTimer);
+            if (testPerSyntaxTimer) clearInterval(testPerSyntaxTimer);
+            if (testSessionTimer) clearInterval(testSessionTimer);
             testPerSyntaxTimer = null;
             testSessionTimer = null;
+
+            // Sembunyikan area tes
             document.getElementById('testActiveArea').classList.add('hidden');
             document.getElementById('btnStopManual').disabled = true;
             document.getElementById('btnPause').disabled = true;
@@ -2077,30 +1753,33 @@
             document.getElementById('testCurrentLang').textContent = '-';
             document.getElementById('testCurrentLang').className = 'badge';
             document.getElementById('testCurrentDifficulty').textContent = '-';
-            document.getElementById('syntaxNumber').textContent = '';
+
+            // Update log & chart
             updateLogTable();
             updateRiwayatWaktu();
             updateChart();
             updateQuickStats();
             document.getElementById('resultsCount').textContent = testAnswers.length;
-            playSound('complete');
+
             const msg = reason === 'manual' ? 'dihentikan' : reason === 'timeout' ? 'waktu habis' : 'selesai';
-            showToast(`✅ Tes ${msg}!`, 'success');
-            addNotification(`Tes ${msg}: ${testAnswers.length} jawaban`, 'success');
+            showToast(`✅ Tes ${msg}! ${testAnswers.length} jawaban tercatat`);
+
+            // Pindah ke tab hasil
             switchTab('results');
-            setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 300);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function pauseTest() {
             if (!testSessionActive || testPaused) return;
             testPaused = true;
-            clearInterval(testPerSyntaxTimer);
-            clearInterval(testSessionTimer);
+            if (testPerSyntaxTimer) clearInterval(testPerSyntaxTimer);
+            if (testSessionTimer) clearInterval(testSessionTimer);
+            testPerSyntaxTimer = null;
+            testSessionTimer = null;
             document.getElementById('pausedOverlay').classList.remove('hidden');
             document.getElementById('btnPause').disabled = true;
             document.getElementById('btnResume').disabled = false;
             document.getElementById('btnSkip').disabled = true;
-            addNotification('Tes dijeda', 'info');
         }
 
         function resumeTest() {
@@ -2111,89 +1790,130 @@
             document.getElementById('btnResume').disabled = true;
             document.getElementById('btnSkip').disabled = false;
             startTestTimers();
-            document.getElementById('testAnswerInput').focus();
-            addNotification('Tes dilanjutkan', 'info');
+            setTimeout(() => document.getElementById('testAnswerInput').focus(), 100);
         }
 
         function skipSyntax() {
             if (!testSessionActive || testPaused) return;
+            // Catat jawaban kosong
             submitCurrentAnswer(true);
+            // Lanjut ke soal berikutnya
             nextSyntax();
-            addNotification('Soal dilewati', 'info');
         }
 
         function startTestTimers() {
+            // Bersihkan timer yang ada
             if (testPerSyntaxTimer) clearInterval(testPerSyntaxTimer);
             if (testSessionTimer) clearInterval(testSessionTimer);
+
+            // Timer per soal (per detik)
             testPerSyntaxTimer = setInterval(() => {
-                if (testPaused) return;
+                if (testPaused || !testSessionActive) return;
                 testPerSyntaxRemaining--;
                 updateTestTimerDisplay();
-                if (testPerSyntaxRemaining <= 5 && testPerSyntaxRemaining > 0) playSound('tick');
-                if (testPerSyntaxRemaining <= 0) { submitCurrentAnswer(true);
-                    nextSyntax(); }
+                if (testPerSyntaxRemaining <= 0) {
+                    // Waktu per soal habis
+                    submitCurrentAnswer(true);
+                    nextSyntax();
+                }
             }, 1000);
+
+            // Timer sesi (per detik)
             testSessionTimer = setInterval(() => {
-                if (testPaused) return;
+                if (testPaused || !testSessionActive) return;
                 testSessionRemaining--;
                 updateTestSessionTimerDisplay();
-                if (testSessionRemaining <= 60 && testSessionRemaining > 0 && testSessionRemaining % 10 ===
-                    0) playSound('tick');
-                if (testSessionRemaining <= 0) endTestSession('timeout');
+                if (testSessionRemaining <= 0) {
+                    endTestSession('timeout');
+                }
             }, 1000);
         }
 
         function showCurrentSyntax() {
-            if (testCurrentIndex >= testQuestions.length) { endTestSession('complete'); return; }
+            if (!testSessionActive) return;
+            if (testCurrentIndex >= testQuestions.length) {
+                endTestSession('complete');
+                return;
+            }
+
             const q = testQuestions[testCurrentIndex];
-            document.getElementById('testSyntaxDisplay').textContent = q.keyword;
-            document.getElementById('testSyntaxDisplay').classList.add('active-syntax');
-            document.getElementById('testCurrentLang').textContent = q.lang;
-            document.getElementById('testCurrentLang').className = 'badge badge-' + q.lang.toLowerCase().replace(
-                '+', 'p');
-            document.getElementById('testCurrentDifficulty').textContent = (q.difficulty === 'basic' ? '🟢 Dasar' : q
-                .difficulty === 'intermediate' ? '🟡 Menengah' : '🔴 Lanjutan');
-            document.getElementById('syntaxNumber').textContent = '#' + (testCurrentIndex + 1);
+
+            // Update tampilan sintaks
+            const syntaxDisplay = document.getElementById('testSyntaxDisplay');
+            syntaxDisplay.textContent = q.keyword;
+            syntaxDisplay.classList.add('active-syntax');
+
+            // Update badge bahasa
+            const langBadge = document.getElementById('testCurrentLang');
+            langBadge.textContent = q.lang;
+            langBadge.className = 'badge badge-' + q.lang.toLowerCase().replace('+', 'p');
+
+            // Update tingkat kesulitan
+            const diffMap = { basic: '🟢 Dasar', intermediate: '🟡 Menengah', advanced: '🔴 Lanjutan' };
+            document.getElementById('testCurrentDifficulty').textContent = diffMap[q.difficulty] || '-';
+
+            // Update nomor soal
             document.getElementById('testQuestionCount').textContent = testCurrentIndex;
             updateTestProgress();
+
+            // Reset timer per soal
             testPerSyntaxRemaining = parseInt(document.getElementById('testTimePerSyntax').value) || 15;
             updateTestTimerDisplay();
-            document.getElementById('testAnswerInput').value = '';
-            document.getElementById('testAnswerInput').focus();
+
+            // Kosongkan input jawaban
+            const answerInput = document.getElementById('testAnswerInput');
+            answerInput.value = '';
+            answerInput.focus();
+
+            // Catat riwayat waktu per 10 soal
             if (testCurrentIndex > 0 && testCurrentIndex % 10 === 0) {
                 const elapsed = Math.round((new Date() - testStartTime) / 1000);
-                riwayatWaktuData.push({ checkpoint: testCurrentIndex,
-                    waktu: `${Math.floor(elapsed/60)}m ${elapsed%60}d` });
+                const m = Math.floor(elapsed / 60);
+                const s = elapsed % 60;
+                riwayatWaktuData.push({ checkpoint: testCurrentIndex, waktu: `${m}m ${s}d` });
             }
         }
 
         function submitCurrentAnswer(isTimeout = false) {
-            if (testCurrentIndex >= testQuestions.length) return;
+            if (!testSessionActive || testCurrentIndex >= testQuestions.length) return;
+
             const q = testQuestions[testCurrentIndex];
-            const answer = isTimeout ? '(waktu habis)' : document.getElementById('testAnswerInput').value.trim();
+            const answerInput = document.getElementById('testAnswerInput');
+            const answer = isTimeout ? '(waktu habis)' : (answerInput.value.trim() || '(kosong)');
             const timePerSyntax = parseInt(document.getElementById('testTimePerSyntax').value) || 15;
             const duration = timePerSyntax - Math.max(0, testPerSyntaxRemaining);
+
             testAnswers.push({
                 no: testCurrentIndex + 1,
                 lang: q.lang,
                 syntax: q.keyword,
                 difficulty: q.difficulty,
-                answer: answer || '(kosong)',
+                answer: answer,
                 duration: duration + 'd',
                 timestamp: new Date().toLocaleString('id-ID'),
                 validation: null
             });
         }
 
-        function nextSyntax() { testCurrentIndex++; if (testCurrentIndex >= testQuestions.length) endTestSession(
-                'complete');
-            else showCurrentSyntax(); }
+        function nextSyntax() {
+            if (!testSessionActive) return;
+            testCurrentIndex++;
+            if (testCurrentIndex >= testQuestions.length) {
+                endTestSession('complete');
+            } else {
+                showCurrentSyntax();
+            }
+        }
 
         function updateTestTimerDisplay() {
-            const d = document.getElementById('testTimerDisplay');
-            d.textContent = `00:${String(Math.max(0,testPerSyntaxRemaining)).padStart(2,'0')}`;
-            if (testPerSyntaxRemaining <= 5) d.classList.add('warning');
-            else d.classList.remove('warning');
+            const display = document.getElementById('testTimerDisplay');
+            const remaining = Math.max(0, testPerSyntaxRemaining);
+            display.textContent = `00:${String(remaining).padStart(2,'0')}`;
+            if (remaining <= 5) {
+                display.classList.add('warning');
+            } else {
+                display.classList.remove('warning');
+            }
         }
 
         function updateTestSessionTimerDisplay() {
@@ -2204,140 +1924,165 @@
         }
 
         function updateTestProgress() {
-            const pct = testQuestions.length > 0 ? Math.round((testCurrentIndex / testQuestions.length) * 100) : 0;
+            if (testQuestions.length === 0) return;
+            const pct = Math.round((testCurrentIndex / testQuestions.length) * 100);
             document.getElementById('testProgressBar').style.width = pct + '%';
         }
 
+        // Event listener untuk Enter key pada input jawaban tes
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && testSessionActive && !testPaused && document.activeElement === document
-                .getElementById('testAnswerInput')) {
+            if (e.key === 'Enter' && testSessionActive && !testPaused &&
+                document.activeElement === document.getElementById('testAnswerInput')) {
+                e.preventDefault();
                 submitCurrentAnswer(false);
                 nextSyntax();
-                playSound('correct');
             }
         });
 
-        // ==================== LOG ====================
-        function updateLogTable(filterText = '') {
+        // ==================== LOG & VALIDASI ====================
+        function updateLogTable() {
             const tbody = document.getElementById('logTableBody');
-            let answers = filterText ? testAnswers.filter(a =>
-                a.syntax.toLowerCase().includes(filterText.toLowerCase()) ||
-                a.answer.toLowerCase().includes(filterText.toLowerCase()) ||
-                a.lang.toLowerCase().includes(filterText.toLowerCase())) : testAnswers;
-            if (answers.length === 0) {
-                tbody.innerHTML =
-                    '<tr><td colspan="7" style="text-align:center;color:var(--text2);">Belum ada data.</td></tr>';
+            if (testAnswers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text2);">Belum ada data log.</td></tr>';
                 return;
             }
-            tbody.innerHTML = answers.map(a => {
-                const ri = testAnswers.indexOf(a);
-                return `
+            tbody.innerHTML = testAnswers.map((a, idx) => `
                 <tr>
                     <td><strong>#${a.no}</strong></td>
                     <td><span class="badge badge-${a.lang.toLowerCase().replace('+','p')}">${a.lang}</span></td>
-                    <td style="font-family:monospace;font-size:0.7rem;">${a.syntax}</td>
+                    <td style="font-family:monospace;font-size:0.78rem;">${a.syntax}</td>
                     <td>${a.answer}</td>
                     <td>${a.duration}</td>
-                    <td style="font-size:0.65rem;">${a.timestamp}</td>
+                    <td style="font-size:0.7rem;">${a.timestamp}</td>
                     <td>
-                        <button class="validate-btn correct" onclick="validateAnswer(${ri},true)">✓</button>
-                        <button class="validate-btn wrong" onclick="validateAnswer(${ri},false)">✗</button>
-                        <span class="validation-status">${a.validation===true?'✅':a.validation===false?'❌':'⏳'}</span>
+                        <button class="validate-btn correct" onclick="validateAnswer(${idx}, true)" title="Benar">✓</button>
+                        <button class="validate-btn wrong" onclick="validateAnswer(${idx}, false)" title="Salah">✗</button>
+                        <span style="margin-left:2px;">${a.validation === true ? '✅' : a.validation === false ? '❌' : '⏳'}</span>
                     </td>
-                </tr>`;
-            }).join('');
+                </tr>
+            `).join('');
         }
 
-        function filterLogTable() { updateLogTable(document.getElementById('logSearch').value); }
-
         function validateAnswer(idx, isCorrect) {
+            if (idx < 0 || idx >= testAnswers.length) return;
             testAnswers[idx].validation = isCorrect;
             updateLogTable();
             updateChart();
             updateQuickStats();
-            playSound(isCorrect ? 'correct' : 'wrong');
-            addNotification(`#${testAnswers[idx].no} ${isCorrect?'Benar':'Salah'}`, isCorrect ? 'success' : 'error');
+            showToast(isCorrect ? '✅ Jawaban #' + testAnswers[idx].no + ' Benar' : '❌ Jawaban #' + testAnswers[idx].no +
+                ' Salah');
         }
 
         function validateAllCorrect() {
             if (testAnswers.length === 0) return;
-            if (confirm('Tandai semua BENAR?')) {
+            if (confirm('Tandai SEMUA jawaban sebagai BENAR?')) {
                 testAnswers.forEach(a => a.validation = true);
                 updateLogTable();
                 updateChart();
                 updateQuickStats();
-                playSound('correct');
-                showToast('✅ Semua benar!', 'success');
+                showToast('✅ Semua jawaban ditandai benar!');
             }
         }
 
         function updateRiwayatWaktu() {
-            const c = document.getElementById('riwayatWaktuContent');
+            const content = document.getElementById('riwayatWaktuContent');
             if (riwayatWaktuData.length === 0) {
-                c.innerHTML = '<p style="color:var(--text2);">Muncul per 10 soal.</p>';
+                content.innerHTML = '<p style="color:var(--text2);">Data muncul setiap kelipatan 10 soal.</p>';
                 return;
             }
-            c.innerHTML = riwayatWaktuData.map(r =>
-                `<div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
-                    <span>📌 ${r.checkpoint} soal</span><span>⏱️ ${r.waktu}</span></div>`
-            ).join('');
+            content.innerHTML = riwayatWaktuData.map(r => `
+                <div style="padding:8px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
+                    <span>📌 ${r.checkpoint} soal</span>
+                    <span>⏱️ ${r.waktu}</span>
+                </div>
+            `).join('');
         }
 
         function updateChart() {
             const total = testAnswers.length;
             const correct = testAnswers.filter(a => a.validation === true).length;
             const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
-            const circ = 2 * Math.PI * 38;
-            document.getElementById('scoreCircle').style.strokeDashoffset = circ - (accuracy / 100) * circ;
+
+            // Update score circle
+            const circumference = 2 * Math.PI * 42; // ~263.89
+            const offset = circumference - (accuracy / 100) * circumference;
+            document.getElementById('scoreCircle').style.strokeDashoffset = offset;
             document.getElementById('scoreText').textContent = accuracy + '%';
             document.getElementById('scoreCorrect').textContent = correct;
             document.getElementById('scoreTotal').textContent = total;
+
+            // Update chart bars
             const chartArea = document.getElementById('chartArea');
             const validated = testAnswers.filter(a => a.validation === true);
             if (validated.length === 0) {
-                chartArea.innerHTML = '<p style="color:var(--text2);font-size:0.8rem;">Validasi dulu.</p>';
+                chartArea.innerHTML = '<p style="color:var(--text2);font-size:0.85rem;">Validasi jawaban untuk melihat grafik.</p>';
                 return;
             }
-            const counts = {};
-            validated.forEach(a => { counts[a.lang] = (counts[a.lang] || 0) + 1; });
-            const max = Math.max(...Object.values(counts), 1);
-            chartArea.innerHTML = Object.entries(counts).map(([lang, count]) => {
-                const pct = Math.round((count / max) * 100);
-                return `<div class="chart-bar"><span class="label">${lang}</span><div class="bar"><div class="fill" style="width:${Math.max(pct,10)}%;">${count}</div></div></div>`;
+
+            const langCounts = {};
+            validated.forEach(a => {
+                langCounts[a.lang] = (langCounts[a.lang] || 0) + 1;
+            });
+            const maxCount = Math.max(...Object.values(langCounts), 1);
+
+            chartArea.innerHTML = Object.entries(langCounts).map(([lang, count]) => {
+                const pct = Math.round((count / maxCount) * 100);
+                return `
+                    <div class="chart-bar">
+                        <span class="label">${lang}</span>
+                        <div class="bar">
+                            <div class="fill" style="width:${Math.max(pct, 12)}%;">${count} benar</div>
+                        </div>
+                    </div>
+                `;
             }).join('');
         }
 
         // ==================== EKSPOR ====================
         function exportData(format) {
-            if (testAnswers.length === 0) { showToast('Tidak ada data!', 'error'); return; }
+            if (testAnswers.length === 0) {
+                showToast('⚠️ Tidak ada data untuk diekspor!');
+                return;
+            }
             const header =
-                `TechnoPiousQuiz\nPeserta: ${participantName||'-'}\nTanggal: ${new Date().toLocaleString('id-ID')}\nTotal: ${testAnswers.length} soal\n\n`;
+                `TechnoPiousQuiz - Hasil Ujian\nPeserta: ${participantName || '-'}\nTanggal: ${new Date().toLocaleString('id-ID')}\nTotal Soal: ${testAnswers.length}\n\n`;
+
             switch (format) {
                 case 'clipboard':
-                    navigator.clipboard.writeText(header + testAnswers.map(a =>
-                        `${a.no}\t${a.lang}\t${a.syntax}\t${a.answer}\t${a.duration}\t${a.timestamp}\t${a.validation===true?'Benar':a.validation===false?'Salah':'Belum'}`
-                    ).join('\n')).then(() => showToast('Disalin!', 'success'));
+                    const text = header + testAnswers.map(a =>
+                        `${a.no}\t${a.lang}\t${a.syntax}\t${a.answer}\t${a.duration}\t${a.timestamp}\t${a.validation === true ? 'Benar' : a.validation === false ? 'Salah' : 'Belum dinilai'}`
+                    ).join('\n');
+                    navigator.clipboard.writeText(text).then(() => showToast('📋 Data disalin ke clipboard!'));
                     break;
                 case 'csv':
-                    downloadFile(`hasil_${participantName||'peserta'}.csv`, 'text/csv', header +
-                        'No,Bahasa,Sintaks,Jawaban,Durasi,Timestamp,Validasi\n' + testAnswers.map(a =>
-                            `"${a.no}","${a.lang}","${a.syntax}","${a.answer}","${a.duration}","${a.timestamp}","${a.validation===true?'Benar':a.validation===false?'Salah':'Belum'}"`
-                            ).join('\n'));
+                    downloadFile(`hasil_${participantName || 'peserta'}.csv`, 'text/csv',
+                        header +
+                        'No,Bahasa,Sintaks,Jawaban,Durasi,Timestamp,Validasi\n' +
+                        testAnswers.map(a =>
+                            `"${a.no}","${a.lang}","${a.syntax}","${a.answer}","${a.duration}","${a.timestamp}","${a.validation === true ? 'Benar' : a.validation === false ? 'Salah' : 'Belum'}"`
+                        ).join('\n')
+                    );
                     break;
                 case 'spreadsheet':
-                    downloadFile(`hasil_${participantName||'peserta'}.tsv`, 'text/tab-separated-values', header +
-                        'No\tBahasa\tSintaks\tJawaban\tDurasi\tTimestamp\tValidasi\n' + testAnswers.map(a =>
-                            `${a.no}\t${a.lang}\t${a.syntax}\t${a.answer}\t${a.duration}\t${a.timestamp}\t${a.validation===true?'Benar':a.validation===false?'Salah':'Belum'}`
-                            ).join('\n'));
+                    downloadFile(`hasil_${participantName || 'peserta'}.tsv`, 'text/tab-separated-values',
+                        header +
+                        'No\tBahasa\tSintaks\tJawaban\tDurasi\tTimestamp\tValidasi\n' +
+                        testAnswers.map(a =>
+                            `${a.no}\t${a.lang}\t${a.syntax}\t${a.answer}\t${a.duration}\t${a.timestamp}\t${a.validation === true ? 'Benar' : a.validation === false ? 'Salah' : 'Belum'}`
+                        ).join('\n')
+                    );
                     break;
                 case 'json':
-                    downloadFile(`hasil_${participantName||'peserta'}.json`, 'application/json', JSON.stringify({
+                    const exportObj = {
                         platform: 'TechnoPiousQuiz',
                         participant: participantName,
-                        date: new Date().toISOString(),
-                        total: testAnswers.length,
+                        exportDate: new Date().toISOString(),
+                        totalQuestions: testAnswers.length,
                         answers: testAnswers
-                    }, null, 2));
+                    };
+                    downloadFile(`hasil_${participantName || 'peserta'}.json`, 'application/json',
+                        JSON.stringify(exportObj, null, 2)
+                    );
                     break;
             }
         }
@@ -2348,37 +2093,51 @@
             const a = document.createElement('a');
             a.href = url;
             a.download = filename;
+            document.body.appendChild(a);
             a.click();
+            document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            showToast(`✅ ${filename}`, 'success');
+            showToast('✅ File diunduh: ' + filename);
         }
 
-        function shuffleArray(arr) { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (
-                i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
+        // ==================== UTILS ====================
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
 
         // ==================== KEYBOARD SHORTCUT ====================
         document.addEventListener('keydown', function(e) {
-            if (e.key === ' ' && testSessionActive && !document.getElementById('nameModal').classList
-                .contains('hidden') === false &&
+            // Spasi untuk pause/resume (hanya saat tes aktif dan tidak sedang fokus di input)
+            if (e.key === ' ' && testSessionActive &&
                 document.activeElement !== document.getElementById('testAnswerInput') &&
                 document.activeElement !== document.getElementById('manualAnswerInput') &&
                 document.activeElement !== document.getElementById('participantNameInput') &&
-                document.activeElement !== document.getElementById('manualSearch') &&
-                document.activeElement !== document.getElementById('logSearch')) {
+                document.activeElement.tagName !== 'INPUT' &&
+                document.activeElement.tagName !== 'TEXTAREA') {
                 e.preventDefault();
-                if (testPaused) resumeTest();
-                else pauseTest();
+                if (testPaused) {
+                    resumeTest();
+                } else {
+                    pauseTest();
+                }
             }
         });
 
-        // ==================== INIT ====================
-        updateManualTimerDisplay();
-        renderManualTable();
-        updateLiveClock();
-        updateParticipantUI();
-        updateQuickStats();
-        addNotification('Selamat datang! 🚀', 'info');
+        // ==================== INITIALIZATION ====================
+        function init() {
+            updateManualTimerDisplay();
+            renderManualTable();
+            updateLiveClock();
+            updateParticipantUI();
+            updateQuickStats();
+            document.getElementById('resultsCount').textContent = '0';
+            document.getElementById('manualCount').textContent = '0';
+        }
+        init();
     </script>
 </body>
 </html>

@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Panduan Belajar TechnoPiousQuiz</title>
+    <style>
+        :root {
+            --bg: #0a0e17;
+            --surface: #131a2b;
+            --surface2: #1c2538;
+            --text: #e8ecf1;
+            --text2: #8b9bb4;
+            --accent: #4f8cf7;
+            --accent2: #3b6fd4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            --border: #2a3347;
+            --radius: 14px;
+            --radius-sm: 8px;
+            --shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #131a2b, #1c2538);
+            border-bottom: 2px solid var(--border);
+            padding: 20px 28px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #4f8cf7, #8b5cf6, #10b981);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+        .header p {
+            color: var(--text2);
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 24px;
+        }
+        /* Sidebar */
+        .sidebar {
+            background: var(--surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 16px;
+            position: sticky;
+            top: 120px;
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+        }
+        .sidebar h3 {
+            font-size: 1rem;
+            color: var(--accent);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .sidebar nav a {
+            display: block;
+            padding: 10px 14px;
+            color: var(--text2);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: var(--surface2);
+            color: var(--accent);
+        }
+        .sidebar nav a.active {
+            border-left: 3px solid var(--accent);
+        }
+        /* Main Content */
+        .main-content {
+            min-width: 0;
+        }
+        .section {
+            background: var(--surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 28px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: var(--accent);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+        }
+        .section h3 {
+            font-size: 1.2rem;
+            color: var(--success);
+            margin: 20px 0 10px;
+        }
+        .section h4 {
+            font-size: 1rem;
+            color: var(--warning);
+            margin: 16px 0 8px;
+        }
+        .section p {
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+        .section ul,
+        .section ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+        .section li {
+            margin-bottom: 6px;
+        }
+        /* Code Block */
+        .code-block {
+            background: #060b14;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            margin: 12px 0;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: #58a6ff;
+            position: relative;
+        }
+        .code-block .comment {
+            color: #6e7681;
+        }
+        .code-block .keyword {
+            color: #ff7b72;
+        }
+        .code-block .string {
+            color: #a5d6ff;
+        }
+        .code-block .function {
+            color: #d2a8ff;
+        }
+        .code-block .number {
+            color: #79c0ff;
+        }
+        .code-block .tag {
+            color: #7ee787;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.3s;
+        }
+        .copy-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        /* Info Box */
+        .info-box {
+            background: rgba(79, 140, 247, 0.08);
+            border: 1px solid rgba(79, 140, 247, 0.3);
+            border-radius: var(--radius-sm);
+            padding: 14px 18px;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+        .info-box.tip {
+            background: rgba(16, 185, 129, 0.08);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+        .info-box.warning {
+            background: rgba(245, 158, 11, 0.08);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+        .info-box strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+        /* Reference Link */
+        .ref-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface2);
+            padding: 8px 14px;
+            border-radius: 20px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin: 4px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        .ref-link:hover {
+            border-color: var(--accent);
+            background: rgba(79, 140, 247, 0.1);
+        }
+        /* Table */
+        .learn-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+        .learn-table th,
+        .learn-table td {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+        .learn-table th {
+            background: var(--surface2);
+            color: var(--accent);
+        }
+        /* Progress */
+        .progress-indicator {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin: 8px 0;
+        }
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        .progress-dot.done {
+            background: var(--success);
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+                max-height: none;
+                display: flex;
+                overflow-x: auto;
+                gap: 8px;
+                padding: 12px;
+            }
+            .sidebar h3 {
+                display: none;
+            }
+            .sidebar nav {
+                display: flex;
+                gap: 4px;
+            }
+            .sidebar nav a {
+                white-space: nowrap;
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+            .section {
+                padding: 16px;
+            }
+            .section h2 {
+                font-size: 1.2rem;
+            }
+            .code-block {
+                font-size: 0.75rem;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>📚 Panduan Belajar TechnoPiousQuiz</h1>
+        <p>Memahami kode sumber aplikasi ujian pemrograman langkah demi langkah</p>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <h3>📑 Daftar Isi</h3>
+            <nav>
+                <a href="#pendahuluan" class="active" onclick="showSection('pendahuluan')">🚀 Pendahuluan</a>
+                <a href="#struktur-html" onclick="showSection('struktur-html')">🏗️ Struktur HTML</a>
+                <a href="#css-variables" onclick="showSection('css-variables')">🎨 CSS Variables</a>
+                <a href="#css-layout" onclick="showSection('css-layout')">📐 CSS Layout & Grid</a>
+                <a href="#css-animasi" onclick="showSection('css-animasi')">✨ CSS Animasi</a>
+                <a href="#bank-soal" onclick="showSection('bank-soal')">📦 Bank Soal (Data)</a>
+                <a href="#state-management" onclick="showSection('state-management')">🗃️ State Management</a>
+                <a href="#timer-logic" onclick="showSection('timer-logic')">⏱️ Logika Timer</a>
+                <a href="#event-handling" onclick="showSection('event-handling')">🎯 Event Handling</a>
+                <a href="#dom-manipulation" onclick="showSection('dom-manipulation')">🔧 DOM Manipulation</a>
+                <a href="#ekspor-data" onclick="showSection('ekspor-data')">📤 Ekspor Data</a>
+                <a href="#responsive-design" onclick="showSection('responsive-design')">📱 Responsive Design</a>
+                <a href="#best-practices" onclick="showSection('best-practices')">💡 Best Practices</a>
+                <a href="#referensi" onclick="showSection('referensi')">🔗 Referensi Lengkap</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Pendahuluan -->
+            <section id="pendahuluan" class="section active">
+                <h2>🚀 Pendahuluan</h2>
+                <p>
+                    <strong>TechnoPiousQuiz</strong> adalah aplikasi web untuk menguji kemampuan pemrograman peserta
+                    melalui kuis interaktif. Aplikasi ini dibangun menggunakan <strong>HTML, CSS, dan JavaScript murni</strong>
+                    (Vanilla JS) tanpa framework eksternal.
+                </p>
+
+                <h3>Fitur Utama Aplikasi</h3>
+                <table class="learn-table">
+                    <thead>
+                        <tr><th>Fitur</th><th>Deskripsi</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Mode Manual</td><td>Pengawas mencatat jawaban secara manual dengan timer</td></tr>
+                        <tr><td>Mode Tes</td><td>Sesi ujian otomatis dengan soal bergilir</td></tr>
+                        <tr><td>Bank Soal</td><td>1000+ sintaks dari 7 bahasa pemrograman</td></tr>
+                        <tr><td>Timer Ganda</td><td>Timer per soal dan timer sesi keseluruhan</td></tr>
+                        <tr><td>Validasi</td><td>Penilaian benar/salah oleh pengawas</td></tr>
+                        <tr><td>Ekspor</td><td>CSV, Spreadsheet, JSON, Clipboard</td></tr>
+                        <tr><td>Responsive</td><td>Tampilan optimal di desktop dan mobile</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <strong>ℹ️ Konsep Dasar</strong>
+                    Aplikasi ini menggunakan paradigma <em>Single Page Application (SPA)</em> sederhana
+                    di mana semua konten berada dalam satu file HTML dan navigasi antar tab
+                    dilakukan dengan menyembunyikan/menampilkan elemen (tidak ada reload halaman).
+                </div>
+
+                <h3>Alur Kerja Aplikasi</h3>
+                <ol>
+                    <li>Pengguna mengatur nama peserta melalui modal dialog</li>
+                    <li>Memilih tab: Manual, Tes, atau Hasil</li>
+                    <li>Pada Mode Tes: konfigurasi sesi → mulai tes → soal tampil → peserta menjawab</li>
+                    <li>Setelah sesi selesai, pengawas memvalidasi jawaban di tab Hasil</li>
+                    <li>Data dapat diekspor ke berbagai format</li>
+                </ol>
+            </section>
+
+            <!-- Struktur HTML -->
+            <section id="struktur-html" class="section">
+                <h2>🏗️ Struktur HTML</h2>
+                <p>Aplikasi memiliki struktur HTML yang terorganisir dalam beberapa bagian utama:</p>
+
+                <h3>Kerangka Dasar</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="tag">&lt;!DOCTYPE html&gt;</span><br>
+                    <span class="tag">&lt;html</span> <span class="string">lang="id"</span><span class="tag">&gt;</span><br>
+                    <span class="tag">&lt;head&gt;</span><br>
+                    &nbsp;&nbsp;<span class="comment">// Meta tags, title, dan CSS styles</span><br>
+                    <span class="tag">&lt;/head&gt;</span><br>
+                    <span class="tag">&lt;body&gt;</span><br>
+                    &nbsp;&nbsp;<span class="comment">// Header dengan logo dan jam</span><br>
+                    &nbsp;&nbsp;<span class="comment">// Container utama</span><br>
+                    &nbsp;&nbsp;<span class="comment">// Tab navigasi</span><br>
+                    &nbsp;&nbsp;<span class="comment">// Tiga tab konten: manual, test, results</span><br>
+                    &nbsp;&nbsp;<span class="comment">// Modal dialog</span><br>
+                    &nbsp;&nbsp;<span class="comment">// JavaScript di akhir body</span><br>
+                    <span class="tag">&lt;/body&gt;</span><br>
+                    <span class="tag">&lt;/html&gt;</span>
+                </div>
+
+                <h3>Komponen Utama HTML</h3>
+                <ul>
+                    <li><strong>Header</strong>: Logo, badge peserta, jam realtime</li>
+                    <li><strong>Quick Stats</strong>: 4 kartu statistik (total soal, benar, akurasi, rata-rata waktu)</li>
+                    <li><strong>Tab Navigation</strong>: 3 tombol tab (Manual, Tes, Hasil)</li>
+                    <li><strong>Tab Manual</strong>: Timer + input jawaban + tabel hasil</li>
+                    <li><strong>Tab Tes</strong>: Konfigurasi + area tes + control bar</li>
+                    <li><strong>Tab Hasil</strong>: Grafik + log jawaban + tombol ekspor</li>
+                    <li><strong>Modal</strong>: Dialog untuk edit nama peserta</li>
+                    <li><strong>Overlay Pause</strong>: Tampilan saat tes dijeda</li>
+                </ul>
+
+                <div class="info-box tip">
+                    <strong>💡 Tips</strong>
+                    Perhatikan penggunaan atribut <code>id</code> pada setiap elemen penting.
+                    ID ini digunakan JavaScript untuk mengakses dan memanipulasi elemen
+                    menggunakan <code>document.getElementById()</code>.
+                </div>
+            </section>
+
+            <!-- CSS Variables -->
+            <section id="css-variables" class="section">
+                <h2>🎨 CSS Variables (Custom Properties)</h2>
+                <p>
+                    Aplikasi menggunakan CSS Variables (didefinisikan di <code>:root</code>) untuk
+                    mengelola tema gelap secara konsisten. Ini memudahkan perubahan warna di seluruh aplikasi.
+                </p>
+
+                <h3>Definisi Variabel</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="keyword">:root</span> {<br>
+                    &nbsp;&nbsp;<span class="comment">/* Warna latar */</span><br>
+                    &nbsp;&nbsp;<span class="string">--bg</span>: <span class="string">#060b14</span>;<br>
+                    &nbsp;&nbsp;<span class="string">--surface</span>: <span class="string">#0d1525</span>;<br>
+                    &nbsp;&nbsp;<span class="string">--surface2</span>: <span class="string">#131d33</span>;<br><br>
+                    &nbsp;&nbsp;<span class="comment">/* Warna teks */</span><br>
+                    &nbsp;&nbsp;<span class="string">--text</span>: <span class="string">#e8ecf1</span>;<br>
+                    &nbsp;&nbsp;<span class="string">--text2</span>: <span class="string">#8899b4</span>;<br><br>
+                    &nbsp;&nbsp;<span class="comment">/* Warna aksen */</span><br>
+                    &nbsp;&nbsp;<span class="string">--accent</span>: <span class="string">#4f8cf7</span>;<br>
+                    &nbsp;&nbsp;<span class="string">--success</span>: <span class="string">#10b981</span>;<br>
+                    &nbsp;&nbsp;<span class="string">--danger</span>: <span class="string">#ef4444</span>;<br>
+                    &nbsp;&nbsp;<span class="string">--warning</span>: <span class="string">#f59e0b</span>;<br>
+                    &nbsp;&nbsp;<span class="string">--purple</span>: <span class="string">#8b5cf6</span>;<br>
+                    }
+                </div>
+
+                <h3>Cara Penggunaan Variabel</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="keyword">.card</span> {<br>
+                    &nbsp;&nbsp;<span class="string">background</span>: <span class="keyword">var</span>(<span class="string">--surface</span>);<br>
+                    &nbsp;&nbsp;<span class="string">color</span>: <span class="keyword">var</span>(<span class="string">--text</span>);<br>
+                    &nbsp;&nbsp;<span class="string">border</span>: <span class="number">1px</span> solid <span class="keyword">var</span>(<span class="string">--border</span>);<br>
+                    }
+                </div>
+
+                <div class="info-box">
+                    <strong>ℹ️ Keuntungan CSS Variables</strong>
+                    <ul>
+                        <li>Perubahan warna cukup di satu tempat</li>
+                        <li>Mendukung tema gelap/terang dengan mudah</li>
+                        <li>Nilai dapat diubah via JavaScript</li>
+                        <li>Didukung semua browser modern (96%+)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- CSS Layout -->
+            <section id="css-layout" class="section">
+                <h2>📐 CSS Layout & Grid System</h2>
+                <p>Aplikasi menggunakan <strong>CSS Grid</strong> dan <strong>Flexbox</strong> untuk tata letak.</p>
+
+                <h3>Grid System Kustom</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="keyword">.grid-2</span> {<br>
+                    &nbsp;&nbsp;<span class="string">display</span>: grid;<br>
+                    &nbsp;&nbsp;<span class="string">grid-template-columns</span>: <span class="keyword">repeat</span>(<span class="number">2</span>, <span class="number">1fr</span>);<br>
+                    &nbsp;&nbsp;<span class="string">gap</span>: <span class="number">16px</span>;<br>
+                    }<br><br>
+                    <span class="keyword">.grid-3</span> {<br>
+                    &nbsp;&nbsp;<span class="string">display</span>: grid;<br>
+                    &nbsp;&nbsp;<span class="string">grid-template-columns</span>: <span class="keyword">repeat</span>(<span class="number">3</span>, <span class="number">1fr</span>);<br>
+                    &nbsp;&nbsp;<span class="string">gap</span>: <span class="number">14px</span>;<br>
+                    }<br><br>
+                    <span class="keyword">.grid-4</span> {<br>
+                    &nbsp;&nbsp;<span class="string">display</span>: grid;<br>
+                    &nbsp;&nbsp;<span class="string">grid-template-columns</span>: <span class="keyword">repeat</span>(<span class="number">4</span>, <span class="number">1fr</span>);<br>
+                    &nbsp;&nbsp;<span class="string">gap</span>: <span class="number">10px</span>;<br>
+                    }
+                </div>
+
+                <h3>Flexbox untuk Komponen</h3>
+                <p>Flexbox digunakan untuk:</p>
+                <ul>
+                    <li><strong>Header</strong>: <code>display: flex; justify-content: space-between;</code></li>
+                    <li><strong>Tab navigasi</strong>: <code>display: flex; gap: 6px;</code></li>
+                    <li><strong>Test controls bar</strong>: <code>display: flex; gap: 8px;</code></li>
+                    <li><strong>Stat cards</strong>: <code>display: flex; align-items: center;</code></li>
+                </ul>
+
+                <h3>Sticky Positioning</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="keyword">.header</span> {<br>
+                    &nbsp;&nbsp;<span class="string">position</span>: sticky;<br>
+                    &nbsp;&nbsp;<span class="string">top</span>: <span class="number">0</span>;<br>
+                    &nbsp;&nbsp;<span class="string">z-index</span>: <span class="number">100</span>;<br>
+                    }<br><br>
+                    <span class="keyword">.test-controls-bar</span> {<br>
+                    &nbsp;&nbsp;<span class="string">position</span>: sticky;<br>
+                    &nbsp;&nbsp;<span class="string">bottom</span>: <span class="number">16px</span>;<br>
+                    &nbsp;&nbsp;<span class="string">z-index</span>: <span class="number">50</span>;<br>
+                    }
+                </div>
+                <p>Header sticky di atas, control bar sticky di bawah saat tes aktif.</p>
+            </section>
+
+            <!-- CSS Animasi -->
+            <section id="css-animasi" class="section">
+                <h2>✨ CSS Animasi & Transisi</h2>
+
+                <h3>Keyframe Animations</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="comment">/* Animasi glow pada logo */</span><br>
+                    <span class="keyword">@keyframes</span> logoGlow {<br>
+                    &nbsp;&nbsp;<span class="number">0%</span>, <span class="number">100%</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">filter</span>: <span class="string">drop-shadow(0 0 15px rgba(79,140,247,0.4))</span>;<br>
+                    &nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;<span class="number">50%</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">filter</span>: <span class="string">drop-shadow(0 0 28px rgba(139,92,246,0.6))</span>;<br>
+                    &nbsp;&nbsp;}<br>
+                    }<br><br>
+                    <span class="comment">/* Animasi teks bergerak */</span><br>
+                    <span class="keyword">@keyframes</span> textShine {<br>
+                    &nbsp;&nbsp;<span class="string">to</span> { <span class="string">background-position</span>: <span class="number">200%</span> center; }<br>
+                    }
+                </div>
+
+                <h3>Transisi Halus</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="comment">/* Variabel transisi global */</span><br>
+                    <span class="string">--transition</span>: <span class="string">all 0.3s cubic-bezier(0.4, 0, 0.2, 1)</span>;<br><br>
+                    <span class="comment">/* Contoh penggunaan */</span><br>
+                    <span class="keyword">button</span> {<br>
+                    &nbsp;&nbsp;<span class="string">transition</span>: <span class="keyword">var</span>(<span class="string">--transition</span>);<br>
+                    }<br>
+                    <span class="keyword">button</span>:<span class="function">hover</span> {<br>
+                    &nbsp;&nbsp;<span class="string">transform</span>: <span class="string">translateY(-2px)</span>;<br>
+                    }
+                </div>
+
+                <div class="info-box tip">
+                    <strong>💡 Tips Performa</strong>
+                    Gunakan <code>transform</code> dan <code>opacity</code> untuk animasi
+                    karena properti ini di-handle oleh GPU dan tidak menyebabkan layout repaint.
+                </div>
+            </section>
+
+            <!-- Bank Soal -->
+            <section id="bank-soal" class="section">
+                <h2>📦 Bank Soal (Struktur Data)</h2>
+                <p>Bank soal adalah inti dari aplikasi. Data disimpan dalam objek JavaScript.</p>
+
+                <h3>Struktur Data</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="keyword">const</span> <span class="function">languageKeywords</span> = {<br>
+                    &nbsp;&nbsp;<span class="string">Python</span>: [<span class="string">"def"</span>, <span class="string">"class"</span>,
+                    <span class="string">"lambda"</span>, ...],<br>
+                    &nbsp;&nbsp;<span class="string">JavaScript</span>: [<span class="string">"function"</span>,
+                    <span class="string">"const"</span>, <span class="string">"let"</span>, ...],<br>
+                    &nbsp;&nbsp;<span class="string">HTML</span>: [<span class="string">"&lt;div&gt;"</span>,
+                    <span class="string">"&lt;span&gt;"</span>, ...],<br>
+                    &nbsp;&nbsp;<span class="comment">// ... bahasa lainnya</span><br>
+                    };
+                </div>
+
+                <h3>Generate 1000 Soal</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="keyword">function</span> <span class="function">generateFullBank</span>() {<br>
+                    &nbsp;&nbsp;fullSyntaxBank = [];<br>
+                    &nbsp;&nbsp;<span class="keyword">for</span> (<span class="keyword">const</span> [lang, keywords]
+                    <span class="keyword">of</span> <span class="function">Object.entries</span>(languageKeywords)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;keywords.<span class="function">forEach</span>(kw => {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Tentukan tingkat kesulitan</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span> diff = <span class="string">'basic'</span>;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// ... logika penentuan difficulty</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fullSyntaxBank.<span class="function">push</span>({ lang, keyword: kw,
+                    difficulty: diff });<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;});<br>
+                    &nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;<span class="comment">// Duplikasi hingga 1000 item</span><br>
+                    &nbsp;&nbsp;<span class="keyword">while</span> (fullSyntaxBank.length < <span class="number">1000</span>) { ... }<br>
+                    }
+                </div>
+
+                <div class="info-box">
+                    <strong>ℹ️ Setiap item soal memiliki struktur:</strong>
+                    <code>{ lang: "Python", keyword: "def", difficulty: "basic" }</code>
+                </div>
+            </section>
+
+            <!-- State Management -->
+            <section id="state-management" class="section">
+                <h2>🗃️ State Management (Variabel Global)</h2>
+                <p>Aplikasi menggunakan variabel global untuk menyimpan state (keadaan) aplikasi.</p>
+
+                <h3>Daftar State Utama</h3>
+                <table class="learn-table">
+                    <thead>
+                        <tr><th>Variabel</th><th>Tipe</th><th>Fungsi</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>participantName</code></td><td>string</td><td>Nama peserta ujian</td></tr>
+                        <tr><td><code>testSessionActive</code></td><td>boolean</td><td>Status sesi tes</td></tr>
+                        <tr><td><code>testPaused</code></td><td>boolean</td><td>Status pause</td></tr>
+                        <tr><td><code>testQuestions</code></td><td>array</td><td>Daftar soal sesi ini</td></tr>
+                        <tr><td><code>testCurrentIndex</code></td><td>number</td><td>Indeks soal saat ini</td></tr>
+                        <tr><td><code>testAnswers</code></td><td>array</td><td>Jawaban yang sudah dikumpulkan</td></tr>
+                        <tr><td><code>testPerSyntaxRemaining</code></td><td>number</td><td>Sisa waktu per soal (detik)</td></tr>
+                        <tr><td><code>testSessionRemaining</code></td><td>number</td><td>Sisa waktu sesi (detik)</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box warning">
+                    <strong>⚠️ Catatan Penting</strong>
+                    State disimpan di memori browser. Jika halaman di-refresh, semua data akan hilang.
+                    Untuk production, pertimbangkan menggunakan <code>localStorage</code> atau database.
+                </div>
+            </section>
+
+            <!-- Timer Logic -->
+            <section id="timer-logic" class="section">
+                <h2>⏱️ Logika Timer</h2>
+                <p>Timer adalah fitur paling kritis. Aplikasi menggunakan <code>setInterval</code> untuk menghitung mundur.</p>
+
+                <h3>Dual Timer System</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="keyword">function</span> <span class="function">startTestTimers</span>() {<br>
+                    &nbsp;&nbsp;<span class="comment">// Timer per soal (setiap detik)</span><br>
+                    &nbsp;&nbsp;testPerSyntaxTimer = <span class="function">setInterval</span>(() => {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (testPaused || !testSessionActive)
+                    <span class="keyword">return</span>;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;testPerSyntaxRemaining--;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="function">updateTestTimerDisplay</span>();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (testPerSyntaxRemaining <=
+                        <span class="number">0</span>) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="function">submitCurrentAnswer</span>(<span
+                            class="keyword">true</span>);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="function">nextSyntax</span>();<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;}, <span class="number">1000</span>);<br><br>
+                        &nbsp;&nbsp;<span class="comment">// Timer sesi (setiap detik)</span><br>
+                        &nbsp;&nbsp;testSessionTimer = <span class="function">setInterval</span>(() => {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (testPaused || !testSessionActive)
+                        <span class="keyword">return</span>;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;testSessionRemaining--;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="function">updateTestSessionTimerDisplay</span>();<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (testSessionRemaining <=
+                            <span class="number">0</span>) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="function">endTestSession</span>(<span
+                                class="string">'timeout'</span>);<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;}, <span class="number">1000</span>);<br>
+                            }
+                </div>
+
+                <h3>Menghentikan Timer</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="comment">// Saat pause atau sesi berakhir</span><br>
+                    <span class="function">clearInterval</span>(testPerSyntaxTimer);<br>
+                    <span class="function">clearInterval</span>(testSessionTimer);<br>
+                    testPerSyntaxTimer = <span class="keyword">null</span>;<br>
+                    testSessionTimer = <span class="keyword">null</span>;
+                </div>
+
+                <div class="info-box warning">
+                    <strong>⚠️ Penting!</strong>
+                    Selalu bersihkan interval dengan <code>clearInterval()</code> untuk mencegah
+                    memory leak dan perilaku tak terduga.
+                </div>
+            </section>
+
+            <!-- Event Handling -->
+            <section id="event-handling" class="section">
+                <h2>🎯 Event Handling</h2>
+                <p>Aplikasi menangani berbagai event untuk interaktivitas.</p>
+
+                <h3>Keyboard Events</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="comment">// Enter key untuk submit jawaban</span><br>
+                    document.<span class="function">addEventListener</span>(<span class="string">'keydown'</span>,
+                    <span class="keyword">function</span>(e) {<br>
+                    &nbsp;&nbsp;<span class="keyword">if</span> (e.key === <span class="string">'Enter'</span> &&
+                    testSessionActive && !testPaused &&<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.activeElement ===
+                    document.<span class="function">getElementById</span>(<span class="string">'testAnswerInput'</span>)) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;e.<span class="function">preventDefault</span>();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="function">submitCurrentAnswer</span>(<span class="keyword">false</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="function">nextSyntax</span>();<br>
+                    &nbsp;&nbsp;}<br>
+                    });<br><br>
+                    <span class="comment">// Spasi untuk pause/resume</span><br>
+                    <span class="keyword">if</span> (e.key === <span class="string">' '</span> && testSessionActive) {<br>
+                    &nbsp;&nbsp;<span class="keyword">if</span> (testPaused) <span class="function">resumeTest</span>();<br>
+                    &nbsp;&nbsp;<span class="keyword">else</span> <span class="function">pauseTest</span>();<br>
+                    }
+                </div>
+
+                <h3>Click Events</h3>
+                <p>Tombol-tombol menggunakan atribut <code>onclick</code> langsung di HTML:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="tag">&lt;button</span> <span class="string">onclick="startTestSession()"</span><span class="tag">&gt;</span>Mulai Tes<span class="tag">&lt;/button&gt;</span><br>
+                    <span class="tag">&lt;button</span> <span class="string">onclick="pauseTest()"</span><span class="tag">&gt;</span>Pause<span class="tag">&lt;/button&gt;</span>
+                </div>
+            </section>
+
+            <!-- DOM Manipulation -->
+            <section id="dom-manipulation" class="section">
+                <h2>🔧 DOM Manipulation</h2>
+                <p>DOM (Document Object Model) dimanipulasi untuk memperbarui tampilan.</p>
+
+                <h3>Teknik yang Digunakan</h3>
+                <table class="learn-table">
+                    <thead>
+                        <tr><th>Metode</th><th>Contoh Penggunaan</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>getElementById</code></td><td>Mengakses elemen: timer, input, tabel</td></tr>
+                        <tr><td><code>querySelectorAll</code></td><td>Memilih checkbox filter bahasa</td></tr>
+                        <tr><td><code>classList.add/remove</code></td><td>Toggle class 'hidden', 'active', 'warning'</td></tr>
+                        <tr><td><code>textContent</code></td><td>Update teks timer, badge, label</td></tr>
+                        <tr><td><code>innerHTML</code></td><td>Render tabel jawaban secara dinamis</td></tr>
+                        <tr><td><code>style.property</code></td><td>Update progress bar width</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Render Tabel Dinamis</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="keyword">function</span> <span class="function">renderManualTable</span>() {<br>
+                    &nbsp;&nbsp;<span class="keyword">const</span> tbody = document.<span class="function">getElementById</span>(<span
+                        class="string">'manualTableBody'</span>);<br>
+                    &nbsp;&nbsp;tbody.<span class="string">innerHTML</span> = manualEntries.<span class="function">map</span>(e
+                    => <span class="string">`&lt;tr&gt;...&lt;/tr&gt;`</span>).<span class="function">join</span>(<span
+                        class="string">''</span>);<br>
+                    }
+                </div>
+
+                <div class="info-box tip">
+                    <strong>💡 Tips</strong>
+                    Gunakan <code>textContent</code> untuk teks biasa (lebih aman dari XSS).
+                    Gunakan <code>innerHTML</code> hanya saat perlu render HTML, dan pastikan data sudah aman.
+                </div>
+            </section>
+
+            <!-- Ekspor Data -->
+            <section id="ekspor-data" class="section">
+                <h2>📤 Ekspor Data</h2>
+                <p>Aplikasi mendukung 4 format ekspor.</p>
+
+                <h3>Metode Ekspor</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="keyword">function</span> <span class="function">exportData</span>(format) {<br>
+                    &nbsp;&nbsp;<span class="keyword">switch</span>(format) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span> <span class="string">'clipboard'</span>:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;navigator.<span class="string">clipboard</span>.<span
+                        class="function">writeText</span>(text);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span>;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span> <span class="string">'csv'</span>:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span> <span class="string">'spreadsheet'</span>:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span> <span class="string">'json'</span>:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="function">downloadFile</span>(filename, mimeType,
+                    content);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span>;<br>
+                    &nbsp;&nbsp;}<br>
+                    }
+                </div>
+
+                <h3>Download File</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="keyword">function</span> <span class="function">downloadFile</span>(filename, mimeType,
+                    content) {<br>
+                    &nbsp;&nbsp;<span class="keyword">const</span> blob = <span class="keyword">new</span>
+                    <span class="function">Blob</span>([content], { type: mimeType });<br>
+                    &nbsp;&nbsp;<span class="keyword">const</span> url = URL.<span class="function">createObjectURL</span>(blob);<br>
+                    &nbsp;&nbsp;<span class="keyword">const</span> a = document.<span class="function">createElement</span>(<span
+                        class="string">'a'</span>);<br>
+                    &nbsp;&nbsp;a.href = url;<br>
+                    &nbsp;&nbsp;a.download = filename;<br>
+                    &nbsp;&nbsp;a.<span class="function">click</span>();<br>
+                    &nbsp;&nbsp;URL.<span class="function">revokeObjectURL</span>(url);<br>
+                    }
+                </div>
+            </section>
+
+            <!-- Responsive Design -->
+            <section id="responsive-design" class="section">
+                <h2>📱 Responsive Design</h2>
+                <p>Aplikasi menggunakan <strong>Media Queries</strong> untuk menyesuaikan tampilan di berbagai ukuran layar.</p>
+
+                <h3>Breakpoints</h3>
+                <table class="learn-table">
+                    <thead>
+                        <tr><th>Breakpoint</th><th>Target</th><th>Perubahan</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>max-width: 1024px</code></td><td>Tablet</td><td>Grid 3→2 kolom, timer lebih kecil</td></tr>
+                        <tr><td><code>max-width: 768px</code></td><td>Mobile</td><td>Grid 2→1 kolom, font lebih kecil</td></tr>
+                        <tr><td><code>max-width: 400px</code></td><td>HP Kecil</td><td>Header vertikal, tombol compact</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Contoh Media Query</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="keyword">@media</span> (<span class="string">max-width: 768px</span>) {<br>
+                    &nbsp;&nbsp;<span class="keyword">.grid-2</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">grid-template-columns</span>: <span class="number">1fr</span>;<br>
+                    &nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;<span class="keyword">.timer-display</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">font-size</span>: <span class="number">1.8rem</span>;<br>
+                    &nbsp;&nbsp;}<br>
+                    }
+                </div>
+            </section>
+
+            <!-- Best Practices -->
+            <section id="best-practices" class="section">
+                <h2>💡 Best Practices dalam Kode</h2>
+
+                <h3>1. Single Responsibility</h3>
+                <p>Setiap fungsi memiliki satu tugas spesifik. Contoh: <code>updateTestTimerDisplay()</code> hanya mengupdate tampilan timer, tidak melakukan logika lain.</p>
+
+                <h3>2. Penamaan yang Jelas</h3>
+                <p>Variabel dan fungsi menggunakan nama deskriptif: <code>testPerSyntaxRemaining</code>, <code>submitCurrentAnswer()</code>.</p>
+
+                <h3>3. Komentar Kode</h3>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                    <span class="comment">// ==================== MODE TES ====================</span><br>
+                    <span class="comment">// Bagian ini menangani semua logika sesi ujian</span>
+                </div>
+
+                <h3>4. Error Prevention</h3>
+                <ul>
+                    <li>Validasi input sebelum memulai tes</li>
+                    <li>Pengecekan <code>testSessionActive</code> sebelum operasi</li>
+                    <li>Try-catch untuk operasi yang mungkin gagal</li>
+                </ul>
+
+                <h3>5. Cleanup</h3>
+                <p>Timer selalu dibersihkan saat komponen tidak lagi digunakan.</p>
+            </section>
+
+            <!-- Referensi -->
+            <section id="referensi" class="section">
+                <h2>🔗 Referensi Lengkap</h2>
+
+                <h3>HTML</h3>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;">
+                    <a href="https://developer.mozilla.org/id/docs/Web/HTML" target="_blank" rel="noopener" class="ref-link">📖 MDN HTML Guide</a>
+                    <a href="https://www.w3schools.com/html/" target="_blank" rel="noopener" class="ref-link">📖 W3Schools HTML</a>
+                    <a href="https://html.spec.whatwg.org/multipage/" target="_blank" rel="noopener" class="ref-link">📖 HTML Living Standard</a>
+                </div>
+
+                <h3>CSS</h3>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;">
+                    <a href="https://developer.mozilla.org/id/docs/Web/CSS" target="_blank" rel="noopener" class="ref-link">📖 MDN CSS Guide</a>
+                    <a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="_blank" rel="noopener" class="ref-link">📖 CSS Grid Guide</a>
+                    <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" rel="noopener" class="ref-link">📖 Flexbox Guide</a>
+                    <a href="https://developer.mozilla.org/id/docs/Web/CSS/Using_CSS_custom_properties" target="_blank" rel="noopener" class="ref-link">📖 CSS Variables</a>
+                    <a href="https://developer.mozilla.org/id/docs/Web/CSS/CSS_media_queries" target="_blank" rel="noopener" class="ref-link">📖 Media Queries</a>
+                    <a href="https://developer.mozilla.org/id/docs/Web/CSS/CSS_animations" target="_blank" rel="noopener" class="ref-link">📖 CSS Animations</a>
+                    <a href="https://animate.style/" target="_blank" rel="noopener" class="ref-link">📖 Animate.css</a>
+                </div>
+
+                <h3>JavaScript</h3>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;">
+                    <a href="https://developer.mozilla.org/id/docs/Web/JavaScript" target="_blank" rel="noopener" class="ref-link">📖 MDN JavaScript</a>
+                    <a href="https://javascript.info/" target="_blank" rel="noopener" class="ref-link">📖 JavaScript.info (ID)</a>
+                    <a href="https://developer.mozilla.org/id/docs/Web/API/Document_Object_Model" target="_blank" rel="noopener" class="ref-link">📖 DOM API</a>
+                    <a href="https://developer.mozilla.org/id/docs/Web/API/setInterval" target="_blank" rel="noopener" class="ref-link">📖 setInterval</a>
+                    <a href="https://developer.mozilla.org/id/docs/Web/API/EventTarget/addEventListener" target="_blank" rel="noopener" class="ref-link">📖 addEventListener</a>
+                </div>
+
+                <h3>Tools & Utilities</h3>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;">
+                    <a href="https://caniuse.com/" target="_blank" rel="noopener" class="ref-link">📖 Can I Use</a>
+                    <a href="https://codepen.io/" target="_blank" rel="noopener" class="ref-link">📖 CodePen</a>
+                    <a href="https://validator.w3.org/" target="_blank" rel="noopener" class="ref-link">📖 HTML Validator</a>
+                    <a href="https://jigsaw.w3.org/css-validator/" target="_blank" rel="noopener" class="ref-link">📖 CSS Validator</a>
+                    <a href="https://pagespeed.web.dev/" target="_blank" rel="noopener" class="ref-link">📖 PageSpeed Insights</a>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // Navigasi sidebar
+        function showSection(sectionId) {
+            // Sembunyikan semua section
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            // Tampilkan section yang dipilih
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.classList.add('active');
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            // Update sidebar active
+            document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
+            const link = document.querySelector(`.sidebar nav a[href="#${sectionId}"]`);
+            if (link) link.classList.add('active');
+            // Di mobile, scroll sidebar horizontal
+            if (link && window.innerWidth <= 768) {
+                link.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
+        }
+
+        // Copy code button
+        function copyCode(btn) {
+            const codeBlock = btn.parentElement;
+            const text = codeBlock.innerText.replace('Salin', '').trim();
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = 'Tersalin!';
+                setTimeout(() => { btn.textContent = 'Salin'; }, 2000);
+            });
+        }
+
+        // Handle hash di URL
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) showSection(hash);
+        });
+
+        // Initial load
+        const initialHash = window.location.hash.replace('#', '');
+        if (initialHash) showSection(initialHash);
+    </script>
+</body>
+</html>

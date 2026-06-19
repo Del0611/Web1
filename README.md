@@ -1,1 +1,1 @@
-https://del0611.github.io/Web1/
+https://del0611.github.io/TechnoPiousQuis/
